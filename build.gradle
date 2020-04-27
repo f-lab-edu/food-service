@@ -1,3 +1,26 @@
+/**
+ * Gradle 사용이유
+ * - 멀티 프로젝트를 관리하는 경우 효율적인 코드 관리가 필요합니다.
+ *   예를들어, web과 api로 나눠 프로젝트를 관리하는 경우
+ *   공통적으로 사용되는 Member 클래스를 각각의 프로젝트에 생성 및 작성해야 합니다.
+ *   이런 경우 코드를 가장 쉽게 적용하는 방법은 하나의 프로젝트에서 생성된 코드를
+ *   타 프로젝트에 복사&붙여넣기 하는 방식인데 이런 경우 코드 수정이 발생하면,
+ *   그때마다 작업이 반복되기 때문에 불필요한 작업이 발생하게되고, 실수할 여지가 많아집니다.
+ *
+ *   따라서 이러한 문제점을 Gradle은
+ *   1) 개발시에는 공통 프로젝트 코드를 사용할 수 있고
+ *   2) 빌드시에는 자동으로 공통 프로젝트가 포함되게 만들어줄 수 있게 만들어줍니다.
+ *   (Maven에서도 멀티 프로젝트 기능이 가능하다. 하지만, 차이점으로는 Maven은 상속 개념이고 Gradle은 Configuration Injection 개념이다.)
+ *
+ * - 다양한 시나리오 상황속에서도 maven보다 빠른 빌드 속도를 보여준다.
+ *
+ *   참고
+ *   - https://github.com/jojoldu/blog-code/tree/master/gradle-multi-modules (Gradle 멀티 프로젝트 관리)
+ *   - https://docs.gradle.org/current/userguide/java_library_plugin.html (dependencies의 각요소 설명)
+ *   - https://gradle.org/gradle-vs-maven-performance/ (gradle vs maven-performance)
+ *
+ */
+
 plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
@@ -20,6 +43,9 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

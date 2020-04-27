@@ -1,0 +1,68 @@
+# <<<<< YAML 파일 사용이유
+# 1. 계층형 구성으로 설정 내용을 작성하여 properties 파일보다 중복된 내용을 줄여주며, 가독성이 좋습니다.
+# 2. 멀티 모듈 환경에 properties 파일을 적용하는 경우 각각의 문서를 생성하여 설정 파일 내용을 변경해주지만,
+#    YAML의 경우 문서를 나누는 기능('---')을 통해 하나의 설정 파일에서 구조화가 가능하여 보다 편리하게 관리 할 수 있습니다.
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/Food_Service?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: vldkfdkdl1!23
+
+  # ----- ORM이란??? -----
+  # RDB 테이블을 객체지향적으로 사용하기 위한 기술입니다. 즉, 객체가 테이블이 되도록 매핑 시켜주는 것을 말합니다.
+  # ORM을 이용하면 SQL 쿼리문이 아닌 지관적인 코드(메서드)로서 데이터를 조작 할 수 있습니다.
+  # 그렇다면, SQL 쿼리문이 아닌 객체가 테이블이 되도록 매핑 시켜주는 ORM이 주목받고 있을까요?
+  #   1) 불필요한 반복된 작업이 줄어 생산성이 높아집니다.
+  #      테이블마다 비슷한 CRUD SQL을 반복적으로 사용하게 되는데 ORM을 통해 간단하게 구현 할 수 있습니다.
+  #   2) 객체 지향의 장점(캡슐화, 상속화, 추상화, 다형성)을 활용 할 수 있습니다.
+  #   3) DB로부터 의존성을 줄여줍니다.
+  #      각각의 DB 종류마다 SQL문을 수정해야하며, 컬럼 변경에 따라 DAO, DTO 등을 수정해야 하지만,
+  #      ORM을 통해 간단하게 변경 가능합니다.
+  #
+  # 이러한 이유로 ORM을 사용하기 위한 인터페이스를 모아둔 JPA가 각광받고 있으나 단점도 존재합니다.
+  #   1) 직접 SQL을 호출하는 것보다 성능이 떨어질 수 있습니다.
+  #   2) 복잡한 통계 분석 쿼리를 메서드 호출로 처리하는 것이 어렵습니다.
+  #   3) 러닝커브가 길다는 점
+  #
+  # ----- Hibernate란??? -----
+  # - Hibernate는 JPA의 구현체 중 하나입니다. JPA의 구현체는 Hibernate 이외에 EclipseLink, DataNucleus 등 다양하게 존재합니다.
+  # - Hibernate 주요 옵션
+  #   1) spring.jpa.hibernate.ddl-auto      : 데이터베이스 초기화 전략 설정
+  #       - create : Session Factory가 실행될 때 스키마를 지우고 다시 생성.
+  #       - create-drop : create와 동일하지만 차이점은 session 팩토리가 내려갈 때 db 스키마를 삭제한다.
+  #       - update : 도메인 객체구성과 스키마를 비교해서 도메인 객체에 맞춰서 db 스키마를 변경한다. 데이터나 스키마를 지우지 않는다.
+  #       - validate : 도메인 객체구성과 db 스키마가 같은지만 확인할 뿐 변경X. 다를 시 Session Factory가 시작시 확인하고 예외 발생.
+  #   2) spring.jpa.generate-ddl            : 시작시 스키마 초기화 여부
+  #   3) spring.jpa.show-sql                : 콘솔에 JPA 실행 쿼리 출력
+  #   4) spring.jpa.hibernate.format_sql    : 콘솔에 출력되는 JPA 실행 쿼리를 가독성있게 표현한다.
+  #   5) spring.jpa.hibernate.naming        : 엔티티와 테이블에 대한 네이밍 전략
+  #   6) spring.jpa.hibernate.use-new-id-generator-mappings : auto increment에 대한 설정
+  #   => 이중 5,6번은 어노테이션으로 설정이 가능하다.
+  #
+  # (참고)
+  #   ORM과 JPA 그리고 Hibernate          : https://victorydntmd.tistory.com/195
+  #   JPA 개념 및 학습 이유                : https://velog.io/@aidenshin/%EC%8A%A4%ED%94%84%EB%A7%81%EB%8D%B0%EC%9D%B4%ED%84%B0-JPA-%EA%B0%9C%EB%85%90-%EB%B0%8F-%ED%95%99%EC%8A%B5-%EC%9D%B4%EC%9C%A0
+  #   JDBC, JPA/Hibernate, Mybatis 차이 : https://gmlwjd9405.github.io/2018/12/25/difference-jdbc-jpa-mybatis.html
+  #   Hibernate 사용시 주의해야하는 DDL 옵션 : https://jins-dev.tistory.com/entry/Hibernate-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98%ED%95%B4%EC%95%BC%ED%95%98%EB%8A%94-ddl-%EC%98%B5%EC%85%98
+  #   JPA 설정하기                       : https://victorydntmd.tistory.com/323
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      format_sql: true
+      ddl-auto: create
+
+# logging.level.org.hibernate.type.descriptor.sql : SQL에서 물음표로 표기된 부분( bind parameter )을 로그로 출력해서 확인 가능.
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
