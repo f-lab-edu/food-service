@@ -1,1 +1,12 @@
-
+spring:
+  datasource:
+    url: jdbc:h2:mem:/food_service
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
