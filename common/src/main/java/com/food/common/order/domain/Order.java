@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -24,6 +25,7 @@ public class Order extends BaseTimeEntity {
 
     private Integer amount;
 
+    @Enumerated(STRING)
     private Status status;
 
     private String additionalComment;

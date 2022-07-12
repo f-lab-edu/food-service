@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalTime;
 
+import static javax.persistence.EnumType.*;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -31,6 +32,7 @@ public class Store {
 
     private LocalTime cookingTime;
 
+    @Enumerated(STRING)
     private Status openStatus;
 
     private Long foodCategoryId;

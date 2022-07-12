@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -20,8 +21,10 @@ public class Payment extends BaseTimeEntity {
 
     private Integer amount;
 
+    @Enumerated(STRING)
     private Method method;
 
+    @Enumerated(STRING)
     private Status status;
 
     @Embedded
