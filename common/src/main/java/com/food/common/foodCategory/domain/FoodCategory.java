@@ -1,4 +1,4 @@
-package com.food.common.domain;
+package com.food.common.foodCategory.domain;
 
 import javax.persistence.*;
 

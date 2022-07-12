@@ -1,4 +1,4 @@
-package com.food.common.vo;
+package com.food.common.common.domain;
 
 public class Point {
     private final Integer amount;

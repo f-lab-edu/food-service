@@ -1,5 +1,7 @@
-package com.food.common.domain;
+package com.food.common.order.domain;
 
+import com.food.common.menu.domain.Menu;
+import com.food.common.menu.domain.MenuOption;
 import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
 

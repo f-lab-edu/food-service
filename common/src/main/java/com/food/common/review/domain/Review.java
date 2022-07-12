@@ -1,5 +1,8 @@
-package com.food.common.domain;
+package com.food.common.review.domain;
 
+import com.food.common.common.domain.BaseTimeEntity;
+import com.food.common.store.domain.Store;
+import com.food.common.user.domain.User;
 import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
 

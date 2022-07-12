@@ -1,5 +1,8 @@
-package com.food.common.domain;
+package com.food.common.order.domain;
 
+import com.food.common.common.domain.BaseTimeEntity;
+import com.food.common.payment.domain.Payment;
+import com.food.common.user.domain.User;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;

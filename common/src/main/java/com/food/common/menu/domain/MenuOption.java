@@ -1,4 +1,4 @@
-package com.food.common.domain;
+package com.food.common.menu.domain;
 
 import lombok.NoArgsConstructor;
 

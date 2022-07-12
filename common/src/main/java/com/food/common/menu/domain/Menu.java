@@ -1,5 +1,6 @@
-package com.food.common.domain;
+package com.food.common.menu.domain;
 
+import com.food.common.store.domain.Store;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;

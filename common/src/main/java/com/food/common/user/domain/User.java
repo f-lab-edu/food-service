@@ -1,6 +1,7 @@
-package com.food.common.domain;
+package com.food.common.user.domain;
 
-import com.food.common.vo.Point;
+import com.food.common.common.domain.BaseTimeEntity;
+import com.food.common.common.domain.Point;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
