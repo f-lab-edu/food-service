@@ -31,7 +31,7 @@ public class Store {
 
     private LocalTime cookingTime;
 
-    private Status status;
+    private Status openStatus;
 
     private Long foodCategoryId;
 
@@ -44,7 +44,7 @@ public class Store {
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         this.cookingTime = cookingTime;
-        this.status = status;
+        this.openStatus = status;
         this.foodCategoryId = foodCategory.getId();
     }
 
