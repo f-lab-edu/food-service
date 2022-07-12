@@ -1,13 +1,14 @@
 package com.food.common.review.domain;
 
 import com.food.common.common.domain.BaseTimeEntity;
-import com.food.common.store.domain.Store;
-import com.food.common.user.domain.User;
+import com.food.common.order.domain.Order;
 import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -24,39 +25,43 @@ public class Review extends BaseTimeEntity {
 
     private Long storeId;
 
+    private Long orderId;
+
     @Embedded
     private Score score;
 
     private String content;
 
-    private String ImageUrls;
+    @Embedded
+    private ImageUrls ImageUrls;
 
-    public Review(User user, Store store, Score score, String content, String imageUrls) {
-        this.userId = user.getUserId();
-        this.storeId = store.getId();
+    public Review(Order order, Score score, String content, ImageUrls imageUrls) {
+        this.userId = order.getUserId();
+        this.storeId = order.getStoreId();
+        this.orderId = order.getId();
         this.score = score;
         this.content = content;
-        ImageUrls = imageUrls;
+        this.ImageUrls = imageUrls;
     }
 
     @NoArgsConstructor(access = PROTECTED)
     @Embeddable
     public static class Score {
-        private Byte value;
+        private Byte score;
 
-        public Score(Byte value) {
-            validate(value);
-            this.value = value;
+        public Score(Byte score) {
+            validate(score);
+            this.score = score;
         }
 
-        private void validate(Byte amount) {
-            if (0 <= amount && amount <= 10) return;
+        private void validate(Byte score) {
+            if (0 <= score && score <= 10) return;
 
             throw new IllegalArgumentException();
         }
 
         public Byte get() {
-            return value;
+            return score;
         }
     }
 
@@ -72,10 +77,17 @@ public class Review extends BaseTimeEntity {
         }
 
         private String mapToString(List<String> urls) {
-            StringBuilder result = new StringBuilder();
-            urls.forEach(result::append);
+            return urls.toString();
+        }
 
-            return result.toString();
+        public List<String> get() {
+            String[] parsedUrls = imageUrls.replace("[", "")
+                    .replace("]", "")
+                    .split(",");
+
+            return Arrays.stream(parsedUrls)
+                    .map(String::trim)
+                    .collect(Collectors.toList());
         }
     }
 }
