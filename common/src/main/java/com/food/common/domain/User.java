@@ -1,5 +1,6 @@
 package com.food.common.domain;
 
+import com.food.common.vo.Point;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -25,4 +26,26 @@ public class User extends BaseTimeEntity {
 
     private Integer point;
 
+    public User(Long userId, String id, String password, String nickname, Point point) {
+        this.userId = userId;
+        this.id = id;
+        this.password = password;
+        this.nickname = nickname;
+        this.point = point.get();
+    }
+
+    public Point use(Point point) {
+        Point currentPoint = getPoint().subtract(point);
+        this.point = currentPoint.get();
+
+        return currentPoint;
+    }
+
+    public Point getPoint() {
+        return new Point(point);
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
 }

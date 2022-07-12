@@ -34,8 +34,25 @@ public class Store {
 
     private Long foodCategoryId;
 
+    public Store(String name, String address, Integer minOrderAmount,
+                 LocalTime openingTime, LocalTime closingTime, LocalTime cookingTime,
+                 Status status, FoodCategory foodCategory) {
+        this.name = name;
+        this.address = address;
+        this.minOrderAmount = minOrderAmount;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
+        this.cookingTime = cookingTime;
+        this.status = status;
+        this.foodCategoryId = foodCategory.getId();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
     public enum Status {
-        open,
-        closed
+        OPEN,
+        CLOSED
     }
 }

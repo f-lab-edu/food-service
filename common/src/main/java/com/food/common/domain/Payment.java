@@ -1,10 +1,14 @@
 package com.food.common.domain;
 
+import com.food.common.vo.Point;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PROTECTED;
 
+@NoArgsConstructor(access = PROTECTED)
 @Entity @Table(name = "tb_payment")
 public class Payment extends BaseTimeEntity {
 
@@ -18,21 +22,52 @@ public class Payment extends BaseTimeEntity {
 
     private Status status;
 
-    private LocalDateTime canceledDate;
+    @Embedded
+    private PaymentPoints points;
 
-    private Integer beforePoint;
+    public Payment(Integer amount, Method method, Status status, PaymentPoints points) {
+        this.amount = amount;
+        this.method = method;
+        this.status = status;
+        this.points = points;
+    }
 
-    private Integer afterPoint;
+    public Long getId() {
+        return id;
+    }
 
     public enum Status {
-        payment_requested,
-        payment_completed,
-        cancellation_requested,
-        cancellation_completed
+        PAYMENT_REQUESTED,
+        PAYMENT_COMPLETED,
+        CANCELLATION_REQUESTED,
+        CANCELLATION_COMPLETED
     }
 
     public enum Method {
-        card,
-        account_transfer
+        CARD,
+        ACCOUNT_TRANSFER
+    }
+
+    @NoArgsConstructor(access = PROTECTED)
+    @Embeddable
+    public static class PaymentPoints {
+        private Integer beforePoint;
+        private Integer afterPoint;
+
+        public static PaymentPoints use(User user, Point usingPoint) {
+            PaymentPoints paymentPoints = new PaymentPoints();
+            paymentPoints.beforePoint = user.getPoint().get();
+            paymentPoints.afterPoint = user.use(usingPoint).get();
+
+            return paymentPoints;
+        }
+
+        public static PaymentPoints notUse(User user) {
+            PaymentPoints paymentPoints = new PaymentPoints();
+            paymentPoints.beforePoint = user.getPoint().get();
+            paymentPoints.afterPoint = user.getPoint().get();
+
+            return paymentPoints;
+        }
     }
 }
