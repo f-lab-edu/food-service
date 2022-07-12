@@ -2,8 +2,13 @@ package com.food.common.menu.domain;
 
 import com.food.common.store.domain.Store;
 import lombok.NoArgsConstructor;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -22,16 +27,43 @@ public class Menu {
 
     private Integer amount;
 
-    private String imageUrls;
+    @Embedded
+    private ImageUrls imageUrls;
 
     public Long getId() {
         return id;
     }
 
-    public Menu(Store store, String name, Integer amount, String imageUrls) {
+    public Menu(Store store, String name, Integer amount, ImageUrls imageUrls) {
         this.storeId = store.getId();
         this.name = name;
         this.amount = amount;
         this.imageUrls = imageUrls;
+    }
+
+    @NoArgsConstructor(access = PROTECTED)
+    @Embeddable
+    public static class ImageUrls {
+        private String imageUrls;
+
+        public ImageUrls(List<String> urls) {
+            if (CollectionUtils.isEmpty(urls)) return;
+
+            this.imageUrls = mapToString(urls);
+        }
+
+        private String mapToString(List<String> urls) {
+            return urls.toString();
+        }
+
+        public List<String> get() {
+            String[] parsedUrls = imageUrls.replace("[", "")
+                    .replace("]", "")
+                    .split(",");
+
+            return Arrays.stream(parsedUrls)
+                    .map(String::trim)
+                    .collect(Collectors.toList());
+        }
     }
 }
