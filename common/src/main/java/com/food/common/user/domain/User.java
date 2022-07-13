@@ -27,8 +27,7 @@ public class User extends BaseTimeEntity {
 
     private Integer point;
 
-    public User(Long userId, String id, String password, String nickname, Point point) {
-        this.userId = userId;
+    public User(String id, String password, String nickname, Point point) {
         this.id = id;
         this.password = password;
         this.nickname = nickname;

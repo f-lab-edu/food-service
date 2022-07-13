@@ -1,9 +1,13 @@
 package com.food.common.foodCategory.domain;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.*;
+import static javax.persistence.GenerationType.IDENTITY;
+import static lombok.AccessLevel.PROTECTED;
 
+@NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_food_category")
 @Entity
 public class FoodCategory {
@@ -13,6 +17,10 @@ public class FoodCategory {
     private Long id;
 
     private String name;
+
+    public FoodCategory(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
