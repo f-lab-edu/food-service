@@ -2,6 +2,7 @@ package com.food.common.order.domain;
 
 import com.food.common.common.domain.BaseTimeEntity;
 import com.food.common.payment.domain.Payment;
+import com.food.common.store.domain.Store;
 import com.food.common.user.domain.User;
 import lombok.NoArgsConstructor;
 
@@ -32,9 +33,9 @@ public class Order extends BaseTimeEntity {
 
     private Long paymentId;
 
-    public Order(User user, Long storeId, Integer amount, Status status, String additionalComment, Payment payment) {
+    public Order(User user, Store store, Integer amount, Status status, String additionalComment, Payment payment) {
         this.userId = user.getUserId();
-        this.storeId = storeId;
+        this.storeId = store.getId();
         this.amount = amount;
         this.status = status;
         this.additionalComment = additionalComment;
@@ -43,6 +44,14 @@ public class Order extends BaseTimeEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 
     public enum Status {

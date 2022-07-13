@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
-
 import java.util.List;
 
-import static javax.persistence.GenerationType.*;
+import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @NoArgsConstructor(access = PROTECTED)
@@ -51,11 +50,10 @@ public class OrderMenu {
         private String mapToString(List<MenuOption> menuOptions) {
             if (CollectionUtils.isEmpty(menuOptions)) return null;
 
-            StringBuilder result = new StringBuilder();
-            menuOptions.forEach(menuOption ->
-                    result.append(String.format(
-                            "%s: %s", menuOption.getTitle(), menuOption.getSelection())
-                    ));
+            List<String> result = menuOptions.stream()
+                    .map(menuOption ->
+                            String.format("%s: %s", menuOption.getTitle(), menuOption.getSelection()))
+                    .toList();
 
             return result.toString();
         }
