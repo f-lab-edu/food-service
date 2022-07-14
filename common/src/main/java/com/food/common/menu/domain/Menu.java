@@ -34,7 +34,7 @@ public class Menu {
         return id;
     }
 
-    public Menu(Store store, String name, Integer amount, ImageUrls imageUrls) {
+    public Menu(final Store store, final String name, final Integer amount, final ImageUrls imageUrls) {
         this.storeId = store.getId();
         this.name = name;
         this.amount = amount;

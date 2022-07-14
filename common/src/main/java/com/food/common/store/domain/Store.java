@@ -37,9 +37,9 @@ public class Store {
 
     private Long foodCategoryId;
 
-    public Store(String name, String address, Integer minOrderAmount,
-                 LocalTime openingTime, LocalTime closingTime, LocalTime cookingTime,
-                 Status status, FoodCategory foodCategory) {
+    public Store(final String name, final String address, final Integer minOrderAmount,
+                 final LocalTime openingTime, final LocalTime closingTime, final LocalTime cookingTime,
+                 final Status status, final FoodCategory foodCategory) {
         this.name = name;
         this.address = address;
         this.minOrderAmount = minOrderAmount;

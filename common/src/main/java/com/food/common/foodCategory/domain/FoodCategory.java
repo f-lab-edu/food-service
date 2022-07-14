@@ -18,7 +18,7 @@ public class FoodCategory {
 
     private String name;
 
-    public FoodCategory(String name) {
+    public FoodCategory(final String name) {
         this.name = name;
     }
 

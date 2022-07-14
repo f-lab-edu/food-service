@@ -26,7 +26,7 @@ public class MenuOption {
 
     private Boolean isRequired;
 
-    public MenuOption(Menu menu, String title, String selection, Integer additionalAmount, Boolean isRequired) {
+    public MenuOption(final Menu menu, final String title, final String selection, final Integer additionalAmount, final Boolean isRequired) {
         this.menuId = menu.getId();
         this.title = title;
         this.selection = selection;

@@ -27,14 +27,14 @@ public class User extends BaseTimeEntity {
 
     private Integer point;
 
-    public User(String id, String password, String nickname, Point point) {
+    public User(final String id, final String password, final String nickname, final Point point) {
         this.id = id;
         this.password = password;
         this.nickname = nickname;
         this.point = point.get();
     }
 
-    public Point use(Point point) {
+    public Point use(final Point point) {
         Point currentPoint = getPoint().subtract(point);
         this.point = currentPoint.get();
 

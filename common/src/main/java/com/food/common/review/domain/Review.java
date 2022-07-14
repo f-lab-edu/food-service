@@ -35,7 +35,7 @@ public class Review extends BaseTimeEntity {
     @Embedded
     private ImageUrls ImageUrls;
 
-    public Review(Order order, Score score, String content, ImageUrls imageUrls) {
+    public Review(final Order order, final Score score, final String content, final ImageUrls imageUrls) {
         this.userId = order.getUserId();
         this.storeId = order.getStoreId();
         this.orderId = order.getId();
@@ -70,13 +70,13 @@ public class Review extends BaseTimeEntity {
     public static class ImageUrls {
         private String imageUrls;
 
-        public ImageUrls(List<String> urls) {
+        public ImageUrls(final List<String> urls) {
             if (CollectionUtils.isEmpty(urls)) return;
 
             this.imageUrls = mapToString(urls);
         }
 
-        private String mapToString(List<String> urls) {
+        private String mapToString(final List<String> urls) {
             return urls.toString();
         }
 

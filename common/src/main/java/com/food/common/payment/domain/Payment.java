@@ -30,7 +30,7 @@ public class Payment extends BaseTimeEntity {
     @Embedded
     private PaymentPoints points;
 
-    public Payment(Integer amount, Method method, Status status, PaymentPoints points) {
+    public Payment(final Integer amount, final Method method, final Status status, final PaymentPoints points) {
         this.amount = amount;
         this.method = method;
         this.status = status;
@@ -59,7 +59,7 @@ public class Payment extends BaseTimeEntity {
         private Integer beforePoint;
         private Integer afterPoint;
 
-        public static PaymentPoints use(User user, Point usingPoint) {
+        public static PaymentPoints use(final User user, final Point usingPoint) {
             PaymentPoints paymentPoints = new PaymentPoints();
             paymentPoints.beforePoint = user.getPoint().get();
             paymentPoints.afterPoint = user.use(usingPoint).get();
@@ -67,7 +67,7 @@ public class Payment extends BaseTimeEntity {
             return paymentPoints;
         }
 
-        public static PaymentPoints notUse(User user) {
+        public static PaymentPoints notUse(final User user) {
             PaymentPoints paymentPoints = new PaymentPoints();
             paymentPoints.beforePoint = user.getPoint().get();
             paymentPoints.afterPoint = user.getPoint().get();

@@ -30,7 +30,7 @@ public class OrderMenu {
 
     private Short count;
 
-    public OrderMenu(Order order, Menu menu, MenuOptions menuOptions, Integer amount, Short count) {
+    public OrderMenu(final Order order, final Menu menu, final MenuOptions menuOptions, final Integer amount, final Short count) {
         this.orderId = order.getId();
         this.menuId = menu.getId();
         this.menuOptions = menuOptions;
@@ -43,11 +43,11 @@ public class OrderMenu {
     public static class MenuOptions {
         private String menuOptions;
 
-        public MenuOptions(List<MenuOption> menuOptions) {
+        public MenuOptions(final List<MenuOption> menuOptions) {
             this.menuOptions = mapToString(menuOptions);
         }
 
-        private String mapToString(List<MenuOption> menuOptions) {
+        private String mapToString(final List<MenuOption> menuOptions) {
             if (CollectionUtils.isEmpty(menuOptions)) return null;
 
             List<String> result = menuOptions.stream()
