@@ -18,6 +18,6 @@ public class UserRepositoryTest extends CommonRepositoryTest {
         userRepository.save(user);
 
         assertThat(user).isNotNull();
-        assertThat(user.getUserId()).isEqualTo(4L);
+        assertThat(user.getId()).isEqualTo(4L);
     }
 }

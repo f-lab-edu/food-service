@@ -1,4 +1,4 @@
-insert into tb_user (id, password, nickname, point, created_date)
+insert into tb_user (login_id, password, nickname, point, created_date)
             values ('user1', '1234', 'user1', 0, now()),
                    ('user2', '1234', 'user2', 0, now()),
                    ('user3', '1234', 'user3', 0, now());

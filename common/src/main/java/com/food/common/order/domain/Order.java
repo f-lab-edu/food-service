@@ -34,7 +34,7 @@ public class Order extends BaseTimeEntity {
     private Long paymentId;
 
     public Order(final User user, final Store store, final Integer amount, final Status status, final String additionalComment, final Payment payment) {
-        this.userId = user.getUserId();
+        this.userId = user.getId();
         this.storeId = store.getId();
         this.amount = amount;
         this.status = status;

@@ -4,10 +4,7 @@ import com.food.common.common.domain.BaseTimeEntity;
 import com.food.common.common.domain.Point;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -17,9 +14,10 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 public class User extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = IDENTITY)
-    private Long userId;
+    @Column(name = "user_id")
+    private Long id;
 
-    private String id;
+    private String loginId;
 
     private String password;
 
@@ -27,8 +25,8 @@ public class User extends BaseTimeEntity {
 
     private Integer point;
 
-    public User(final String id, final String password, final String nickname, final Point point) {
-        this.id = id;
+    public User(final String loginId, final String password, final String nickname, final Point point) {
+        this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
         this.point = point.get();
@@ -45,7 +43,7 @@ public class User extends BaseTimeEntity {
         return new Point(point);
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 }

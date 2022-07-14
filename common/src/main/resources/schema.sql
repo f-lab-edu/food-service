@@ -1,6 +1,6 @@
 create table tb_user (
     user_id bigint auto_increment primary key,
-    id varchar(16) not null unique,
+    login_id varchar(16) not null unique,
     password varchar(50) not null,
     nickname varchar(30) not null,
     point mediumint not null default 0,
