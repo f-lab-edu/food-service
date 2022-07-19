@@ -1,4 +1,4 @@
-package com.food.common.repository;
+package com.food.common.integration.repository;
 
 import com.food.common.menu.domain.Menu;
 import com.food.common.menu.domain.MenuOption;

@@ -1,4 +1,4 @@
-package com.food.common.domain;
+package com.food.common.unit.domain;
 
 import com.food.common.menu.domain.Menu;
 import org.junit.jupiter.api.Test;
