@@ -1,4 +1,4 @@
-package com.food.common.sqlFileTest;
+package com.food.common.integration.sqlFileTest;
 
 import com.food.common.CommonApplication;
 import com.food.common.foodCategory.repository.FoodCategoryRepository;
