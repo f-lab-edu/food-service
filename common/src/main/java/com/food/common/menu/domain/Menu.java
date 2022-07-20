@@ -3,10 +3,15 @@ package com.food.common.menu.domain;
 import com.food.common.store.domain.Store;
 import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +39,8 @@ public class Menu {
         return id;
     }
 
-    public Menu(final Store store, final String name, final Integer amount, final ImageUrls imageUrls) {
+    public Menu(@NotNull final Store store, @NotBlank final String name,
+                @PositiveOrZero @NotNull final Integer amount, final ImageUrls imageUrls) {
         this.storeId = store.getId();
         this.name = name;
         this.amount = amount;
@@ -57,6 +63,10 @@ public class Menu {
         }
 
         public List<String> get() {
+            if (!StringUtils.hasText(imageUrls)) {
+                return Collections.EMPTY_LIST;
+            }
+
             String[] parsedUrls = imageUrls.replace("[", "")
                     .replace("]", "")
                     .split(",");

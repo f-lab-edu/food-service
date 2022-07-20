@@ -1,6 +1,7 @@
 package com.food.common.unit.domain;
 
 import com.food.common.menu.domain.Menu;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,5 +18,13 @@ public class MenuTest {
         List<String> result = imageUrls.get();
         assertThat(result)
                 .containsExactly("https://imageUrlA.jpg", "https://imageUrlB.jpg", "https://imageUrlC.jpg");
+    }
+
+    @Test
+    void shouldGetEmptyList_whenImageUrlsAreNull() {
+        Menu.ImageUrls imageUrls = new Menu.ImageUrls(null);
+
+        Assertions.assertDoesNotThrow(imageUrls::get);
+        assertThat(imageUrls.get()).isEmpty();
     }
 }

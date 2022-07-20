@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +39,7 @@ public class Review extends BaseTimeEntity {
     @Embedded
     private ImageUrls ImageUrls;
 
-    public Review(final Order order, final Score score, final String content, final ImageUrls imageUrls) {
+    public Review(@NotNull final Order order, @NotNull final Score score, @NotBlank final String content, final ImageUrls imageUrls) {
         this.userId = order.getUserId();
         this.storeId = order.getStoreId();
         this.orderId = order.getId();
@@ -49,15 +53,8 @@ public class Review extends BaseTimeEntity {
     public static class Score {
         private Byte score;
 
-        public Score(Byte score) {
-            validate(score);
+        public Score(@NotNull @Min(0) @Max(10) Byte score) {
             this.score = score;
-        }
-
-        private void validate(Byte score) {
-            if (0 <= score && score <= 10) return;
-
-            throw new IllegalArgumentException();
         }
 
         public Byte get() {

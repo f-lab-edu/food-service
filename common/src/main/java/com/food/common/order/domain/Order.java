@@ -7,6 +7,7 @@ import com.food.common.user.domain.User;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -33,7 +34,9 @@ public class Order extends BaseTimeEntity {
 
     private Long paymentId;
 
-    public Order(final User user, final Store store, final Integer amount, final Status status, final String additionalComment, final Payment payment) {
+    public Order(@NotNull final User user, @NotNull final Store store,
+                 @NotNull final Integer amount, @NotNull final Status status,
+                 final String additionalComment, @NotNull final Payment payment) {
         this.userId = user.getId();
         this.storeId = store.getId();
         this.amount = amount;

@@ -3,6 +3,8 @@ package com.food.common.menu.domain;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -26,7 +28,9 @@ public class MenuOption {
 
     private Boolean isRequired;
 
-    public MenuOption(final Menu menu, final String title, final String selection, final Integer additionalAmount, final Boolean isRequired) {
+    public MenuOption(@NotNull final Menu menu, @NotBlank final String title,
+                      @NotBlank final String selection, final Integer additionalAmount,
+                      @NotNull final Boolean isRequired) {
         this.menuId = menu.getId();
         this.title = title;
         this.selection = selection;

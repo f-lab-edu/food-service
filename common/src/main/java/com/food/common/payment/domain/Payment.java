@@ -6,6 +6,8 @@ import com.food.common.common.domain.Point;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -30,7 +32,9 @@ public class Payment extends BaseTimeEntity {
     @Embedded
     private PaymentPoints points;
 
-    public Payment(final Integer amount, final Method method, final Status status, final PaymentPoints points) {
+    public Payment(@PositiveOrZero @NotNull final Integer amount,
+                   @NotNull final Method method, @NotNull final Status status,
+                   @NotNull final PaymentPoints points) {
         this.amount = amount;
         this.method = method;
         this.status = status;

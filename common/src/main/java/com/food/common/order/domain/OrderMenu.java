@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -30,7 +32,10 @@ public class OrderMenu {
 
     private Short count;
 
-    public OrderMenu(final Order order, final Menu menu, final MenuOptions menuOptions, final Integer amount, final Short count) {
+    public OrderMenu(@NotNull final Order order, @NotNull final Menu menu,
+                     final MenuOptions menuOptions,
+                     @PositiveOrZero @NotNull final Integer amount,
+                     @PositiveOrZero @NotNull final Short count) {
         this.orderId = order.getId();
         this.menuId = menu.getId();
         this.menuOptions = menuOptions;
