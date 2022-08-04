@@ -1,4 +1,4 @@
-package com.food.common.domain;
+package com.food.common.unit.domain;
 
 import com.food.common.review.domain.Review;
 import org.junit.jupiter.params.ParameterizedTest;

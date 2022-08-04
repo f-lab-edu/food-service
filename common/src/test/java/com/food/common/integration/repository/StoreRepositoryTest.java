@@ -1,4 +1,4 @@
-package com.food.common.repository;
+package com.food.common.integration.repository;
 
 import com.food.common.foodCategory.repository.FoodCategoryRepository;
 import com.food.common.store.domain.Store;

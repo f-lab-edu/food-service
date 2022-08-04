@@ -1,15 +1,13 @@
 package com.food.common.common.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 public class Point {
     private final Integer amount;
 
-    public Point(Integer amount) {
-        validate(amount);
+    public Point(@PositiveOrZero @NotNull Integer amount) {
         this.amount = amount;
-    }
-
-    private void validate(Integer amount) {
-        if (amount < 0) throw new IllegalArgumentException();
     }
 
     public Integer get() {

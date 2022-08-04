@@ -1,9 +1,13 @@
 package com.food.common.store.domain;
 
 import com.food.common.foodCategory.domain.FoodCategory;
+import com.food.common.store.domain.validation.ConsistentDateParameters;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalTime;
 
 import static javax.persistence.EnumType.*;
@@ -37,9 +41,12 @@ public class Store {
 
     private Long foodCategoryId;
 
-    public Store(final String name, final String address, final Integer minOrderAmount,
-                 final LocalTime openingTime, final LocalTime closingTime, final LocalTime cookingTime,
-                 final Status status, final FoodCategory foodCategory) {
+    @ConsistentDateParameters
+    public Store(@NotBlank final String name, @NotBlank final String address,
+                 @PositiveOrZero @NotNull final Integer minOrderAmount,
+                 final LocalTime openingTime, final LocalTime closingTime,
+                 @NotNull final LocalTime cookingTime, @NotNull final Status status,
+                 @NotNull final FoodCategory foodCategory) {
         this.name = name;
         this.address = address;
         this.minOrderAmount = minOrderAmount;

@@ -1,4 +1,4 @@
-package com.food.common.repository;
+package com.food.common.integration.repository;
 
 import com.food.common.common.domain.Point;
 import com.food.common.user.domain.User;

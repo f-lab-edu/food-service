@@ -3,6 +3,7 @@ package com.food.common.foodCategory.domain;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -18,7 +19,7 @@ public class FoodCategory {
 
     private String name;
 
-    public FoodCategory(final String name) {
+    public FoodCategory(@NotBlank final String name) {
         this.name = name;
     }
 

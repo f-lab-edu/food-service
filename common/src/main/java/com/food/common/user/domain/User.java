@@ -5,6 +5,8 @@ import com.food.common.common.domain.Point;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -25,14 +27,15 @@ public class User extends BaseTimeEntity {
 
     private Integer point;
 
-    public User(final String loginId, final String password, final String nickname, final Point point) {
+    public User(@NotBlank final String loginId, @NotBlank final String password,
+                @NotBlank final String nickname, @NotNull final Point point) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
         this.point = point.get();
     }
 
-    public Point use(final Point point) {
+    public Point use(@NotNull final Point point) {
         Point currentPoint = getPoint().subtract(point);
         this.point = currentPoint.get();
 

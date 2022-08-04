@@ -1,4 +1,4 @@
-package com.food.common.repository;
+package com.food.common.integration.repository;
 
 import com.food.common.payment.domain.Payment;
 import com.food.common.payment.repository.PaymentRepository;
