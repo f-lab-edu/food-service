@@ -1,6 +1,6 @@
 package com.food.common.integration.user;
 
-import com.food.common.integration.SuperIntegrationTest;
+import com.food.common.mock.MockUser;
 import com.food.common.user.domain.User;
 import com.food.common.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -14,15 +14,18 @@ import javax.validation.ConstraintViolationException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class RepositoryTests extends SuperIntegrationTest {
+public class UserRepositoryTests {
+
     @Autowired
     private UserRepository userRepository;
 
     @DisplayName("User가 정상적으로 저장된다")
     @Test
     void shouldSaveUser() {
-        User userA = User.create("userA");
-        User savedUser = userRepository.save(userA);
+        User user = MockUser.builder()
+                .nickname("userA")
+                .build();
+        User savedUser = userRepository.save(user);
 
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getId()).isNotNull();
@@ -32,9 +35,11 @@ public class RepositoryTests extends SuperIntegrationTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "   "})
     void shouldThrowException_whenSaveUserWithBlankNickname(String nickname) {
-        User userA = User.create(nickname);
+        User user = MockUser.builder()
+                .nickname(nickname)
+                .build();
 
-        assertThatThrownBy(() -> userRepository.save(userA))
+        assertThatThrownBy(() -> userRepository.save(user))
                 .isInstanceOf(ConstraintViolationException.class);
     }
 }
