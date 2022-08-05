@@ -21,17 +21,17 @@ public class AppAccount extends BaseTimeEntity {
     @Column(name = "app_account_id")
     private Long id;
 
+    @Comment("로그인 아이디")
     @NotBlank
     @Email
-    @Comment("로그인 아이디")
     private String loginId;
 
-    @NotBlank
     @Comment("비밀번호")
+    @NotBlank
     private String password;
 
-    @NotNull
     @Comment("유저")
+    @NotNull
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

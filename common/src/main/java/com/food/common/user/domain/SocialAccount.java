@@ -20,12 +20,12 @@ public class SocialAccount extends BaseTimeEntity {
     @Column(name = "app_account_id")
     private Long id;
 
-    @NotBlank
     @Comment("로그인 아이디")
+    @NotBlank
     private String loginId;
 
-    @NotNull
     @Comment("유저")
+    @NotNull
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

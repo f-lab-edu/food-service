@@ -17,8 +17,8 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @NotBlank
     @Comment("닉네임")
+    @NotBlank
     private String nickname;
 
     public static User create(String nickname) {
