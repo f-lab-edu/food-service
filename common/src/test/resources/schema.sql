@@ -10,3 +10,10 @@ create table tb_app_account (
     user_id bigint not null unique,
     created_date datetime not null default now()
 );
+
+create table tb_social_account (
+    app_account_id bigint auto_increment primary key,
+    login_id varchar(50) not null unique,
+    user_id bigint not null unique,
+    created_date datetime not null default now()
+);

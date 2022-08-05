@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -13,22 +12,17 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @NoArgsConstructor(access = PROTECTED)
-@Table(name = "tb_app_account")
+@Table(name = "tb_social_account")
 @Entity
-public class AppAccount extends BaseTimeEntity {
+public class SocialAccount extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "app_account_id")
     private Long id;
 
     @NotBlank
-    @Email
     @Comment("로그인 아이디")
     private String loginId;
-
-    @NotBlank
-    @Comment("비밀번호")
-    private String password;
 
     @NotNull
     @Comment("유저")
@@ -36,13 +30,12 @@ public class AppAccount extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public static AppAccount create(String loginId, String password, User user) {
-        AppAccount appAccount = new AppAccount();
-        appAccount.loginId = loginId;
-        appAccount.password = password;
-        appAccount.user = user;
+    public static SocialAccount create(String loginId, User user) {
+        SocialAccount socialAccount = new SocialAccount();
+        socialAccount.loginId = loginId;
+        socialAccount.user = user;
 
-        return appAccount;
+        return socialAccount;
     }
 
     public Long getId() {
