@@ -34,7 +34,7 @@ create table tb_address
     post_code varchar(30) not null,
     sido varchar(30) not null,
     sigungu varchar(30) not null,
-    type enum('ROAD', 'JIBUN') not null,
+    type varchar(10) not null,
     type_address varchar(100) not null,
     main_no smallint not null,
     sub_no smallint not null,
@@ -54,7 +54,7 @@ create table tb_store_operating_time
 (
     store_operating_time_id bigint auto_increment primary key,
     store_id bigint not null,
-    week enum('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun' not null,
+    week enum('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN') not null,
     opening_time time not null,
     closing_time time not null comment '영업 종료일시'
 );
@@ -84,9 +84,11 @@ create table tb_food_category
 
 create table tb_store_food_category
 (
-    store_id bigint primary key,
-    food_category_id bigint primary key
+    store_id bigint not null,
+    food_category_id bigint not null
 );
+
+ALTER TABLE tb_store_food_category ADD PRIMARY KEY (store_id, food_category_id);
 
 create table tb_image
 (
@@ -98,9 +100,11 @@ create table tb_image
 
 create table tb_store_image
 (
-    store_id bigint primary key,
-    image_id bigint primary key
+    store_id bigint not null,
+    image_id bigint not null
 );
+
+ALTER TABLE tb_store_image ADD PRIMARY KEY (store_id, image_id);
 
 create table tb_order
 (
@@ -120,14 +124,14 @@ create table tb_order_menu
     menu_id bigint not null,
     amount int not null default 0,
     count tinyint not null default 0
-)
+);
 
 create table tb_order_menu_selection
 (
     order_menu_selection_id bigint auto_increment primary key,
     order_menu_id int not null,
     menu_selection_id bigint not null
-)
+);
 
 create table tb_payment
 (
@@ -172,6 +176,8 @@ create table tb_review
 
 create table tb_review_image
 (
-    review_id bigint primary key,
-    image_id bigint primary key
+    review_id bigint not null,
+    image_id bigint not null
 );
+
+ALTER TABLE tb_review_image ADD PRIMARY KEY (review_id, image_id);
