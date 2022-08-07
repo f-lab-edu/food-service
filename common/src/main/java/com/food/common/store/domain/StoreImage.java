@@ -19,8 +19,10 @@ public class StoreImage {
     @Embeddable
     @NoArgsConstructor(access = PROTECTED)
     public static class MultiplePk implements Serializable {
+        @Column(name = "store_id")
         private Long storeId;
 
+        @Column(name = "image_id")
         private Long imageId;
 
         public MultiplePk(Long storeId, Long imageId) {
@@ -35,13 +37,13 @@ public class StoreImage {
     @Comment("가게")
     @NotNull
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id", insertable = false, updatable = false)
     private Store store;
 
     @Comment("이미지")
     @NotNull
     @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "image_id")
+    @JoinColumn(name = "image_id", insertable = false, updatable = false)
     private Image image;
 
     public static StoreImage create(Store store, Image image) {
