@@ -15,13 +15,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class AddressRepositoryTests extends SuperIntegrationTest {
 
     @Autowired
     private AddressRepository addressRepository;
 
-    @DisplayName("")
+    @DisplayName("우편번호는 비어있거나 글자수가 30자를 초과하면 유효성검증에 실패한다")
     @Test
     void postCodeShouldNotBeEmptyOrGreaterLettersThan30() {
         List<Executable> executables = new ArrayList<>();
@@ -49,7 +50,7 @@ public class AddressRepositoryTests extends SuperIntegrationTest {
                 .build();
     }
 
-    @DisplayName("")
+    @DisplayName("시도는 비어있거나 글자수가 30자를 초과하면 유효성 검증에 실패한다")
     @Test
     void sidoShouldNotBeEmptyOrGreaterLettersThan30() {
         List<Executable> executables = new ArrayList<>();
@@ -81,7 +82,7 @@ public class AddressRepositoryTests extends SuperIntegrationTest {
                 .build();
     }
 
-    @DisplayName("")
+    @DisplayName("시군구는 비어있거나 글자수가 30자를 초과하면 유효성 검증에 실패한다")
     @Test
     void sigunguShouldNotBeEmptyOrGreaterLettersThan30() {
         List<Executable> executables = new ArrayList<>();
@@ -113,7 +114,7 @@ public class AddressRepositoryTests extends SuperIntegrationTest {
                 .build();
     }
 
-    @DisplayName("")
+    @DisplayName("주소유형은 null이면 유효성 검증에 실패한다")
     @Test
     void typeShouldNotBeNull() {
         List<Executable> executables = new ArrayList<>();
@@ -140,7 +141,7 @@ public class AddressRepositoryTests extends SuperIntegrationTest {
                 .build();
     }
 
-    @DisplayName("")
+    @DisplayName("지번/도로명 주소는 비어있거나 글자수가 100자를 초과하면 유효성 검증에 실패한다")
     @Test
     void typeAddressShouldNotBeEmptyOrGreaterLettersThan100() {
         List<Executable> executables = new ArrayList<>();
@@ -172,7 +173,7 @@ public class AddressRepositoryTests extends SuperIntegrationTest {
                 .build();
     }
 
-    @DisplayName("")
+    @DisplayName("주소 본번과 부번은 null값이면 유효성검증에 실패한다")
     @Test
     void mainNoAndSubNoShouldNotBeNull() {
         List<Executable> executables = new ArrayList<>();
@@ -203,9 +204,7 @@ public class AddressRepositoryTests extends SuperIntegrationTest {
     }
 
     public Executable createAssertDoesNotThrowAnyExceptionExecutable(Address address, String failMessage, Object... args) {
-        return () -> assertThatThrownBy(() ->
-                addressRepository.save(address), failMessage, args)
-                .doesNotThrowAnyException();
+        return () -> assertDoesNotThrow(() -> addressRepository.save(address), String.format(failMessage, args));
     }
 
 
