@@ -73,7 +73,7 @@ create table tb_menu
     store_id bigint not null,
     name varchar(50) not null,
     amount mediumint not null default 0,
-    cooking_time time not null
+    cooking_time mediumint not null
 );
 
 create table tb_food_category

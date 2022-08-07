@@ -10,8 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-import java.time.LocalTime;
-
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -41,11 +39,11 @@ public class Menu {
     @NotNull
     private Integer amount;
 
-    @Comment("조리 시간")
+    @Comment("조리 시간 (분 단위)")
     @NotNull
-    private LocalTime cookingTime;
+    private Integer cookingTime;
 
-    public static Menu create(Store store, String name, Integer amount, LocalTime cookingTime) {
+    public static Menu create(Store store, String name, Integer amount, Integer cookingTime) {
         Menu menu = new Menu();
         menu.store = store;
         menu.name = name;
