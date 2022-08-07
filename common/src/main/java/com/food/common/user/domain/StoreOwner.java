@@ -3,28 +3,21 @@ package com.food.common.user.domain;
 import com.food.common.common.domain.BaseTimeEntity;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @NoArgsConstructor(access = PROTECTED)
-@Table(name = "tb_social_account")
+@Table(name = "tb_store_owner")
 @Entity
-public class SocialAccount extends BaseTimeEntity {
+public class StoreOwner extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "app_account_id")
+    @Column(name = "store_owner_id")
     private Long id;
-
-    @Comment("로그인 아이디")
-    @NotBlank
-    @Length(max = 50)
-    private String loginId;
 
     @Comment("유저")
     @NotNull
@@ -32,12 +25,11 @@ public class SocialAccount extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public static SocialAccount create(String loginId, User user) {
-        SocialAccount socialAccount = new SocialAccount();
-        socialAccount.loginId = loginId;
-        socialAccount.user = user;
+    public static StoreOwner create(User user) {
+        StoreOwner storeOwner = new StoreOwner();
+        storeOwner.user = user;
 
-        return socialAccount;
+        return storeOwner;
     }
 
     public Long getId() {

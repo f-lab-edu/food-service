@@ -3,6 +3,7 @@ package com.food.common.user.domain;
 import com.food.common.common.domain.BaseTimeEntity;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -24,10 +25,12 @@ public class AppAccount extends BaseTimeEntity {
     @Comment("로그인 아이디")
     @NotBlank
     @Email
+    @Length(max = 50)
     private String loginId;
 
     @Comment("비밀번호")
     @NotBlank
+    @Length(max = 100)
     private String password;
 
     @Comment("유저")
