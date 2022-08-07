@@ -1,5 +1,6 @@
 package com.food.common.integration.user;
 
+import com.food.common.integration.SuperIntegrationTest;
 import com.food.common.mock.MockUser;
 import com.food.common.user.domain.User;
 import com.food.common.user.repository.UserRepository;
@@ -14,8 +15,7 @@ import javax.validation.ConstraintViolationException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class UserRepositoryTests {
-
+public class UserRepositoryTests extends SuperIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
