@@ -109,7 +109,7 @@ ALTER TABLE tb_store_image ADD PRIMARY KEY (store_id, image_id);
 create table tb_order
 (
     order_id bigint auto_increment primary key,
-    user_id bigint not null,
+    customer_id bigint not null,
     store_id bigint not null,
     created_date datetime not null default now(),
     amount int not null,
@@ -166,7 +166,7 @@ create table tb_point
 create table tb_review
 (
     review_id bigint auto_increment primary key,
-    user_id bigint not null,
+    writer_id bigint not null,
     store_id bigint not null,
     order_id bigint not null,
     score tinyint not null,

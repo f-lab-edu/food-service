@@ -28,8 +28,8 @@ public class Order extends BaseTimeEntity {
     @Comment("구매자")
     @NotNull
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "customer_id")
+    private User customer;
 
     @Comment("가게")
     @NotNull
@@ -51,9 +51,9 @@ public class Order extends BaseTimeEntity {
     @Length(max = 150)
     private String comment;
 
-    public static Order create(User user, Store store, Integer amount, Status status, String comment) {
+    public static Order create(User customer, Store store, Integer amount, Status status, String comment) {
         Order order = new Order();
-        order.user = user;
+        order.customer = customer;
         order.store = store;
         order.amount = amount;
         order.status = status;

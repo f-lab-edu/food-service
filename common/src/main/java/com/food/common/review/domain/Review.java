@@ -29,8 +29,8 @@ public class Review extends BaseTimeEntity {
     @Comment("작성자")
     @NotNull
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private User author;
+    @JoinColumn(name = "writer_id")
+    private User writer;
 
     @Comment("가게")
     @NotNull
@@ -54,9 +54,9 @@ public class Review extends BaseTimeEntity {
     @NotBlank
     private String content;
 
-    public static Review create(User author, Store store, Order order, Byte score, String content) {
+    public static Review create(User writer, Store store, Order order, Byte score, String content) {
         Review review = new Review();
-        review.author = author;
+        review.writer = writer;
         review.store = store;
         review.order = order;
         review.score = score;
