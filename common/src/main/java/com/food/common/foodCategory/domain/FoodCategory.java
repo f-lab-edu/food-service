@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import static com.food.common.foodCategory.utils.FoodCategoryFailureMessages.BETWEEN_LENGTH_OF_NAME;
+import static com.food.common.foodCategory.utils.FoodCategoryFailureMessages.NOT_BLANK_NAME;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -20,8 +22,8 @@ public class FoodCategory {
     private Long id;
 
     @Comment("음식 카테고리명")
-    @NotBlank
-    @Length(max = 15)
+    @NotBlank(message = NOT_BLANK_NAME)
+    @Length(max = 15, message = BETWEEN_LENGTH_OF_NAME)
     private String name;
 
     public static FoodCategory create(String name) {

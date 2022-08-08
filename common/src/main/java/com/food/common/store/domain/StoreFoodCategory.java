@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+import static com.food.common.store.utils.StoreValidationFailureMessage.StoreFoodCategory.NOT_NULL_FOOD_CATEGORY;
+import static com.food.common.store.utils.StoreValidationFailureMessage.StoreFoodCategory.NOT_NULL_STORE;
 import static javax.persistence.FetchType.*;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -35,13 +37,13 @@ public class StoreFoodCategory {
     private MultiplePk pk = new MultiplePk();
 
     @Comment("가게")
-    @NotNull
+    @NotNull(message = NOT_NULL_STORE)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "store_id", insertable = false, updatable = false)
     private Store store;
 
     @Comment("음식 카테고리")
-    @NotNull
+    @NotNull(message = NOT_NULL_FOOD_CATEGORY)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "food_category_id", insertable = false, updatable = false)
     private FoodCategory foodCategory;

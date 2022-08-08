@@ -7,6 +7,7 @@ import org.hibernate.annotations.Comment;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import static com.food.common.store.utils.StoreValidationFailureMessage.StoreOwner.NOT_NULL_USER;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -20,7 +21,7 @@ public class StoreOwner extends BaseTimeEntity {
     private Long id;
 
     @Comment("유저")
-    @NotNull
+    @NotNull(message = NOT_NULL_USER)
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

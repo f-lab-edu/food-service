@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import static com.food.common.store.utils.StoreValidationFailureMessage.Store.*;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -25,21 +26,22 @@ public class Store {
     private Long id;
 
     @Comment("상호명")
-    @NotBlank
+    @NotBlank(message = NOT_BLANK_STORE_NAME)
     private String name;
 
     @Comment("가게 사장님")
-    @NotNull
+    @NotNull(message = NOT_NULL_OWNER)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "store_owner_id")
     private StoreOwner owner;
 
     @Comment("최소 주문 금액")
-    @PositiveOrZero
+    @NotNull(message = NOT_NULL_MIN_ORDER_AMOUNT)
+    @PositiveOrZero(message = HAS_TO_BE_POSITIVE_MIN_ORDER_AMOUNT)
     private Integer minOrderAmount;
 
     @Comment("운영 상태")
-    @NotNull
+    @NotNull(message = NOT_NULL_STATUS)
     @Enumerated(STRING)
     private OpenStatus status;
 
