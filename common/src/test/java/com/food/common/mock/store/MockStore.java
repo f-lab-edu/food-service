@@ -1,8 +1,8 @@
 package com.food.common.mock.store;
 
-import com.food.common.mock.MockUser;
+import com.food.common.mock.user.MockUser;
 import com.food.common.store.domain.Store;
-import com.food.common.user.domain.StoreOwner;
+import com.food.common.store.domain.StoreOwner;
 
 public class MockStore {
     public static Builder builder()  {

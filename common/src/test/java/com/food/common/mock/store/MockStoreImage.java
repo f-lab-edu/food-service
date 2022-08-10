@@ -1,6 +1,7 @@
 package com.food.common.mock.store;
 
 import com.food.common.image.domain.Image;
+import com.food.common.mock.image.MockImage;
 import com.food.common.store.domain.Store;
 import com.food.common.store.domain.StoreImage;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class MockStoreImage {
     @NoArgsConstructor(access = PRIVATE)
     public static class Builder {
         private Store store = MockStore.builder().build();
-        private Image image;
+        private Image image = MockImage.builder().build();
 
         public Builder store(Store store) {
             this.store = store;

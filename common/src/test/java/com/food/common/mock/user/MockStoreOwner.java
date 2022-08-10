@@ -1,19 +1,20 @@
-package com.food.common.mock.store;
+package com.food.common.mock.user;
 
-import com.food.common.mock.user.MockUser;
 import com.food.common.store.domain.StoreOwner;
 import com.food.common.user.domain.User;
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PRIVATE;
 
 public class MockStoreOwner {
     public static Builder builder() {
         return new Builder();
     }
 
+    @NoArgsConstructor(access = PRIVATE)
     public static class Builder {
         private Long id;
-        private User user = MockUser.builder()
-                .nickname("imowner")
-                .build();
+        private User user;
 
         public Builder id(Long id) {
             this.id = id;

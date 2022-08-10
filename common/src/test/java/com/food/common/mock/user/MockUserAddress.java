@@ -1,14 +1,14 @@
-package com.food.common.mock.store;
+package com.food.common.mock.user;
 
 import com.food.common.address.domain.Address;
 import com.food.common.mock.address.MockAddress;
-import com.food.common.store.domain.Store;
-import com.food.common.store.domain.StoreAddress;
+import com.food.common.user.domain.User;
+import com.food.common.user.domain.UserAddress;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
 
-public class MockStoreAddress {
+public class MockUserAddress {
     public static Builder builder() {
         return new Builder();
     }
@@ -16,17 +16,23 @@ public class MockStoreAddress {
     @NoArgsConstructor(access = PRIVATE)
     public static class Builder {
         private Long id;
-        private Store store = MockStore.builder().build();
+        private User user = MockUser.builder().build();
+        private String name = "우리집";
         private Address address = MockAddress.builder().build();
-        private String addressDetail = "ABC Building";
+        private String addressDetail = "가나아파트";
 
         public Builder id(Long id) {
             this.id = id;
             return this;
         }
 
-        public Builder store(Store store) {
-            this.store = store;
+        public Builder user(User user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
             return this;
         }
 
@@ -40,8 +46,8 @@ public class MockStoreAddress {
             return this;
         }
 
-        public StoreAddress build() {
-            return StoreAddress.create(store, address, addressDetail);
+        public UserAddress build() {
+            return UserAddress.create(user, name, address, addressDetail);
         }
     }
 }
