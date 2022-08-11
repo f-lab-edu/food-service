@@ -6,7 +6,7 @@ import com.food.common.store.domain.StoreAddress;
 import com.food.common.unit.SuperValidationTests;
 import org.junit.jupiter.api.Test;
 
-import static com.food.common.store.utils.StoreValidationFailureMessage.StoreAddress.*;
+import static com.food.common.store.utils.StoreValidationFailureMessages.StoreAddress.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -23,7 +23,7 @@ public class StoreAddressTests extends SuperValidationTests<StoreAddress> {
                 .build();
 
         assertAll(
-                () -> assertThat(failureMessagesOf(mockStoreAddressWithNullStore)).containsExactlyInAnyOrder(NOT_NULL_STORE),
+                () -> assertThat(failureMessagesOf(mockStoreAddressWithNullStore)).containsExactlyInAnyOrder(STORE_CANNOT_BE_NULL),
                 () -> assertThat(failureMessagesOf(mockStoreAddressWithNormalStore)).isEmpty()
         );
     }
@@ -39,7 +39,7 @@ public class StoreAddressTests extends SuperValidationTests<StoreAddress> {
                 .build();
 
         assertAll(
-                () -> assertThat(failureMessagesOf(mockStoreAddressWithNullAddress)).containsExactlyInAnyOrder(NOT_NULL_ADDRESS),
+                () -> assertThat(failureMessagesOf(mockStoreAddressWithNullAddress)).containsExactlyInAnyOrder(ADDRESS_CANNOT_BE_NULL),
                 () -> assertThat(failureMessagesOf(mockStoreAddressWithNormalStore)).isEmpty()
         );
     }
@@ -61,7 +61,7 @@ public class StoreAddressTests extends SuperValidationTests<StoreAddress> {
 
         assertAll(
                 () -> assertThat(failureMessagesOf(mockStoreAddressWithLongAddressDetail))
-                        .containsExactlyInAnyOrder(formatLength(BETWEEN_LENGTH_OF_ADDRESS_DETAIL, 150, 0, exceededValue)),
+                        .containsExactlyInAnyOrder(formatLength(ADDRESS_DETAIL_HAS_TO_BE_BETWEEN_LENGTH, 150, exceededValue)),
                 () -> assertThat(failureMessagesOf(mockStoreAddressWithNullAddressDetail)).isEmpty(),
                 () -> assertThat(failureMessagesOf(mockStoreAddressWithBlankAddressDetail)).isEmpty()
         );

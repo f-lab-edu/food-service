@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.food.common.store.utils.StoreValidationFailureMessage.StoreOperatingTime.*;
+import static com.food.common.store.utils.StoreValidationFailureMessages.StoreOperatingTime.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -30,7 +30,7 @@ public class StoreOperatingTimeTests extends SuperValidationTests<StoreOperating
                 .build();
 
         assertAll(
-                () -> assertThat(failureMessagesOf(operatingTimeWithNullStore)).containsExactlyInAnyOrder(NOT_NULL_STORE),
+                () -> assertThat(failureMessagesOf(operatingTimeWithNullStore)).containsExactlyInAnyOrder(STORE_CANNOT_BE_NULL),
                 () -> assertThat(failureMessagesOf(operatingTimeWithPresentStore)).isEmpty()
         );
     }
@@ -49,7 +49,7 @@ public class StoreOperatingTimeTests extends SuperValidationTests<StoreOperating
                 .collect(Collectors.toSet());
 
         assertAll(
-                () -> assertThat(failureMessagesOf(operatingTimeWithNullStore)).containsExactlyInAnyOrder(NOT_NULL_WEEK),
+                () -> assertThat(failureMessagesOf(operatingTimeWithNullStore)).containsExactlyInAnyOrder(WEEK_CANNOT_NULL),
                 () -> assertThat(failureMessagesOf(operatingTimesWithEnumTypeWeek)).isEmpty()
         );
     }
@@ -68,7 +68,7 @@ public class StoreOperatingTimeTests extends SuperValidationTests<StoreOperating
                 .build();
 
         assertAll(
-                () -> assertThat(failureMessagesOf(operatingTimeWithNullOpeningAndClosingTime)).containsExactlyInAnyOrder(NOT_NULL_OPENING_TIME, NOT_NULL_CLOSING_TIME),
+                () -> assertThat(failureMessagesOf(operatingTimeWithNullOpeningAndClosingTime)).containsExactlyInAnyOrder(OPENING_TIME_CANNOT_NULL, CLOSING_TIME_CANNOT_NULL),
                 () -> assertThat(failureMessagesOf(operatingTimeWithLocalTimeOpeningAndClosingTime)).isEmpty()
         );
     }

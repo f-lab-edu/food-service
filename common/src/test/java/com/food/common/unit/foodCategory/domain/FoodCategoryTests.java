@@ -35,7 +35,7 @@ public class FoodCategoryTests extends SuperValidationTests<FoodCategory> {
                 () -> assertThat(failureMessagesOf(foodCategoryWithNullName)).containsExactlyInAnyOrder(NOT_BLANK_NAME),
                 () -> assertThat(failureMessagesOf(foodCategoryWithBlankName)).containsExactlyInAnyOrder(NOT_BLANK_NAME),
                 () -> assertThat(failureMessagesOf(foodCategoryWithNormalName)).isEmpty(),
-                () -> assertThat(failureMessagesOf(foodCategoryWithLongName)).containsExactlyInAnyOrder(formatLength(BETWEEN_LENGTH_OF_NAME, 15, 0, longName))
+                () -> assertThat(failureMessagesOf(foodCategoryWithLongName)).containsExactlyInAnyOrder(formatLength(BETWEEN_LENGTH_OF_NAME, 15, longName))
         );
     }
 }

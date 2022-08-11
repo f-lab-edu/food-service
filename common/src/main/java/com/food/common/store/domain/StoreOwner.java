@@ -1,13 +1,14 @@
-package com.food.common.user.domain;
+package com.food.common.store.domain;
 
 import com.food.common.common.domain.BaseTimeEntity;
+import com.food.common.user.domain.User;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import static com.food.common.store.utils.StoreValidationFailureMessage.StoreOwner.NOT_NULL_USER;
+import static com.food.common.store.utils.StoreValidationFailureMessages.StoreOwner.USER_CANNOT_BE_NULL;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -21,7 +22,7 @@ public class StoreOwner extends BaseTimeEntity {
     private Long id;
 
     @Comment("유저")
-    @NotNull(message = NOT_NULL_USER)
+    @NotNull(message = USER_CANNOT_BE_NULL)
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.food.common.store.utils.StoreValidationFailureMessage.Store.*;
+import static com.food.common.store.utils.StoreValidationFailureMessages.Store.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -36,9 +36,9 @@ public class StoreTests extends SuperValidationTests<Store> {
                 .build();
 
         assertAll(
-                () -> assertThat(failureMessagesOf(mockStoreWithNullName)).containsExactlyInAnyOrder(NOT_BLANK_STORE_NAME),
-                () -> assertThat(failureMessagesOf(mockStoreWithEmptyName)).containsExactlyInAnyOrder(NOT_BLANK_STORE_NAME),
-                () -> assertThat(failureMessagesOf(mockStoreWithBlankName)).containsExactlyInAnyOrder(NOT_BLANK_STORE_NAME),
+                () -> assertThat(failureMessagesOf(mockStoreWithNullName)).containsExactlyInAnyOrder(STORE_NAME_CANNOT_BE_BLANK),
+                () -> assertThat(failureMessagesOf(mockStoreWithEmptyName)).containsExactlyInAnyOrder(STORE_NAME_CANNOT_BE_BLANK),
+                () -> assertThat(failureMessagesOf(mockStoreWithBlankName)).containsExactlyInAnyOrder(STORE_NAME_CANNOT_BE_BLANK),
                 () -> assertThat(failureMessagesOf(mockStoreWithName)).isEmpty()
         );
     }
@@ -51,7 +51,7 @@ public class StoreTests extends SuperValidationTests<Store> {
                 .build();
 
         assertThat(failureMessagesOf(mockStoreWithNullOwner))
-                .containsExactlyInAnyOrder(NOT_NULL_OWNER);
+                .containsExactlyInAnyOrder(STORE_OWNER_CANNOT_BE_NULL);
     }
 
     @DisplayName("최소주문금액은 양수이며 필수값이다")
@@ -72,9 +72,9 @@ public class StoreTests extends SuperValidationTests<Store> {
                 .build();
 
         assertAll(
-                () -> assertThat(failureMessagesOf(mockStoreWithNullMinOrderAmount)).containsExactlyInAnyOrder(NOT_NULL_MIN_ORDER_AMOUNT),
+                () -> assertThat(failureMessagesOf(mockStoreWithNullMinOrderAmount)).containsExactlyInAnyOrder(MIN_ORDER_AMOUNT_CANNOT_BE_NULL),
                 () -> assertThat(failureMessagesOf(mockStoreWithNegativeMinOrderAmount)).containsExactlyInAnyOrder(
-                        formatPositive(HAS_TO_BE_POSITIVE_MIN_ORDER_AMOUNT, negativeValue)),
+                        formatPositive(MIN_ORDER_AMOUNT_HAS_TO_BE_POSITIVE, negativeValue)),
                 () -> assertThat(failureMessagesOf(mockStoreWithPositiveMinOrderAmount)).isEmpty()
         );
     }
@@ -93,7 +93,7 @@ public class StoreTests extends SuperValidationTests<Store> {
         ).collect(Collectors.toSet());
 
         assertAll(
-                () -> assertThat(failureMessagesOf(mockStoreWithNullStatus)).containsExactlyInAnyOrder(NOT_NULL_STATUS),
+                () -> assertThat(failureMessagesOf(mockStoreWithNullStatus)).containsExactlyInAnyOrder(OPEN_STATUS_CANNOT_BE_NULL),
                 () -> assertThat(failureMessagesOf(mockStoresWithEnumTypeStatus)).isEmpty()
         );
     }

@@ -1,6 +1,5 @@
 package com.food.common.store.domain;
 
-import com.food.common.user.domain.StoreOwner;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -9,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
-import static com.food.common.store.utils.StoreValidationFailureMessage.Store.*;
+import static com.food.common.store.utils.StoreValidationFailureMessages.Store.*;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -26,22 +25,22 @@ public class Store {
     private Long id;
 
     @Comment("상호명")
-    @NotBlank(message = NOT_BLANK_STORE_NAME)
+    @NotBlank(message = STORE_NAME_CANNOT_BE_BLANK)
     private String name;
 
     @Comment("가게 사장님")
-    @NotNull(message = NOT_NULL_OWNER)
+    @NotNull(message = STORE_OWNER_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "store_owner_id")
     private StoreOwner owner;
 
     @Comment("최소 주문 금액")
-    @NotNull(message = NOT_NULL_MIN_ORDER_AMOUNT)
-    @PositiveOrZero(message = HAS_TO_BE_POSITIVE_MIN_ORDER_AMOUNT)
+    @NotNull(message = MIN_ORDER_AMOUNT_CANNOT_BE_NULL)
+    @PositiveOrZero(message = MIN_ORDER_AMOUNT_HAS_TO_BE_POSITIVE)
     private Integer minOrderAmount;
 
     @Comment("운영 상태")
-    @NotNull(message = NOT_NULL_STATUS)
+    @NotNull(message = OPEN_STATUS_CANNOT_BE_NULL)
     @Enumerated(STRING)
     private OpenStatus status;
 

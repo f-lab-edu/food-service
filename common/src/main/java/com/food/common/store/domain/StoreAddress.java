@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import static com.food.common.store.utils.StoreValidationFailureMessage.StoreAddress.*;
+import static com.food.common.store.utils.StoreValidationFailureMessages.StoreAddress.*;
 import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -24,19 +24,19 @@ public class StoreAddress {
     private Long id;
 
     @Comment("가게")
-    @NotNull(message = NOT_NULL_STORE)
+    @NotNull(message = STORE_CANNOT_BE_NULL)
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
     @Comment("가게 소재지")
-    @NotNull(message = NOT_NULL_ADDRESS)
+    @NotNull(message = ADDRESS_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
     @Comment("직접입력 상세주소")
-    @Length(max = 150, message = BETWEEN_LENGTH_OF_ADDRESS_DETAIL)
+    @Length(max = 150, message = ADDRESS_DETAIL_HAS_TO_BE_BETWEEN_LENGTH)
     private String addressDetail;
 
     public static StoreAddress create(Store store, Address address, String addressDetail) {

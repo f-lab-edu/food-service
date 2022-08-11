@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import java.time.LocalTime;
 
-import static com.food.common.store.utils.StoreValidationFailureMessage.StoreOperatingTime.*;
+import static com.food.common.store.utils.StoreValidationFailureMessages.StoreOperatingTime.*;
 import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -24,21 +24,21 @@ public class StoreOperatingTime {
     private Long id;
 
     @Comment("가게 정보")
-    @NotNull(message = NOT_NULL_STORE)
+    @NotNull(message = STORE_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
     @Comment("영업 요일")
-    @NotNull(message = NOT_NULL_WEEK)
+    @NotNull(message = WEEK_CANNOT_NULL)
     private Week week;
 
     @Comment("영업 시작일시")
-    @NotNull(message = NOT_NULL_OPENING_TIME)
+    @NotNull(message = OPENING_TIME_CANNOT_NULL)
     private LocalTime openingTime;
 
     @Comment("영업 종료일시")
-    @NotNull(message = NOT_NULL_CLOSING_TIME)
+    @NotNull(message = CLOSING_TIME_CANNOT_NULL)
     private LocalTime closingTime;
 
     public static StoreOperatingTime create(Store store, Week week, LocalTime openingTime, LocalTime closingTime) {

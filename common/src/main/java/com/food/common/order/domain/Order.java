@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import static com.food.common.order.utils.OrderValidationFailureMessages.Order.*;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -26,29 +27,29 @@ public class Order extends BaseTimeEntity {
     private Long id;
 
     @Comment("구매자")
-    @NotNull
+    @NotNull(message = CUSTOMER_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "customer_id")
     private User customer;
 
     @Comment("가게")
-    @NotNull
+    @NotNull(message = STORE_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
     @Comment("주문 금액")
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = AMOUNT_CANNOT_BE_NULL)
+    @PositiveOrZero(message = AMOUNT_HAS_TO_BE_POSITIVE)
     private Integer amount;
 
     @Comment("주문 상태")
-    @NotNull
+    @NotNull(message = STATUS_CANNOT_BE_NULL)
     @Enumerated(STRING)
     private Status status;
 
     @Comment("추가 요청 사항")
-    @Length(max = 150)
+    @Length(max = 150, message = COMMENT_HAS_TO_BE_BETWEEN_LENGTH)
     private String comment;
 
     public static Order create(User customer, Store store, Integer amount, Status status, String comment) {

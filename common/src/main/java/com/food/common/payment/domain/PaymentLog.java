@@ -9,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import static com.food.common.payment.utils.PaymentValidationFailureMessages.PaymentLog.*;
+import static javax.persistence.EnumType.*;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -23,29 +25,42 @@ public class PaymentLog extends BaseTimeEntity {
     private Long id;
 
     @Comment("결제")
-    @NotNull
+    @NotNull(message = PAYMENT_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
     @Comment("결제 수단")
-    @NotNull
+    @NotNull(message = METHOD_CANNOT_BE_NULL)
+    @Enumerated(STRING)
     private Method method;
 
     @Comment("결제 타입")
-    @NotNull
+    @NotNull(message = TYPE_CANNOT_BE_NULL)
+    @Enumerated(STRING)
     private Type type;
 
     @Comment("결제 금액")
-    @PositiveOrZero
-    @NotNull
+    @PositiveOrZero(message = AMOUNT_HAS_TO_BE_POSITIVE)
+    @NotNull(message = AMOUNT_CANNOT_BE_NULL)
     private Integer amount;
 
     @Comment("사용 포인트")
-    @NotNull
+    @NotNull(message = POINT_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "point_id")
     private Point point;
+
+    public static PaymentLog create(Payment payment, Method method, Type type, Integer amount, Point point) {
+        PaymentLog paymentLog = new PaymentLog();
+        paymentLog.payment = payment;
+        paymentLog.method = method;
+        paymentLog.type = type;
+        paymentLog.amount = amount;
+        paymentLog.point = point;
+
+        return paymentLog;
+    }
 
     public enum Method {
         CARD("카드"),

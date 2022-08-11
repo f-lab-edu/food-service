@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+import static com.food.common.user.UserValidationFailureMessages.Point.*;
 import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -22,30 +23,41 @@ public class Point {
     private Long id;
 
     @Comment("유저")
-    @NotNull
+    @NotNull(message = USER_CANNOT_BE_NULL)
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @Comment("적립/사용 타입")
-    @NotNull
+    @NotNull(message = TYPE_CANNOT_BE_NULL)
     private Type type;
 
     @Comment("포인트 금액")
-    @PositiveOrZero
-    @NotNull
+    @PositiveOrZero(message = CHANGED_AMOUNT_HAS_TO_BE_POSITIVE)
+    @NotNull(message = CHANGED_AMOUNT_CANNOT_BE_NULL)
     private Integer changedAmount;
 
     @Comment("잔여 포인트 금액")
-    @PositiveOrZero
-    @NotNull
+    @PositiveOrZero(message = CURRENT_AMOUNT_HAS_TO_BE_POSITIVE)
+    @NotNull(message = CURRENT_AMOUNT_CANNOT_BE_NULL)
     private Integer currentAmount;
 
     @Comment("결제정보")
-    @NotNull
+    @NotNull(message = PAYMENT_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "payment_id")
     private Payment payment;
+
+    public static Point create(User user, Type type, Integer changedAmount, Integer currentAmount, Payment payment) {
+        Point point = new Point();
+        point.user = user;
+        point.type = type;
+        point.changedAmount = changedAmount;
+        point.currentAmount = currentAmount;
+        point.payment = payment;
+
+        return point;
+    }
 
     public enum Type {
         COLLECT("적립"),

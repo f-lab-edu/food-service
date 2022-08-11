@@ -39,15 +39,20 @@ public abstract class SuperValidationTests<T> {
                 .collect(Collectors.toSet());
     }
 
-    protected String formatLength(String lengthMessage, int max, int min, String currentValue) {
-        return lengthMessage
-                .replace("{min}", String.valueOf(min))
+    protected String formatLength(String failureMessage, int max, String currentValue) {
+        return failureMessage
+                .replace("{min}", String.valueOf(0))
                 .replace("{max}", String.valueOf(max))
                 .replace("${validatedValue}", String.valueOf(currentValue));
     }
 
-    protected String formatPositive(String positiveMessage, int currentValue) {
-        return positiveMessage
+    protected String formatEmail(String failureMessage, String currentValue) {
+        return failureMessage
+                .replace("${validatedValue}", currentValue);
+    }
+
+    protected String formatPositive(String failureMessage, int currentValue) {
+        return failureMessage
                 .replace("${validatedValue}", String.valueOf(currentValue));
     }
 }
