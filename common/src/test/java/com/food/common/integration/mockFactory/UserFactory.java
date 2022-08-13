@@ -1,6 +1,6 @@
 package com.food.common.integration.mockFactory;
 
-import com.food.common.mock.MockUser;
+import com.food.common.mock.user.MockUser;
 import com.food.common.user.domain.User;
 import com.food.common.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

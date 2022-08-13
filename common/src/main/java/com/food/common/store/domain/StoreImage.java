@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+import static com.food.common.store.utils.StoreValidationFailureMessages.StoreImage.IMAGE_CANNOT_BE_NULL;
+import static com.food.common.store.utils.StoreValidationFailureMessages.StoreImage.STORE_CANNOT_BE_NULL;
 import static javax.persistence.FetchType.*;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -35,13 +37,13 @@ public class StoreImage {
     private MultiplePk pk = new MultiplePk();
 
     @Comment("가게")
-    @NotNull
+    @NotNull(message = STORE_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "store_id", insertable = false, updatable = false)
     private Store store;
 
     @Comment("이미지")
-    @NotNull
+    @NotNull(message = IMAGE_CANNOT_BE_NULL)
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "image_id", insertable = false, updatable = false)
     private Image image;

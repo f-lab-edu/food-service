@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import static com.food.common.user.UserValidationFailureMessages.SocialAccount.*;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -22,12 +23,12 @@ public class SocialAccount extends BaseTimeEntity {
     private Long id;
 
     @Comment("로그인 아이디")
-    @NotBlank
-    @Length(max = 50)
+    @NotBlank(message = LOGIN_ID_CANNOT_BE_BLANK)
+    @Length(max = 50, message = LOGIN_ID_IS_OUT_OF_LENGTH_OF_STRING)
     private String loginId;
 
     @Comment("유저")
-    @NotNull
+    @NotNull(message = USER_CANNOT_BE_NULL)
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;

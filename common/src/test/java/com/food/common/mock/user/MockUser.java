@@ -1,4 +1,4 @@
-package com.food.common.mock;
+package com.food.common.mock.user;
 
 import com.food.common.user.domain.User;
 

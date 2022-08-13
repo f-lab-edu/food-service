@@ -8,6 +8,8 @@ import org.hibernate.annotations.Comment;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.ORDER_CANNOT_BE_NULL;
+import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.STATUS_CANNOT_BE_NULL;
 import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -22,14 +24,22 @@ public class Payment extends BaseTimeEntity {
     private Long id;
 
     @Comment("주문")
-    @NotNull
+    @NotNull(message = ORDER_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
 
     @Comment("결제 상태")
-    @NotNull
+    @NotNull(message = STATUS_CANNOT_BE_NULL)
     private Status status;
+
+    public static Payment create(Order order, Status status) {
+        Payment payment = new Payment();
+        payment.order = order;
+        payment.status = status;
+
+        return payment;
+    }
 
     public enum Status {
         PAYMENT_REQUEST("결제 요청"),
