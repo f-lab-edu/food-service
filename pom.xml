@@ -20,6 +20,8 @@
     <module>common</module>
     <module>auth</module>
     <module>user</module>
+    <module>store</module>
+    <module>order</module>
   </modules>
 
   <build>
