@@ -19,6 +19,7 @@
   <modules>
     <module>common</module>
     <module>auth</module>
+    <module>user</module>
   </modules>
 
   <build>
