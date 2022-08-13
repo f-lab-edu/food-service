@@ -1,4 +1,4 @@
-package com.food.common.mock;
+package com.food.common.mock.address;
 
 import com.food.common.address.domain.Address;
 
