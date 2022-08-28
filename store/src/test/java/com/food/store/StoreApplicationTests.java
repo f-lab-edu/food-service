@@ -1,4 +1,4 @@
-package com.store.store;
+package com.food.store;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
