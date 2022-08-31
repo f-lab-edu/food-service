@@ -33,7 +33,7 @@ public class ApiScanner {
         return result;
     }
 
-    public List<AnnotatedMethod> scanMethodsAnnotatedApiFor() throws ClassNotFoundException {
+    private List<AnnotatedMethod> scanMethodsAnnotatedApiFor() throws ClassNotFoundException {
         ClassPathScanningCandidateComponentProvider provider =
                 new ClassPathScanningCandidateComponentProvider(false);
         provider.addIncludeFilter(new AnnotationTypeFilter(Controller.class));
@@ -57,7 +57,7 @@ public class ApiScanner {
         return result;
     }
 
-    public Optional<RequestInfo> findRequestInfoOfMethod(AnnotatedMethod target) {
+    private Optional<RequestInfo> findRequestInfoOfMethod(AnnotatedMethod target) {
         Set<String> requestPaths = new HashSet<>();
         Method method = target.getMethod();
 
@@ -77,7 +77,7 @@ public class ApiScanner {
     }
 
     @Getter
-    public static class AnnotatedMethod {
+    private static class AnnotatedMethod {
         private final Class clazz;
         private final Method method;
         private final ApiFor annotationOfApiFor;
@@ -94,7 +94,7 @@ public class ApiScanner {
         }
     }
 
-    public static class RequestInfo {
+    private static class RequestInfo {
         private final Set<RequestMethod> requestMethods = new HashSet<>();
         private final Set<String> requestPaths = new HashSet<>();
 
