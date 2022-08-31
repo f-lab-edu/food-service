@@ -9,7 +9,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +35,6 @@ public class ApiScanner {
     private List<AnnotatedMethod> scanMethodsAnnotatedApiFor() throws ClassNotFoundException {
         ClassPathScanningCandidateComponentProvider provider =
                 new ClassPathScanningCandidateComponentProvider(false);
-        provider.addIncludeFilter(new AnnotationTypeFilter(Controller.class));
         provider.addIncludeFilter(new AnnotationTypeFilter(RestController.class));
 
         Set<BeanDefinition> beanDefs = provider.findCandidateComponents("com.food");
@@ -44,12 +42,13 @@ public class ApiScanner {
         List<AnnotatedMethod> result = new ArrayList<>();
         for (BeanDefinition beanDef : beanDefs) {
             Class targetClass = Class.forName(beanDef.getBeanClassName());
+            Optional<ApiFor> classAnnotation = Optional.ofNullable((ApiFor) targetClass.getAnnotation(ApiFor.class));
 
             for (Method method : targetClass.getDeclaredMethods()) {
                 if (method.isAnnotationPresent(ApiFor.class)) {
                     result.add(new AnnotatedMethod(targetClass, method, method.getAnnotation(ApiFor.class)));
-                } else if (targetClass.isAnnotationPresent(ApiFor.class)) {
-                    result.add(new AnnotatedMethod(targetClass, method, (ApiFor) targetClass.getAnnotation(ApiFor.class)));
+                } else {
+                    classAnnotation.ifPresent(apiFor -> result.add(new AnnotatedMethod(targetClass, method, apiFor)));
                 }
             }
         }
