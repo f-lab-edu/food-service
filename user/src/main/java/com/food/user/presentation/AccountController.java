@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@ApiFor(role = Role.ALL)
+@ApiFor(roles = Role.ALL)
 @RequestMapping("/users")
 @RestController
 public class AccountController {
@@ -26,8 +26,7 @@ public class AccountController {
         return ResponseEntity.ok(SuccessResult.createResult(response));
     }
 
-
-    @ApiFor(role = Role.STORE_OWNER)
+    @ApiFor(roles = Role.STORE_OWNER)
     @GetMapping("/manage")
     public ResponseEntity<Void> temp() {
         return ResponseEntity.noContent().build();

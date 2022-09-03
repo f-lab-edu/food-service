@@ -25,8 +25,10 @@ public class ApiScanner {
         }
 
         for (AnnotatedMethod annotatedMethod : scanMethodsAnnotatedApiFor()) {
-            findRequestInfoOfMethod(annotatedMethod).ifPresent(
-                    requestInfo -> result.get(annotatedMethod.getRole()).addAll(requestInfo.requestPaths));
+            findRequestInfoOfMethod(annotatedMethod).ifPresent(requestInfo ->
+                    Arrays.stream(annotatedMethod.getRoles()).forEach(role ->
+                            result.get(role).addAll(requestInfo.requestPaths)
+                    ));
         }
 
         return result;
@@ -88,8 +90,8 @@ public class ApiScanner {
             this.annotationOfApiFor = annotationOfApiFor;
         }
 
-        public Role getRole() {
-            return annotationOfApiFor.role();
+        public Role[] getRoles() {
+            return annotationOfApiFor.roles();
         }
     }
 
