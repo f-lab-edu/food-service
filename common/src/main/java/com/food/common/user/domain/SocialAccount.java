@@ -1,6 +1,7 @@
 package com.food.common.user.domain;
 
 import com.food.common.common.domain.BaseTimeEntity;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.hibernate.validator.constraints.Length;
@@ -13,6 +14,7 @@ import static com.food.common.user.UserValidationFailureMessages.SocialAccount.*
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_social_account")
 @Entity
@@ -43,5 +45,9 @@ public class SocialAccount extends BaseTimeEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getUserId() {
+        return user.getId();
     }
 }
