@@ -1,6 +1,5 @@
-package com.food.auth.integration;
+package com.food;
 
-import com.food.AuthApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,10 +10,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
-@SpringBootTest(classes = AuthApplication.class)
+@SpringBootTest
 @Transactional
-public class SecurityApiTest {
-
+public class SuperApiTest {
     @Autowired
     private WebApplicationContext context;
 
