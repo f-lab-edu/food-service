@@ -1,6 +1,6 @@
 package com.food.common.review.domain;
 
-import com.food.common.common.domain.BaseTimeEntity;
+import com.food.common.basetime.BaseTimeEntity;
 import com.food.common.order.domain.Order;
 import com.food.common.store.domain.Store;
 import com.food.common.user.domain.User;
@@ -9,7 +9,6 @@ import org.hibernate.annotations.Comment;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

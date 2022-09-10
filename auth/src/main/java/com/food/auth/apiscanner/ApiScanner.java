@@ -2,7 +2,7 @@ package com.food.auth.apiscanner;
 
 import com.food.auth.apiscanner.requestmapping.RequestMappingInClass;
 import com.food.auth.apiscanner.requestmapping.RequestMappingInMethod;
-import com.food.common.common.api.ApiFor;
+import com.food.common.annotation.ApiFor;
 import com.food.common.user.enumeration.Role;
 import lombok.Getter;
 import org.springframework.beans.factory.config.BeanDefinition;

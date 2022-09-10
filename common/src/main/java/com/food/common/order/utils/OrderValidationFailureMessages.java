@@ -1,6 +1,6 @@
 package com.food.common.order.utils;
 
-import com.food.common.common.utils.ValidationFailureMessages;
+import com.food.common.utils.validation.ValidationFailureMessages;
 
 public abstract class OrderValidationFailureMessages extends ValidationFailureMessages {
     public static class Order {

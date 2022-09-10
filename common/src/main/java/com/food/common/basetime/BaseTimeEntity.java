@@ -1,4 +1,4 @@
-package com.food.common.common.domain;
+package com.food.common.basetime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

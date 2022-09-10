@@ -1,4 +1,4 @@
-package com.food.common.common.api;
+package com.food.common.annotation;
 
 import com.food.common.user.enumeration.Role;
 import lombok.Getter;

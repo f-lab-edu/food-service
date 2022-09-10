@@ -1,4 +1,4 @@
-package com.food.common.common.utils;
+package com.food.common.utils.validation;
 
 public abstract class ValidationFailureMessages {
     protected static final String CANNOT_BE_NULL = "은(는) Null일 수 없습니다.";
