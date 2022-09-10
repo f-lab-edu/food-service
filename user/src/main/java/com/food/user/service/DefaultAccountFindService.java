@@ -1,9 +1,10 @@
 package com.food.user.service;
 
-import com.food.common.user.service.account.AccountDomainService;
-import com.food.common.user.service.account.response.FoundAppAccount;
-import com.food.common.user.service.account.response.FoundSocialAccount;
-import com.food.user.service.dto.AccountFindResponse;
+import com.food.common.user.business.AccountFindService;
+import com.food.common.user.business.account.AccountDomainService;
+import com.food.common.user.business.account.impl.response.FoundAppAccount;
+import com.food.common.user.business.account.impl.response.FoundSocialAccount;
+import com.food.common.user.business.AccountFindResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserFindService {
+public class DefaultAccountFindService implements AccountFindService {
     private final AccountDomainService accountDomainService;
 
     public AccountFindResponse findAccountByUserId(@NotNull Long userId) {

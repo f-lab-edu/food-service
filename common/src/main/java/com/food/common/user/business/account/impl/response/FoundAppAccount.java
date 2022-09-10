@@ -1,7 +1,7 @@
-package com.food.common.user.service.account.response;
+package com.food.common.user.business.account.impl.response;
 
 import com.food.common.user.domain.AppAccount;
-import com.food.common.user.service.user.response.FoundUser;
+import com.food.common.user.business.user.impl.response.FoundUser;
 import lombok.Getter;
 
 @Getter

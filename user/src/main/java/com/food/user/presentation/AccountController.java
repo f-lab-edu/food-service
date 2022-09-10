@@ -4,8 +4,8 @@ import com.food.common.apiResult.ApiResult;
 import com.food.common.apiResult.SuccessResult;
 import com.food.common.common.api.ApiFor;
 import com.food.common.user.enumeration.Role;
-import com.food.user.service.UserFindService;
-import com.food.user.service.dto.AccountFindResponse;
+import com.food.user.service.DefaultAccountFindService;
+import com.food.common.user.business.AccountFindResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @RestController
 public class AccountController {
-    private final UserFindService userFindService;
+    private final DefaultAccountFindService userFindService;
 
     @GetMapping("/{userId}/account")
     public ResponseEntity<ApiResult> findAccountByUserId(@PathVariable Long userId) {

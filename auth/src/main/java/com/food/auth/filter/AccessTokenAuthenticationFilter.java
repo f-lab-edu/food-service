@@ -5,8 +5,8 @@ import com.food.auth.provider.AccessTokenProvider;
 import com.food.auth.provider.dto.AccessToken;
 import com.food.auth.provider.dto.AccessTokenContent;
 import com.food.auth.provider.dto.AccessTokenValidationResult;
-import com.food.user.service.UserFindService;
-import com.food.user.service.dto.AccountFindResponse;
+import com.food.common.user.business.AccountFindService;
+import com.food.common.user.business.AccountFindResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +29,7 @@ import static org.springframework.util.StringUtils.hasText;
 @RequiredArgsConstructor
 public class AccessTokenAuthenticationFilter extends OncePerRequestFilter {
     private final AccessTokenProvider accessTokenProvider;
-    private final UserFindService userService;
+    private final AccountFindService userService;
 
     private Optional<AccessToken> extractTokenFromBearerToken(String authorization) {
         if (hasText(authorization) && Pattern.matches("^Bearer .*", authorization)) {

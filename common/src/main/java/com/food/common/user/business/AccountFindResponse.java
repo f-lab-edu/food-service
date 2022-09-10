@@ -1,9 +1,9 @@
-package com.food.user.service.dto;
+package com.food.common.user.business;
 
 import com.food.common.user.enumeration.Role;
-import com.food.common.user.service.account.response.FoundAppAccount;
-import com.food.common.user.service.account.response.FoundSocialAccount;
-import com.food.common.user.service.user.response.FoundUser;
+import com.food.common.user.business.account.impl.response.FoundAppAccount;
+import com.food.common.user.business.account.impl.response.FoundSocialAccount;
+import com.food.common.user.business.user.impl.response.FoundUser;
 import lombok.Getter;
 
 @Getter

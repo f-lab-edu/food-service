@@ -1,11 +1,12 @@
-package com.food.common.user.service.user;
+package com.food.common.user.business.user.impl;
 
 import com.food.common.store.domain.StoreOwner;
 import com.food.common.store.service.storeOwner.StoreOwnerDomainService;
+import com.food.common.user.business.user.UserDomainService;
 import com.food.common.user.domain.User;
 import com.food.common.user.enumeration.Role;
 import com.food.common.user.repository.UserRepository;
-import com.food.common.user.service.user.response.FoundUser;
+import com.food.common.user.business.user.impl.response.FoundUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class UserDomainService {
+public class DefaultUserDomainService implements UserDomainService {
     private final UserRepository userRepository;
     private final StoreOwnerDomainService storeOwnerService;
 
