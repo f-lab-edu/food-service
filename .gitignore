@@ -1,2 +1,2 @@
 .idea
-common/src/main/resources/application-db.yml
+src/main/resources/application-db.yml
