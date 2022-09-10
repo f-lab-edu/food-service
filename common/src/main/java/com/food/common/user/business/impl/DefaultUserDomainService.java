@@ -1,12 +1,12 @@
 package com.food.common.user.business.impl;
 
+import com.food.common.store.business.StoreOwnerDomainService;
 import com.food.common.store.domain.StoreOwner;
-import com.food.common.store.service.storeOwner.StoreOwnerDomainService;
 import com.food.common.user.business.UserDomainService;
+import com.food.common.user.business.dto.response.userDomain.FoundUser;
 import com.food.common.user.domain.User;
 import com.food.common.user.enumeration.Role;
 import com.food.common.user.repository.UserRepository;
-import com.food.common.user.business.dto.response.userDomain.FoundUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
