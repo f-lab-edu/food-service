@@ -1,4 +1,4 @@
-package com.food.common.user.business.user.impl.response;
+package com.food.common.user.business.dto.response.userDomain;
 
 import com.food.common.user.domain.User;
 import com.food.common.user.enumeration.Role;

@@ -1,10 +1,10 @@
-package com.food.common.user.business.account.impl;
+package com.food.common.user.business.impl;
 
-import com.food.common.user.business.account.AccountDomainService;
-import com.food.common.user.business.account.impl.response.FoundAppAccount;
-import com.food.common.user.business.account.impl.response.FoundSocialAccount;
-import com.food.common.user.business.user.UserDomainService;
-import com.food.common.user.business.user.impl.response.FoundUser;
+import com.food.common.user.business.AccountDomainService;
+import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
+import com.food.common.user.business.dto.response.accountDomain.FoundSocialAccount;
+import com.food.common.user.business.UserDomainService;
+import com.food.common.user.business.dto.response.userDomain.FoundUser;
 import com.food.common.user.domain.AppAccount;
 import com.food.common.user.domain.SocialAccount;
 import com.food.common.user.domain.User;

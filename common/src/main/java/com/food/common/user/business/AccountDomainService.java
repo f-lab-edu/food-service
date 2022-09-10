@@ -1,7 +1,7 @@
-package com.food.common.user.business.account;
+package com.food.common.user.business;
 
-import com.food.common.user.business.account.impl.response.FoundAppAccount;
-import com.food.common.user.business.account.impl.response.FoundSocialAccount;
+import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
+import com.food.common.user.business.dto.response.accountDomain.FoundSocialAccount;
 
 import java.util.Optional;
 

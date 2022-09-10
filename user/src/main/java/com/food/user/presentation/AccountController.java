@@ -5,7 +5,7 @@ import com.food.common.apiResult.SuccessResult;
 import com.food.common.common.api.ApiFor;
 import com.food.common.user.enumeration.Role;
 import com.food.user.service.DefaultAccountFindService;
-import com.food.common.user.business.AccountFindResponse;
+import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

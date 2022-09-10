@@ -6,7 +6,7 @@ import com.food.auth.provider.dto.AccessToken;
 import com.food.auth.provider.dto.AccessTokenContent;
 import com.food.auth.provider.dto.AccessTokenValidationResult;
 import com.food.common.user.business.AccountFindService;
-import com.food.common.user.business.AccountFindResponse;
+import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

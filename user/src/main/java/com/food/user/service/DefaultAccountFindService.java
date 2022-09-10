@@ -1,10 +1,10 @@
 package com.food.user.service;
 
 import com.food.common.user.business.AccountFindService;
-import com.food.common.user.business.account.AccountDomainService;
-import com.food.common.user.business.account.impl.response.FoundAppAccount;
-import com.food.common.user.business.account.impl.response.FoundSocialAccount;
-import com.food.common.user.business.AccountFindResponse;
+import com.food.common.user.business.AccountDomainService;
+import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
+import com.food.common.user.business.dto.response.accountDomain.FoundSocialAccount;
+import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

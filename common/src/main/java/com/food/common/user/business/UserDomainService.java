@@ -1,6 +1,6 @@
-package com.food.common.user.business.user;
+package com.food.common.user.business;
 
-import com.food.common.user.business.user.impl.response.FoundUser;
+import com.food.common.user.business.dto.response.userDomain.FoundUser;
 import com.food.common.user.domain.User;
 
 public interface UserDomainService {
