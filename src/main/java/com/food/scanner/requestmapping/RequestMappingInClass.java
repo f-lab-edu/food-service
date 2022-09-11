@@ -1,4 +1,4 @@
-package com.food.auth.apiscanner.requestmapping;
+package com.food.scanner.requestmapping;
 
 import lombok.Getter;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
 package com.food.auth.config;
 
-import com.food.auth.apiscanner.ApiScanner;
 import com.food.auth.filter.AccessTokenAuthenticationFilter;
+import com.food.common.annotation.RequestPathScanner;
 import com.food.common.user.enumeration.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +20,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
-    private final ApiScanner scanner;
+    private final RequestPathScanner scanner;
     private final AccessTokenAuthenticationFilter accessTokenAuthenticationFilter;
 
     @Bean

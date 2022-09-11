@@ -1,24 +1,26 @@
-package com.food.auth.apiscanner;
+package com.food.scanner;
 
-import com.food.auth.apiscanner.requestmapping.RequestMappingInClass;
-import com.food.auth.apiscanner.requestmapping.RequestMappingInMethod;
 import com.food.common.annotation.ApiFor;
+import com.food.common.annotation.RequestPathScanner;
 import com.food.common.user.enumeration.Role;
+import com.food.scanner.requestmapping.RequestMappingInClass;
+import com.food.scanner.requestmapping.RequestMappingInMethod;
 import lombok.Getter;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
+import org.reflections.Reflections;
+import org.reflections.util.ConfigurationBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Method;
 import java.util.*;
 
-@Component
-public class ApiScanner {
+import static org.reflections.scanners.Scanners.MethodsAnnotated;
+import static org.reflections.scanners.Scanners.TypesAnnotated;
 
-    public Map<Role, Set<String>> scanRequestMethods() throws ClassNotFoundException {
+@Component
+public class DefaultRequestPathScanner implements RequestPathScanner {
+
+    public Map<Role, Set<String>> scanRequestMethods() {
         Map<Role, Set<String>> result = new HashMap<>();
         for (Role role : Role.values()) {
             result.put(role, new HashSet<>());
@@ -34,28 +36,27 @@ public class ApiScanner {
         return result;
     }
 
-    private List<AnnotatedMethod> scanMethodsAnnotatedApiFor() throws ClassNotFoundException {
-        ClassPathScanningCandidateComponentProvider provider =
-                new ClassPathScanningCandidateComponentProvider(false);
-        provider.addIncludeFilter(new AnnotationTypeFilter(RestController.class));
+    private List<AnnotatedMethod> scanMethodsAnnotatedApiFor() {
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+                .forPackage("com.food")
+                .setScanners(TypesAnnotated, MethodsAnnotated));
 
-        Set<BeanDefinition> beanDefs = provider.findCandidateComponents("com.food");
+        Map<String, AnnotatedMethod> map = new HashMap<>();
+        reflections.getMethodsAnnotatedWith(ApiFor.class)
+                .forEach(method -> {
+                    String name = String.format("%s.%s", method.getDeclaringClass().getName(), method.getName());
+                    map.put(name, new AnnotatedMethod(method, method.getAnnotation(ApiFor.class)));
+                });
 
-        List<AnnotatedMethod> result = new ArrayList<>();
-        for (BeanDefinition beanDef : beanDefs) {
-            Class targetClass = Class.forName(beanDef.getBeanClassName());
-            Optional<ApiFor> classAnnotation = Optional.ofNullable((ApiFor) targetClass.getAnnotation(ApiFor.class));
+        reflections.getTypesAnnotatedWith(ApiFor.class)
+                .forEach(clazz ->
+                        Arrays.stream(clazz.getDeclaredMethods()).forEach(method -> {
+                            ApiFor annotation = clazz.getAnnotation(ApiFor.class);
+                            String name = String.format("%s.%s", clazz.getName(), method.getName());
+                            map.putIfAbsent(name, new AnnotatedMethod(method, annotation));
+                }));
 
-            for (Method method : targetClass.getDeclaredMethods()) {
-                if (method.isAnnotationPresent(ApiFor.class)) {
-                    result.add(new AnnotatedMethod(targetClass, method, method.getAnnotation(ApiFor.class)));
-                } else {
-                    classAnnotation.ifPresent(apiFor -> result.add(new AnnotatedMethod(targetClass, method, apiFor)));
-                }
-            }
-        }
-
-        return result;
+        return map.values().stream().toList();
     }
 
     private Optional<RequestInfo> findRequestInfoOfMethod(AnnotatedMethod target) {
@@ -79,19 +80,20 @@ public class ApiScanner {
 
     @Getter
     private static class AnnotatedMethod {
-        private final Class clazz;
         private final Method method;
         private final ApiFor annotationOfApiFor;
 
-
-        public AnnotatedMethod(Class clazz, Method method, ApiFor annotationOfApiFor) {
-            this.clazz = clazz;
+        public AnnotatedMethod(Method method, ApiFor annotationOfApiFor) {
             this.method = method;
             this.annotationOfApiFor = annotationOfApiFor;
         }
 
         public Role[] getRoles() {
             return annotationOfApiFor.roles();
+        }
+
+        public Class getClazz() {
+            return method.getDeclaringClass();
         }
     }
 
