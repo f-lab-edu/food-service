@@ -5,15 +5,15 @@ import com.food.auth.filter.dto.AuthenticatedUser;
 import com.food.auth.provider.AccessTokenProvider;
 import com.food.auth.provider.dto.AccessToken;
 import com.food.common.store.domain.StoreOwner;
+import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
+import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
+import com.food.common.user.business.dto.response.userDomain.FoundUser;
 import com.food.common.user.domain.AppAccount;
 import com.food.common.user.domain.User;
 import com.food.common.user.enumeration.Role;
 import com.food.common.user.repository.AppAccountRepository;
 import com.food.common.user.repository.StoreOwnerRepository;
 import com.food.common.user.repository.UserRepository;
-import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
-import com.food.common.user.business.dto.response.userDomain.FoundUser;
-import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -46,6 +46,8 @@ public class AuthenticationTest extends SuperApiTest {
         mvc.perform(get("/manage/stores")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken.getValue()))
                 .andExpect(status().isNotFound())
+                .andDo(print())
+
         ;
     }
 

@@ -1,10 +1,10 @@
 package com.food.auth.provider;
 
-import com.food.auth.filter.dto.AuthenticatedUser;
 import com.food.auth.provider.dto.AccessToken;
 import com.food.auth.provider.dto.AccessTokenContent;
 import com.food.auth.provider.dto.AccessTokenValidationResult;
 import com.food.auth.utils.DateUtils;
+import com.food.common.user.dto.RequestUser;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +16,11 @@ public class JwtProvider implements AccessTokenProvider {
     private final String SECRET_KEY = "testKey";
 
     @Override
-    public AccessToken create(AuthenticatedUser authenticatedUser) {
+    public AccessToken create(RequestUser RequestUser) {
         LocalDateTime issuedDate = LocalDateTime.now();
         LocalDateTime expiredDate = issuedDate.plusMinutes(10);
 
-        Claims claims = Jwts.claims().setSubject(String.valueOf(authenticatedUser.getUserId()));
+        Claims claims = Jwts.claims().setSubject(String.valueOf(RequestUser.getUserId()));
 
         String accessToken = Jwts.builder()
                 .setClaims(claims)

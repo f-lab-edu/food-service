@@ -1,4 +1,4 @@
-package com.food.user.service;
+package com.food.user.business;
 
 import com.food.common.user.business.AccountFindService;
 import com.food.common.user.business.AccountDomainService;
