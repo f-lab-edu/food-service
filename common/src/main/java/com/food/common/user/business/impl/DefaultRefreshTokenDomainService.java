@@ -1,6 +1,7 @@
 package com.food.common.user.business.impl;
 
-import com.food.common.user.business.RefreshDomainService;
+import com.food.common.user.business.RefreshTokenDomainService;
+import com.food.common.user.business.UserDomainService;
 import com.food.common.user.business.dto.response.refreshTokenDomain.IssuedRefreshToken;
 import com.food.common.user.domain.RefreshToken;
 import com.food.common.user.domain.User;
@@ -10,11 +11,13 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class DefaultRefreshDomainService implements RefreshDomainService {
+public class DefaultRefreshTokenDomainService implements RefreshTokenDomainService {
     private final RefreshTokenRepository refreshTokenRepository;
+    private final UserDomainService userDomainService;
 
     @Override
-    public IssuedRefreshToken issue(User user) {
+    public IssuedRefreshToken issue(Long userId) {
+        User user = userDomainService.findEntityById(userId);
         String tokenValue = createTokenValue();
         RefreshToken savedRefreshToken = refreshTokenRepository.save(RefreshToken.create(tokenValue, user));
 
