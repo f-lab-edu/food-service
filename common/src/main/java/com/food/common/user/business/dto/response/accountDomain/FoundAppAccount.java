@@ -15,4 +15,8 @@ public class FoundAppAccount {
         this.password = account.getPassword();
         this.user = user;
     }
+
+    public boolean matchesPassword(String password) {
+        return this.password.equals(password);
+    }
 }
