@@ -1,9 +1,9 @@
 package com.food.common.user.business.impl;
 
 import com.food.common.user.business.AccountDomainService;
+import com.food.common.user.business.UserDomainService;
 import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
 import com.food.common.user.business.dto.response.accountDomain.FoundSocialAccount;
-import com.food.common.user.business.UserDomainService;
 import com.food.common.user.business.dto.response.userDomain.FoundUser;
 import com.food.common.user.domain.AppAccount;
 import com.food.common.user.domain.SocialAccount;
@@ -27,26 +27,46 @@ public class DefaultAccountDomainService implements AccountDomainService {
     public Optional<FoundAppAccount> findAppAccountByUserId(Long userId) {
         User user = findUser(userId);
 
-        Optional<AppAccount> foundAppAccount = appAccountRepository.findByUser(user);
-        if (foundAppAccount.isEmpty()) {
+        Optional<AppAccount> optionalAccount = appAccountRepository.findByUser(user);
+        if (optionalAccount.isEmpty()) {
             return Optional.empty();
         }
 
-        AppAccount account = foundAppAccount.get();
+        AppAccount account = optionalAccount.get();
         return Optional.of(new FoundAppAccount(account, getFoundUser(user)));
     }
 
-    public Optional<FoundSocialAccount> findSocialAccountByUserId(Long userId) {
+    public Optional<FoundSocialAccount> findSocialUserIdByUserId(Long userId) {
         User user = findUser(userId);
 
-        Optional<SocialAccount> foundSocialAccount = socialAccountRepository.findByUser(user);
-        if (foundSocialAccount.isEmpty()) {
+        Optional<SocialAccount> optionalAccount = socialAccountRepository.findByUser(user);
+        if (optionalAccount.isEmpty()) {
             return Optional.empty();
         }
 
-        SocialAccount account = foundSocialAccount.get();
+        SocialAccount account = optionalAccount.get();
         return Optional.of(new FoundSocialAccount(account, getFoundUser(user)));
     }
+
+    @Override
+    public Optional<FoundAppAccount> findAppAccountByLoginId(String loginId) {
+        Optional<AppAccount> optionalAccount = appAccountRepository.findByLoginId(loginId);
+
+        if (optionalAccount.isEmpty()) return Optional.empty();
+
+        AppAccount account = optionalAccount.get();
+        return Optional.of(new FoundAppAccount(account, getFoundUser(account.getUser())));
+    }
+
+    @Override
+    public Optional<FoundSocialAccount> findSocialAccountByLoginId(String loginId) {
+        Optional<SocialAccount> optionalAccount = socialAccountRepository.findByLoginId(loginId);
+        if (optionalAccount.isEmpty()) return Optional.empty();
+
+        SocialAccount account = optionalAccount.get();
+        return Optional.of(new FoundSocialAccount(account, getFoundUser(account.getUser())));
+    }
+
 
     private FoundUser getFoundUser(User user) {
         return userDomainService.getFoundUser(user);
