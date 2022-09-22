@@ -1,6 +1,6 @@
 package com.food.common.image.domain;
 
-import com.food.common.common.domain.BaseTimeEntity;
+import com.food.common.basetime.BaseTimeEntity;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.hibernate.validator.constraints.Length;

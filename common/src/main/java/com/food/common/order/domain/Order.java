@@ -1,6 +1,6 @@
 package com.food.common.order.domain;
 
-import com.food.common.common.domain.BaseTimeEntity;
+import com.food.common.basetime.BaseTimeEntity;
 import com.food.common.store.domain.Store;
 import com.food.common.user.domain.User;
 import lombok.NoArgsConstructor;

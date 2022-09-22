@@ -1,6 +1,6 @@
 package com.food.common.user;
 
-import com.food.common.common.utils.ValidationFailureMessages;
+import com.food.common.utils.validation.ValidationFailureMessages;
 
 public abstract class UserValidationFailureMessages extends ValidationFailureMessages {
     public static abstract class User {

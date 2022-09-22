@@ -1,6 +1,6 @@
 package com.food.common.payment.utils;
 
-import com.food.common.common.utils.ValidationFailureMessages;
+import com.food.common.utils.validation.ValidationFailureMessages;
 
 public abstract class PaymentValidationFailureMessages extends ValidationFailureMessages {
     public static abstract class Payment {

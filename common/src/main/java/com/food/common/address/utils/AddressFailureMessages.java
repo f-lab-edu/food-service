@@ -1,6 +1,6 @@
 package com.food.common.address.utils;
 
-import com.food.common.common.utils.ValidationFailureMessages;
+import com.food.common.utils.validation.ValidationFailureMessages;
 
 public class AddressFailureMessages extends ValidationFailureMessages {
     public static final String POST_CODE_CANNOT_BE_BLANK = "우편번호" + CANNOT_BE_BLANK;
