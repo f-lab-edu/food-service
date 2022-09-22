@@ -3,6 +3,7 @@ package com.food.auth.presentation;
 import com.food.auth.business.DefaultLoginService;
 import com.food.auth.presentation.dto.LoginRequest;
 import com.food.auth.presentation.dto.TokenIssueResponse;
+import com.food.auth.presentation.dto.TokenRenewResponse;
 import com.food.common.annotation.ApiFor;
 import com.food.common.apiResult.SuccessResult;
 import com.food.common.user.enumeration.Role;
@@ -27,8 +28,9 @@ public class TokenController {
 
     @ApiFor(roles = Role.ALL)
     @PutMapping("/renew")
-    public ResponseEntity<TokenIssueResponse> renewToken(@RequestHeader String authorization) {
-        return ResponseEntity.ok(defaultLoginService.renew(authorization));
+    public ResponseEntity<SuccessResult<TokenRenewResponse>> renewToken(@RequestHeader String authorization) {
+        SuccessResult<TokenRenewResponse> result = SuccessResult.createResult(defaultLoginService.renew(authorization));
+        return ResponseEntity.ok(result);
     }
 
 }

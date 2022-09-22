@@ -2,6 +2,7 @@ package com.food.auth.business;
 
 import com.food.auth.presentation.dto.LoginRequest;
 import com.food.auth.presentation.dto.TokenIssueResponse;
+import com.food.auth.presentation.dto.TokenRenewResponse;
 import com.food.auth.provider.AccessTokenProvider;
 import com.food.common.user.business.RefreshTokenDomainService;
 import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
@@ -51,15 +52,14 @@ public class DefaultLoginService {
     }
 
 
-    public TokenIssueResponse renew(String refreshTokenValue) {
+    public TokenRenewResponse renew(String refreshTokenValue) {
         RefreshTokenFound refreshToken = refreshTokenService.findByValue(refreshTokenValue);
         if (refreshToken.hasBeenPassedExpiredDate()) {
             throw new IllegalArgumentException("유효기간이 지난 리프레시토큰입니다. 만료일시: " + refreshToken.getExpiredDate());
         }
 
-        return TokenIssueResponse.builder()
+        return TokenRenewResponse.builder()
                 .accessToken(accessTokenProvider.create(refreshToken.getOwnerId()))
-                .refreshToken(refreshTokenService.create(refreshToken.getOwnerId()))
                 .build();
     }
 
