@@ -1,9 +1,9 @@
 package com.food.mock.user;
 
-import com.food.common.mock.payment.MockPayment;
 import com.food.common.payment.domain.Payment;
 import com.food.common.user.domain.Point;
 import com.food.common.user.domain.User;
+import com.food.mock.payment.MockPayment;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;

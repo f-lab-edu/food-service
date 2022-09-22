@@ -1,9 +1,9 @@
 package com.food.mock.order;
 
 import com.food.common.menu.domain.Menu;
-import com.food.common.mock.menu.MockMenu;
 import com.food.common.order.domain.Order;
 import com.food.common.order.domain.OrderMenu;
+import com.food.mock.menu.MockMenu;
 
 public class MockOrderMenu {
     public static Builder builder() {

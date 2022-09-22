@@ -50,17 +50,19 @@ public class AccessTokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        AccessToken accessToken = extractTokenFromBearerToken(request.getHeader(HttpHeaders.AUTHORIZATION))
-                .orElseThrow(() -> new IllegalArgumentException("토큰 값이 비어있습니다.") );
+        Optional<AccessToken> optionalAccessToken = extractTokenFromBearerToken(request.getHeader(HttpHeaders.AUTHORIZATION));
+        if (optionalAccessToken.isPresent()) {
+            AccessToken accessToken = optionalAccessToken.get();
 
-        AccessTokenValidationResult validationResult = accessTokenProvider.validate(accessToken);
-        if (validationResult.isFailed()) {
-            throw new IllegalArgumentException(validationResult.getFailedMessage());
+            AccessTokenValidationResult validationResult = accessTokenProvider.validate(accessToken);
+            if (validationResult.isFailed()) {
+                throw new IllegalArgumentException(validationResult.getFailedMessage());
+            }
+
+            AccessTokenContent content = accessTokenProvider.getContent(accessToken);
+            Authentication authentication = getAuthentication(content);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
-        AccessTokenContent content = accessTokenProvider.getContent(accessToken);
-        Authentication authentication = getAuthentication(content);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         filterChain.doFilter(request, response);
     }

@@ -1,9 +1,9 @@
 package com.food.mock.user;
 
 import com.food.common.address.domain.Address;
-import com.food.common.mock.address.MockAddress;
 import com.food.common.user.domain.User;
 import com.food.common.user.domain.UserAddress;
+import com.food.mock.address.MockAddress;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
