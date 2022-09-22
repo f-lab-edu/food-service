@@ -1,6 +1,6 @@
-package com.food.app.auth;
+package com.food.api.auth;
 
-import com.food.SuperApiTest;
+import com.food.SuperIntegrationTest;
 import com.food.auth.presentation.dto.LoginRequest;
 import com.food.common.user.enumeration.AccountType;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class LoginApiTest extends SuperApiTest {
-    private final String DOCUMENT_AUTH = "auth/";
+public class LoginApiTest extends SuperIntegrationTest {
+    private final String DOCUMENT_AUTH = "auth/create-token/";
     private MockAccount account;
 
     @BeforeEach
@@ -32,7 +32,7 @@ public class LoginApiTest extends SuperApiTest {
     }
 
     @Test
-    void shouldIssueToken() throws Exception {
+    void shouldIssueToken_whenRequestWithCorrectLoginIdAndPassword() throws Exception {
         LoginRequest request = new LoginRequest(account.getLoginId(), account.getPassword(), AccountType.APP);
         mvc.perform(post("/auth/login")
                         .header(ACCEPT, APPLICATION_JSON_VALUE)
@@ -42,7 +42,7 @@ public class LoginApiTest extends SuperApiTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("success").value(true))
-                .andDo(document(DOCUMENT_AUTH +"create-token/success",
+                .andDo(document(DOCUMENT_AUTH +"success",
                         requestHeaders(
                                 headerWithName(ACCEPT).description("accept"),
                                 headerWithName(CONTENT_TYPE).description("content type")

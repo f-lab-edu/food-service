@@ -28,7 +28,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @SpringBootTest
 @Transactional
-public class SuperApiTest {
+public class SuperIntegrationTest {
     @Autowired
     private WebApplicationContext context;
 

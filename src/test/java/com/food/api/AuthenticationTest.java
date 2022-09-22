@@ -1,6 +1,6 @@
-package com.food.app;
+package com.food.api;
 
-import com.food.SuperApiTest;
+import com.food.SuperIntegrationTest;
 import com.food.auth.filter.dto.AuthenticatedUser;
 import com.food.auth.provider.AccessTokenProvider;
 import com.food.auth.provider.dto.AccessToken;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-public class AuthenticationTest extends SuperApiTest {
+public class AuthenticationTest extends SuperIntegrationTest {
     @Autowired
     private AccessTokenProvider provider;
 
