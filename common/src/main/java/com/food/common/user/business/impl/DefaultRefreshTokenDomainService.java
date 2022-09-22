@@ -2,7 +2,8 @@ package com.food.common.user.business.impl;
 
 import com.food.common.user.business.RefreshTokenDomainService;
 import com.food.common.user.business.UserDomainService;
-import com.food.common.user.business.dto.response.refreshTokenDomain.IssuedRefreshToken;
+import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenFound;
+import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenCreate;
 import com.food.common.user.domain.RefreshToken;
 import com.food.common.user.domain.User;
 import com.food.common.user.repository.RefreshTokenRepository;
@@ -16,12 +17,12 @@ public class DefaultRefreshTokenDomainService implements RefreshTokenDomainServi
     private final UserDomainService userDomainService;
 
     @Override
-    public IssuedRefreshToken issue(Long userId) {
+    public RefreshTokenCreate create(Long userId) {
         User user = userDomainService.findEntityById(userId);
         String tokenValue = createTokenValue();
         RefreshToken savedRefreshToken = refreshTokenRepository.save(RefreshToken.create(tokenValue, user));
 
-        return new IssuedRefreshToken(savedRefreshToken);
+        return new RefreshTokenCreate(savedRefreshToken);
     }
 
     private String createTokenValue() {
@@ -31,5 +32,13 @@ public class DefaultRefreshTokenDomainService implements RefreshTokenDomainServi
         }
 
         return tokenValue;
+    }
+
+    @Override
+    public RefreshTokenFound findByValue(String refreshTokenValue) {
+        RefreshToken refreshToken = refreshTokenRepository.findById(refreshTokenValue)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리프레시 토큰입니다. refreshToken=" + refreshTokenValue));;
+
+        return new RefreshTokenFound(refreshToken);
     }
 }

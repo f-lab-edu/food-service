@@ -1,6 +1,5 @@
 package com.food.common.apiResult;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,19 +7,18 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class SuccessResult extends ApiResult {
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Object content;
+public class SuccessResult<T> extends ApiResult {
+    private T content;
 
-    public static SuccessResult createResult() {
-        SuccessResult result = new SuccessResult();
+    public static SuccessResult<Void> createResult() {
+        SuccessResult<Void> result = new SuccessResult<>();
         result.success();
 
         return result;
     }
 
-    public static SuccessResult createResult(Object content) {
-        SuccessResult result = new SuccessResult();
+    public static <T> SuccessResult<T> createResult(T content) {
+        SuccessResult<T> result = new SuccessResult<>();
         result.success();
         result.content = content;
 

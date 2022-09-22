@@ -15,18 +15,20 @@ import org.springframework.stereotype.Service;
 //TODO 클래스명 다시 정하기
 @RequiredArgsConstructor
 @Service
-public class DefaultTokenIssueService {
+public class DefaultLoginService {
     private final AccessTokenProvider accessTokenProvider;
     private final RefreshTokenDomainService refreshTokenService;
     private final DefaultAccountDomainService accountDomainService;
 
     public TokenIssueResponse login(LoginRequest request) {
-
+        FoundUser user = request.isAppLogin() ?
+                authenticateAppUser(request.getLoginId(), request.getPassword()) :
+                authenticateSocialUser(request.getLoginId());
 
         return TokenIssueResponse.builder()
-                .accessToken(accessTokenProvider.create(userId))
-                .refreshToken(refreshTokenService.create(userId))
-                .userId(userId)
+                .accessToken(accessTokenProvider.create(user.getId()))
+                .refreshToken(refreshTokenService.create(user.getId()))
+                .userId(user.getId())
                 .build();
     }
 

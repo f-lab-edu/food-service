@@ -41,7 +41,7 @@ public class AuthenticationTest extends SuperApiTest {
         User user = userRepository.save(User.create("username"));
         AppAccount account = appAccountRepository.save(AppAccount.create("testuser@email.com", "password", user));
 
-        AccessToken accessToken = provider.create(new AuthenticatedUser(new AccountFindResponse(new FoundAppAccount(account, new FoundUser(user, Role.CUSTOMER)))));
+        AccessToken accessToken = provider.create(new AuthenticatedUser(new AccountFindResponse(new FoundAppAccount(account, new FoundUser(user, Role.CUSTOMER)))).getUserId());
 
         mvc.perform(get("/manage/stores")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken.getValue()))
@@ -57,7 +57,7 @@ public class AuthenticationTest extends SuperApiTest {
         AppAccount account = appAccountRepository.save(AppAccount.create("testuser@email.com", "password", user));
 
         AuthenticatedUser authenticatedUser = new AuthenticatedUser(new AccountFindResponse(new FoundAppAccount(account, new FoundUser(user, Role.CUSTOMER))));
-        AccessToken accessToken = provider.create(authenticatedUser);
+        AccessToken accessToken = provider.create(authenticatedUser.getUserId());
 
         mvc.perform(get("/users/manage")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken.getValue()))
@@ -73,7 +73,7 @@ public class AuthenticationTest extends SuperApiTest {
         StoreOwner storeOwner = storeOwnerRepository.save(StoreOwner.create(user));
 
         AuthenticatedUser authenticatedUser = new AuthenticatedUser(new AccountFindResponse(new FoundAppAccount(account, new FoundUser(user, Role.STORE_OWNER))));
-        AccessToken accessToken = provider.create(authenticatedUser);
+        AccessToken accessToken = provider.create(authenticatedUser.getUserId());
 
         mvc.perform(get("/users/manage")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken.getValue()))

@@ -1,7 +1,7 @@
 package com.food.auth.presentation.dto;
 
 import com.food.auth.provider.dto.AccessToken;
-import com.food.common.user.business.dto.response.refreshTokenDomain.IssuedRefreshToken;
+import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenCreate;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +12,7 @@ public class TokenIssueResponse {
     private final Long userId;
 
     @Builder
-    public TokenIssueResponse(AccessToken accessToken, IssuedRefreshToken refreshToken, Long userId) {
+    public TokenIssueResponse(AccessToken accessToken, RefreshTokenCreate refreshToken, Long userId) {
         this.accessToken = accessToken.getValue();
         this.refreshToken = refreshToken.getValue();
         this.userId = userId;

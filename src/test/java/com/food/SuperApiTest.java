@@ -1,5 +1,15 @@
 package com.food;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.food.common.user.domain.AppAccount;
+import com.food.common.user.domain.User;
+import com.food.common.user.repository.AppAccountRepository;
+import com.food.common.user.repository.UserRepository;
+import com.food.mock.user.MockAppAccount;
+import com.food.mock.user.MockUser;
+import lombok.Getter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +34,47 @@ public class SuperApiTest {
 
     protected MockMvc mvc;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AppAccountRepository appAccountRepository;
+
+    protected final ObjectMapper objectMapper = new ObjectMapper();
+
     @BeforeEach
-    void setup(RestDocumentationContextProvider restDocumentation) {
+    protected void setup(RestDocumentationContextProvider restDocumentation) {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(documentationConfiguration(restDocumentation))
                 .apply(springSecurity())
                 .build();
+
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+    }
+
+    protected MockAccount createMockAccount() {
+        User mockUser = MockUser.builder().build();
+        Long userId = userRepository.save(mockUser).getId();
+        AppAccount account = MockAppAccount.builder()
+                .user(mockUser)
+                .build();
+        appAccountRepository.save(account);
+
+        return new MockAccount(account.getLoginId(), account.getPassword(), userId);
+    }
+
+    @Getter
+    protected static class MockAccount {
+        private String loginId;
+        private String password;
+        private Long userId;
+
+        public MockAccount(String loginId, String password, Long userId) {
+            this.loginId = loginId;
+            this.password = password;
+            this.userId = userId;
+        }
     }
 }

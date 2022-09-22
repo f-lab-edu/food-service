@@ -1,7 +1,9 @@
 package com.food.common.user.business;
 
-import com.food.common.user.business.dto.response.refreshTokenDomain.IssuedRefreshToken;
+import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenFound;
+import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenCreate;
 
 public interface RefreshTokenDomainService {
-    IssuedRefreshToken issue(Long userId);
+    RefreshTokenCreate create(Long userId);
+    RefreshTokenFound findByValue(String refreshTokenValue);
 }

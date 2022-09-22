@@ -1,7 +1,7 @@
 package com.food.user.business;
 
-import com.food.common.user.business.AccountFindService;
 import com.food.common.user.business.AccountDomainService;
+import com.food.common.user.business.AccountFindService;
 import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
 import com.food.common.user.business.dto.response.accountDomain.FoundSocialAccount;
 import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
@@ -22,7 +22,7 @@ public class DefaultAccountFindService implements AccountFindService {
             return new AccountFindResponse(foundAppAccount.get());
         }
 
-        Optional<FoundSocialAccount> foundSocialAccount = accountDomainService.findSocialAccountByUserId(userId);
+        Optional<FoundSocialAccount> foundSocialAccount = accountDomainService.findSocialUserIdByUserId(userId);
         if (foundSocialAccount.isPresent()) {
             return new AccountFindResponse(foundSocialAccount.get());
         }

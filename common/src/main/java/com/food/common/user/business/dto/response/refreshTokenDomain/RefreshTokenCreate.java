@@ -6,12 +6,12 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class IssuedRefreshToken {
+public class RefreshTokenCreate {
     private final String value;
     private final LocalDateTime issuedDate;
     private final LocalDateTime expiredDate;
 
-    public IssuedRefreshToken(RefreshToken refreshToken) {
+    public RefreshTokenCreate(RefreshToken refreshToken) {
         this.value = refreshToken.getValue();
         this.issuedDate = refreshToken.getIssuedDate();
         this.expiredDate = refreshToken.getExpiredDate();
