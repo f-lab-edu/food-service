@@ -1,0 +1,10 @@
+= Api Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 1
+:sectlinks:
+:docinfo: shared-head
+
+include::/{docfile}/../content/1_common.adoc[]
