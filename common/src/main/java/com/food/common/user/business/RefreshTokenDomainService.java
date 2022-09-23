@@ -6,4 +6,5 @@ import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshToke
 public interface RefreshTokenDomainService {
     RefreshTokenCreate create(Long userId);
     RefreshTokenFound findByValue(String refreshTokenValue);
+    void delete(Long userId);
 }

@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class LoginApiTest extends SuperIntegrationTest {
+public class TokenIssueApiTest extends SuperIntegrationTest {
     private final String DOCUMENT_AUTH = "auth/create-token/";
     private MockAccount account;
 

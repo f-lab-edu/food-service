@@ -38,7 +38,7 @@ public class TokenRenewApiTest extends SuperIntegrationTest {
     }
 
     @Test
-    void shouldIssueToken() throws Exception {
+    void shouldRenewToken() throws Exception {
         mvc.perform(put("/auth/renew")
                         .header(ACCEPT, APPLICATION_JSON_VALUE)
                         .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)

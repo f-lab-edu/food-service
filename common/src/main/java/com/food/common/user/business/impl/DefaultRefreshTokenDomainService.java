@@ -41,4 +41,10 @@ public class DefaultRefreshTokenDomainService implements RefreshTokenDomainServi
 
         return new RefreshTokenFound(refreshToken);
     }
+
+    @Override
+    public void delete(Long userId) {
+        User user = userDomainService.findEntityById(userId);
+        refreshTokenRepository.deleteByUser(user);
+    }
 }

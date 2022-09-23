@@ -12,11 +12,12 @@ import com.food.common.user.business.dto.response.userDomain.FoundUser;
 import com.food.common.user.business.impl.DefaultAccountDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-//TODO 클래스명 다시 정하기
+@Transactional
 @RequiredArgsConstructor
 @Service
-public class DefaultLoginService {
+public class LoginService {
     private final AccessTokenProvider accessTokenProvider;
     private final RefreshTokenDomainService refreshTokenService;
     private final DefaultAccountDomainService accountDomainService;
@@ -61,6 +62,10 @@ public class DefaultLoginService {
         return TokenRenewResponse.builder()
                 .accessToken(accessTokenProvider.create(refreshToken.getOwnerId()))
                 .build();
+    }
+
+    public void logout(Long userId) {
+        refreshTokenService.delete(userId);
     }
 
 }
