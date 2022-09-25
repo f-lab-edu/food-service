@@ -1,10 +1,9 @@
-package com.food.common.user.business.impl;
+package com.food.common.user.business.external.impl;
 
-import com.food.common.user.business.AccountDomainService;
-import com.food.common.user.business.UserDomainService;
-import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
-import com.food.common.user.business.dto.response.accountDomain.FoundSocialAccount;
-import com.food.common.user.business.dto.response.userDomain.FoundUser;
+import com.food.common.user.business.external.AccountCommonService;
+import com.food.common.user.business.external.dto.AppAccountDto;
+import com.food.common.user.business.external.dto.SocialAccountDto;
+import com.food.common.user.business.internal.UserEntityService;
 import com.food.common.user.domain.AppAccount;
 import com.food.common.user.domain.SocialAccount;
 import com.food.common.user.domain.User;
@@ -19,13 +18,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class DefaultAccountDomainService implements AccountDomainService {
+public class DefaultAccountCommonService implements AccountCommonService {
     private final AppAccountRepository appAccountRepository;
     private final SocialAccountRepository socialAccountRepository;
-    private final UserDomainService userDomainService;
+    private final UserEntityService userEntityService;
 
-    public Optional<FoundAppAccount> findAppAccountByUserId(Long userId) {
-        User user = findUser(userId);
+    public Optional<AppAccountDto> findAppAccountByUserId(Long userId) {
+        User user = userEntityService.findById(userId);
 
         Optional<AppAccount> optionalAccount = appAccountRepository.findByUser(user);
         if (optionalAccount.isEmpty()) {
@@ -33,11 +32,11 @@ public class DefaultAccountDomainService implements AccountDomainService {
         }
 
         AppAccount account = optionalAccount.get();
-        return Optional.of(new FoundAppAccount(account, getFoundUser(user)));
+        return Optional.of(new AppAccountDto(account));
     }
 
-    public Optional<FoundSocialAccount> findSocialUserIdByUserId(Long userId) {
-        User user = findUser(userId);
+    public Optional<SocialAccountDto> findSocialUserIdByUserId(Long userId) {
+        User user = userEntityService.findById(userId);
 
         Optional<SocialAccount> optionalAccount = socialAccountRepository.findByUser(user);
         if (optionalAccount.isEmpty()) {
@@ -45,34 +44,25 @@ public class DefaultAccountDomainService implements AccountDomainService {
         }
 
         SocialAccount account = optionalAccount.get();
-        return Optional.of(new FoundSocialAccount(account, getFoundUser(user)));
+        return Optional.of(new SocialAccountDto(account));
     }
 
     @Override
-    public Optional<FoundAppAccount> findAppAccountByLoginId(String loginId) {
+    public Optional<AppAccountDto> findAppAccountByLoginId(String loginId) {
         Optional<AppAccount> optionalAccount = appAccountRepository.findByLoginId(loginId);
 
         if (optionalAccount.isEmpty()) return Optional.empty();
 
         AppAccount account = optionalAccount.get();
-        return Optional.of(new FoundAppAccount(account, getFoundUser(account.getUser())));
+        return Optional.of(new AppAccountDto(account));
     }
 
     @Override
-    public Optional<FoundSocialAccount> findSocialAccountByLoginId(String loginId) {
+    public Optional<SocialAccountDto> findSocialAccountByLoginId(String loginId) {
         Optional<SocialAccount> optionalAccount = socialAccountRepository.findByLoginId(loginId);
         if (optionalAccount.isEmpty()) return Optional.empty();
 
         SocialAccount account = optionalAccount.get();
-        return Optional.of(new FoundSocialAccount(account, getFoundUser(account.getUser())));
-    }
-
-
-    private FoundUser getFoundUser(User user) {
-        return userDomainService.getFoundUser(user);
-    }
-
-    private User findUser(Long userId) {
-        return userDomainService.findEntityById(userId);
+        return Optional.of(new SocialAccountDto(account));
     }
 }

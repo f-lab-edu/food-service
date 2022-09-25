@@ -1,6 +1,6 @@
-package com.food.common.user.business;
+package com.food.common.user.business.service;
 
-import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
+import com.food.common.user.business.service.response.accountFind.AccountFindResponse;
 
 import javax.validation.constraints.NotNull;
 

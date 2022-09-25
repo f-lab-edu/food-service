@@ -1,6 +1,6 @@
 package com.food.auth.business;
 
-import com.food.common.user.business.AuthenticatedUserFindService;
+import com.food.common.user.business.service.AuthenticatedUserFindService;
 import com.food.common.user.dto.RequestUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

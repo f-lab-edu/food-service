@@ -5,6 +5,6 @@ import com.food.common.user.domain.User;
 
 import java.util.Optional;
 
-public interface StoreOwnerDomainService {
+public interface StoreOwnerEntityService {
     Optional<StoreOwner> findByUser(User user);
 }
