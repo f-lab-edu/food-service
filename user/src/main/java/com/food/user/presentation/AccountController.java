@@ -3,7 +3,7 @@ package com.food.user.presentation;
 import com.food.common.annotation.ApiFor;
 import com.food.common.apiResult.ApiResult;
 import com.food.common.apiResult.SuccessResult;
-import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
+import com.food.common.user.business.service.response.accountFind.AccountFindResponse;
 import com.food.common.user.enumeration.Role;
 import com.food.user.business.DefaultAccountFindService;
 import lombok.RequiredArgsConstructor;

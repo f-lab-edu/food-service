@@ -1,9 +1,8 @@
-package com.food.common.user.business.impl;
+package com.food.common.user.business.external.impl;
 
-import com.food.common.user.business.RefreshTokenDomainService;
-import com.food.common.user.business.UserDomainService;
-import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenFound;
-import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenCreate;
+import com.food.common.user.business.external.RefreshTokenCommonService;
+import com.food.common.user.business.external.dto.RefreshTokenDto;
+import com.food.common.user.business.internal.UserEntityService;
 import com.food.common.user.domain.RefreshToken;
 import com.food.common.user.domain.User;
 import com.food.common.user.repository.RefreshTokenRepository;
@@ -12,17 +11,17 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class DefaultRefreshTokenDomainService implements RefreshTokenDomainService {
+public class DefaultRefreshTokenCommonService implements RefreshTokenCommonService {
     private final RefreshTokenRepository refreshTokenRepository;
-    private final UserDomainService userDomainService;
+    private final UserEntityService userEntityService;
 
     @Override
-    public RefreshTokenCreate create(Long userId) {
-        User user = userDomainService.findEntityById(userId);
+    public RefreshTokenDto create(Long userId) {
+        User user = userEntityService.findById(userId);
         String tokenValue = createTokenValue();
         RefreshToken savedRefreshToken = refreshTokenRepository.save(RefreshToken.create(tokenValue, user));
 
-        return new RefreshTokenCreate(savedRefreshToken);
+        return new RefreshTokenDto(savedRefreshToken);
     }
 
     private String createTokenValue() {
@@ -35,16 +34,16 @@ public class DefaultRefreshTokenDomainService implements RefreshTokenDomainServi
     }
 
     @Override
-    public RefreshTokenFound findByValue(String refreshTokenValue) {
+    public RefreshTokenDto findByValue(String refreshTokenValue) {
         RefreshToken refreshToken = refreshTokenRepository.findById(refreshTokenValue)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리프레시 토큰입니다. refreshToken=" + refreshTokenValue));;
 
-        return new RefreshTokenFound(refreshToken);
+        return new RefreshTokenDto(refreshToken);
     }
 
     @Override
     public void delete(Long userId) {
-        User user = userDomainService.findEntityById(userId);
+        User user = userEntityService.findById(userId);
         refreshTokenRepository.deleteByUser(user);
     }
 }

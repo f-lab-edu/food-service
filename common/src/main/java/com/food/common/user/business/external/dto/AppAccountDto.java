@@ -1,19 +1,20 @@
-package com.food.common.user.business.dto.response.accountDomain;
+package com.food.common.user.business.external.dto;
 
 import com.food.common.user.domain.AppAccount;
-import com.food.common.user.business.dto.response.userDomain.FoundUser;
 import lombok.Getter;
 
 @Getter
-public class FoundAppAccount {
+public class AppAccountDto {
+    private Long id;
     private String loginId;
     private String password;
-    private FoundUser user;
+    private UserDto user;
 
-    public FoundAppAccount(AppAccount account, FoundUser user) {
+    public AppAccountDto(AppAccount account) {
+        this.id = account.getId();
         this.loginId = account.getLoginId();
         this.password = account.getPassword();
-        this.user = user;
+        this.user = new UserDto(account.getUser());
     }
 
     public boolean matchesPassword(String password) {

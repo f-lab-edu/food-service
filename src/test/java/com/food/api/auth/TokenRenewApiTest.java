@@ -1,8 +1,8 @@
 package com.food.api.auth;
 
 import com.food.SuperIntegrationTest;
-import com.food.common.user.business.RefreshTokenDomainService;
-import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenCreate;
+import com.food.common.user.business.external.RefreshTokenCommonService;
+import com.food.common.user.business.external.dto.RefreshTokenDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +26,14 @@ public class TokenRenewApiTest extends SuperIntegrationTest {
     private String refreshToken;
 
     @Autowired
-    private RefreshTokenDomainService loginService;
+    private RefreshTokenCommonService loginService;
 
     @BeforeEach
     protected void setup(RestDocumentationContextProvider restDocumentation) {
         super.setup(restDocumentation);
 
         MockAccount mockAccount = createMockAccount();
-        RefreshTokenCreate refreshTokenCreated = loginService.create(mockAccount.getUserId());
+        RefreshTokenDto refreshTokenCreated = loginService.create(mockAccount.getUserId());
         refreshToken = refreshTokenCreated.getValue();
     }
 
