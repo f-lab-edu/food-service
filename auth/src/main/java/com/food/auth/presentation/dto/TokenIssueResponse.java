@@ -1,7 +1,7 @@
 package com.food.auth.presentation.dto;
 
 import com.food.auth.provider.dto.AccessToken;
-import com.food.common.user.business.dto.response.refreshTokenDomain.RefreshTokenCreate;
+import com.food.common.user.business.external.dto.RefreshTokenDto;
 import lombok.Builder;
 import lombok.Getter;
 

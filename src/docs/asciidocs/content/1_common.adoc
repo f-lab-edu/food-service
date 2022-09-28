@@ -1,0 +1,47 @@
+== 1. 공통 (Common)
+
+[%hardbreaks]
+<<Http-Message-Description>>
+<<Common-Response-Form>>
+
+[#Http-Message-Description]
+=== 1-1. HTTP 메시지 설명 Title
+|===
+|Title|Description
+|`+HTTP Request+`
+|HTTP 요청 메시지 예시
+
+|`+Request Header+`
+|Http 요청메시지 Header
+
+|`+Path Parameter+`
+|URI에 포함되는 데이터 +
+ex) /api/posts/`1`
+
+|`+Request Parameter+`
+|URI 뒤에 쿼리 스트링 데이터 +
+ex) /api/posts?`search=abc`
+
+|`+Request Parts+`
+|multipart로 전송시 file/text 데이터
+
+|`+Request Fields+`
+|Request Body
+
+|`+HTTP Response+`
+|HTTP 응답 메시지 예시
+
+|`+Response Fields+`
+|Response Body
+
+|`+Response fields-content+`
+|Response body의 content에 포함되어 있는 데이터들
+|===
+
+
+[#Common-Response-Form]
+=== 1-2. 공통 응답 형식
+==== 성공 케이스
+operation::common/result/success[snippets='response-fields']
+==== 실패 케이스
+operation::common/result/failure[snippets='response-fields']

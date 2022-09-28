@@ -1,7 +1,6 @@
 package com.food.auth.filter.dto;
 
-import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
-import com.food.common.user.business.dto.response.userDomain.FoundUser;
+import com.food.common.user.business.service.response.accountFind.AccountFindResponse;
 import com.food.common.user.dto.RequestUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,10 +54,5 @@ public class AuthenticatedUser implements UserDetails, RequestUser {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public FoundUser getUser() {
-        return account.getUser();
     }
 }

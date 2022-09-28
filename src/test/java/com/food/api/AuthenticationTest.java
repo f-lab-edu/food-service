@@ -4,10 +4,8 @@ import com.food.SuperIntegrationTest;
 import com.food.auth.filter.dto.AuthenticatedUser;
 import com.food.auth.provider.AccessTokenProvider;
 import com.food.auth.provider.dto.AccessToken;
-import com.food.common.store.domain.StoreOwner;
-import com.food.common.user.business.dto.response.accountDomain.FoundAppAccount;
-import com.food.common.user.business.dto.response.accountFind.AccountFindResponse;
-import com.food.common.user.business.dto.response.userDomain.FoundUser;
+import com.food.common.user.business.external.dto.AppAccountDto;
+import com.food.common.user.business.service.response.accountFind.AccountFindResponse;
 import com.food.common.user.domain.AppAccount;
 import com.food.common.user.domain.User;
 import com.food.common.user.enumeration.Role;
@@ -41,44 +39,13 @@ public class AuthenticationTest extends SuperIntegrationTest {
         User user = userRepository.save(User.create("username"));
         AppAccount account = appAccountRepository.save(AppAccount.create("testuser@email.com", "password", user));
 
-        AccessToken accessToken = provider.create(new AuthenticatedUser(new AccountFindResponse(new FoundAppAccount(account, new FoundUser(user, Role.CUSTOMER)))).getUserId());
+        AccessToken accessToken = provider.create(new AuthenticatedUser(new AccountFindResponse(new AppAccountDto(account), Role.STORE_OWNER)).getUserId());
 
         mvc.perform(get("/manage/stores")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken.getValue()))
                 .andExpect(status().isNotFound())
                 .andDo(print())
 
-        ;
-    }
-
-    @Test
-    void fail_authorization() throws Exception {
-        User user = userRepository.save(User.create("username"));
-        AppAccount account = appAccountRepository.save(AppAccount.create("testuser@email.com", "password", user));
-
-        AuthenticatedUser authenticatedUser = new AuthenticatedUser(new AccountFindResponse(new FoundAppAccount(account, new FoundUser(user, Role.CUSTOMER))));
-        AccessToken accessToken = provider.create(authenticatedUser.getUserId());
-
-        mvc.perform(get("/users/manage")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken.getValue()))
-                .andDo(print())
-                .andExpect(status().isForbidden())
-        ;
-    }
-
-    @Test
-    void success_authorization() throws Exception {
-        User user = userRepository.save(User.create("username"));
-        AppAccount account = appAccountRepository.save(AppAccount.create("testuser@email.com", "password", user));
-        StoreOwner storeOwner = storeOwnerRepository.save(StoreOwner.create(user));
-
-        AuthenticatedUser authenticatedUser = new AuthenticatedUser(new AccountFindResponse(new FoundAppAccount(account, new FoundUser(user, Role.STORE_OWNER))));
-        AccessToken accessToken = provider.create(authenticatedUser.getUserId());
-
-        mvc.perform(get("/users/manage")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken.getValue()))
-                .andDo(print())
-                .andExpect(status().isNoContent())
         ;
     }
 }
