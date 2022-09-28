@@ -14,7 +14,7 @@ public class TokenIssueResponse {
     private final String loginId;
 
     @Builder
-    public TokenIssueResponse(AccessToken accessToken, RefreshTokenCreate refreshToken, Long userId, String nickname, String loginId) {
+    public TokenIssueResponse(AccessToken accessToken, RefreshTokenDto refreshToken, Long userId, String nickname, String loginId) {
         this.accessToken = accessToken.getValue();
         this.refreshToken = refreshToken.getValue();
         this.userId = userId;

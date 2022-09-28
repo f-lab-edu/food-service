@@ -8,3 +8,4 @@
 :docinfo: shared-head
 
 include::/{docfile}/../content/1_common.adoc[]
+include::/{docfile}/../content/2_auth.adoc[]

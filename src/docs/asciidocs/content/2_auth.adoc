@@ -1,0 +1,8 @@
+== 2. 로그인 (Auth)
+
+[%hardbreaks]
+<<Login>>
+
+[#Login]
+=== 2-1. 로그인하기
+operation::auth/create-token/success[snippets='http-request,request-headers,request-fields,http-response,response-fields-content']

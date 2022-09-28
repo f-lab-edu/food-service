@@ -14,4 +14,12 @@ public class SocialAccountDto {
         this.loginId = account.getLoginId();
         this.user = new UserDto(account.getUser());
     }
+
+    public String getNicknameOfUser() {
+        return user.getNickname();
+    }
+
+    public Long getUserId() {
+        return user.getId();
+    }
 }

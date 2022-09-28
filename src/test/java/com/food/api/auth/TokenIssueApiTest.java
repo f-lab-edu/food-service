@@ -60,7 +60,9 @@ public class TokenIssueApiTest extends SuperIntegrationTest {
                                 beneathPath("content").withSubsectionId("content"),
                                 fieldWithPath("accessToken").type(STRING).description("엑세스 토큰 값"),
                                 fieldWithPath("refreshToken").type(STRING).description("리프레시 토큰 값"),
-                                fieldWithPath("userId").type(NUMBER).description("로그인 유저 고유번호")
+                                fieldWithPath("userId").type(NUMBER).description("로그인 유저 고유번호"),
+                                fieldWithPath("nickname").type(STRING).description("로그인 유저의 닉네임"),
+                                fieldWithPath("loginId").type(STRING).description("로그인 아이디")
                         )
                 ))
         ;

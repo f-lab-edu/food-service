@@ -1,14 +1,14 @@
 package com.food.auth.business;
 
+import com.food.auth.business.dto.AuthenticatedAccountInfo;
 import com.food.auth.presentation.dto.LoginRequest;
 import com.food.auth.presentation.dto.TokenIssueResponse;
 import com.food.auth.presentation.dto.TokenRenewResponse;
 import com.food.auth.provider.AccessTokenProvider;
 import com.food.common.user.business.external.RefreshTokenCommonService;
 import com.food.common.user.business.external.dto.AppAccountDto;
-import com.food.common.user.business.external.dto.SocialAccountDto;
 import com.food.common.user.business.external.dto.RefreshTokenDto;
-import com.food.common.user.business.external.dto.UserDto;
+import com.food.common.user.business.external.dto.SocialAccountDto;
 import com.food.common.user.business.external.impl.DefaultAccountCommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,18 +23,20 @@ public class LoginService {
     private final DefaultAccountCommonService accountDomainService;
 
     public TokenIssueResponse login(LoginRequest request) {
-        UserDto user = request.isAppLogin() ?
+        AuthenticatedAccountInfo user = request.isAppLogin() ?
                 authenticateAppUser(request.getLoginId(), request.getPassword()) :
                 authenticateSocialUser(request.getLoginId());
 
         return TokenIssueResponse.builder()
-                .accessToken(accessTokenProvider.create(user.getId()))
-                .refreshToken(refreshTokenService.create(user.getId()))
-                .userId(user.getId())
+                .accessToken(accessTokenProvider.create(user.getUserId()))
+                .refreshToken(refreshTokenService.create(user.getUserId()))
+                .userId(user.getUserId())
+                .nickname(user.getNickname())
+                .loginId(user.getLoginId())
                 .build();
     }
 
-    private UserDto authenticateAppUser(String loginId, String password) {
+    private AuthenticatedAccountInfo authenticateAppUser(String loginId, String password) {
         AppAccountDto appAccountDto = accountDomainService.findAppAccountByLoginId(loginId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 ID입니다. ID=" + loginId));
 
@@ -42,16 +44,15 @@ public class LoginService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        return appAccountDto.getUser();
+        return new AuthenticatedAccountInfo(appAccountDto);
     }
 
-    private UserDto authenticateSocialUser(String loginId) {
+    private AuthenticatedAccountInfo authenticateSocialUser(String loginId) {
         SocialAccountDto socialAccountDto = accountDomainService.findSocialAccountByLoginId(loginId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 ID입니다. ID=" + loginId));
 
-        return socialAccountDto.getUser();
+        return new AuthenticatedAccountInfo(socialAccountDto);
     }
-
 
     public TokenRenewResponse renew(String refreshTokenValue) {
         RefreshTokenDto refreshToken = refreshTokenService.findByValue(refreshTokenValue);

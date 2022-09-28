@@ -20,4 +20,12 @@ public class AppAccountDto {
     public boolean matchesPassword(String password) {
         return this.password.equals(password);
     }
+
+    public String getNicknameOfUser() {
+        return user.getNickname();
+    }
+
+    public Long getUserId() {
+        return user.getId();
+    }
 }
