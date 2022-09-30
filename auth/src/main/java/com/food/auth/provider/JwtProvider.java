@@ -1,6 +1,5 @@
 package com.food.auth.provider;
 
-import com.food.auth.filter.dto.AuthenticatedUser;
 import com.food.auth.provider.dto.AccessToken;
 import com.food.auth.provider.dto.AccessTokenContent;
 import com.food.auth.provider.dto.AccessTokenValidationResult;
@@ -16,11 +15,11 @@ public class JwtProvider implements AccessTokenProvider {
     private final String SECRET_KEY = "testKey";
 
     @Override
-    public AccessToken create(AuthenticatedUser authenticatedUser) {
+    public AccessToken create(Long userId) {
         LocalDateTime issuedDate = LocalDateTime.now();
         LocalDateTime expiredDate = issuedDate.plusMinutes(10);
 
-        Claims claims = Jwts.claims().setSubject(String.valueOf(authenticatedUser.getUserId()));
+        Claims claims = Jwts.claims().setSubject(String.valueOf(userId));
 
         String accessToken = Jwts.builder()
                 .setClaims(claims)

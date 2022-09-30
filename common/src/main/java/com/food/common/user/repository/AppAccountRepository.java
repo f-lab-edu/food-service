@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface AppAccountRepository extends JpaRepository<AppAccount, Long> {
     Optional<AppAccount> findByUser(User user);
+    Optional<AppAccount> findByLoginId(String loginId);
 }
