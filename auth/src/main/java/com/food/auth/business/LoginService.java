@@ -5,11 +5,15 @@ import com.food.auth.presentation.dto.LoginRequest;
 import com.food.auth.presentation.dto.TokenIssueResponse;
 import com.food.auth.presentation.dto.TokenRenewResponse;
 import com.food.auth.provider.AccessTokenProvider;
+import com.food.common.user.business.external.AccountCommonService;
+import com.food.common.user.business.external.LogInOutLogCommonService;
 import com.food.common.user.business.external.RefreshTokenCommonService;
 import com.food.common.user.business.external.dto.AppAccountDto;
+import com.food.common.user.business.external.dto.LogInOutLogRequest;
 import com.food.common.user.business.external.dto.RefreshTokenDto;
 import com.food.common.user.business.external.dto.SocialAccountDto;
-import com.food.common.user.business.external.impl.DefaultAccountCommonService;
+import com.food.common.user.dto.RequestUser;
+import com.food.common.user.enumeration.AccountType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginService {
     private final AccessTokenProvider accessTokenProvider;
     private final RefreshTokenCommonService refreshTokenService;
-    private final DefaultAccountCommonService accountDomainService;
+    private final AccountCommonService accountCommonService;
+    private final LogInOutLogCommonService logInOutLogCommonService;
 
     public TokenIssueResponse login(LoginRequest request) {
         AuthenticatedAccountInfo user = request.isAppLogin() ?
@@ -37,19 +42,23 @@ public class LoginService {
     }
 
     private AuthenticatedAccountInfo authenticateAppUser(String loginId, String password) {
-        AppAccountDto appAccountDto = accountDomainService.findAppAccountByLoginId(loginId)
+        AppAccountDto appAccountDto = accountCommonService.findAppAccountByLoginId(loginId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 ID입니다. ID=" + loginId));
 
         if (!appAccountDto.matchesPassword(password)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
+        logInOutLogCommonService.saveLoginLog(LogInOutLogRequest.createLoginLog(appAccountDto.getId(), AccountType.APP));
+
         return new AuthenticatedAccountInfo(appAccountDto);
     }
 
     private AuthenticatedAccountInfo authenticateSocialUser(String loginId) {
-        SocialAccountDto socialAccountDto = accountDomainService.findSocialAccountByLoginId(loginId)
+        SocialAccountDto socialAccountDto = accountCommonService.findSocialAccountByLoginId(loginId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 ID입니다. ID=" + loginId));
+
+        logInOutLogCommonService.saveLoginLog(LogInOutLogRequest.createLoginLog(socialAccountDto.getId(), AccountType.APP));
 
         return new AuthenticatedAccountInfo(socialAccountDto);
     }
@@ -65,8 +74,11 @@ public class LoginService {
                 .build();
     }
 
-    public void logout(Long userId) {
-        refreshTokenService.delete(userId);
+    public void logout(RequestUser requestUser) {
+        refreshTokenService.delete(requestUser.getUserId());
+
+        logInOutLogCommonService.saveLogoutLog(
+                LogInOutLogRequest.createLogoutLog(requestUser.getAccountId(), requestUser.getAccountType()));
     }
 
 }

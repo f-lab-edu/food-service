@@ -38,7 +38,7 @@ public class TokenController {
     @ApiFor(roles = {Role.CUSTOMER, Role.STORE_OWNER, Role.MANAGER})
     @PostMapping("/logout")
     public ResponseEntity<SuccessResult<Void>> logout(@Authenticated RequestUser requestUser) {
-        loginService.logout(requestUser.getUserId());
+        loginService.logout(requestUser);
         return ResponseEntity.ok(SuccessResult.createResult());
     }
 

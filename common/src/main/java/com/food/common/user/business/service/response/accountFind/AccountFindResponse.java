@@ -9,12 +9,14 @@ import lombok.Getter;
 @Getter
 public class AccountFindResponse {
     private AccountType accountType;
+    private Long accountId;
     private String loginId;
     private String password;
     private User user;
 
     public AccountFindResponse(AppAccountDto account, Role roleOfUser) {
         accountType = AccountType.APP;
+        accountId = account.getId();
         loginId = account.getLoginId();
         password = account.getPassword();
         user = new User(account.getUser().getId(), roleOfUser);
@@ -22,6 +24,7 @@ public class AccountFindResponse {
 
     public AccountFindResponse(SocialAccountDto account, Role roleOfUser) {
         accountType = AccountType.SOCIAL;
+        accountId = account.getId();
         loginId = account.getLoginId();
         user = new User(account.getUser().getId(), roleOfUser);
     }
@@ -32,6 +35,10 @@ public class AccountFindResponse {
 
     public Role getRole() {
         return user.getRole();
+    }
+
+    public Long getAccountId() {
+        return accountId;
     }
 
     @Getter

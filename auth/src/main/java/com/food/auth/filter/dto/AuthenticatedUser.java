@@ -2,6 +2,7 @@ package com.food.auth.filter.dto;
 
 import com.food.common.user.business.service.response.accountFind.AccountFindResponse;
 import com.food.common.user.dto.RequestUser;
+import com.food.common.user.enumeration.AccountType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +19,17 @@ public class AuthenticatedUser implements UserDetails, RequestUser {
     public Long getUserId() {
         return account.getUserId();
     }
+
+    @Override
+    public Long getAccountId() {
+        return account.getAccountId();
+    }
+
+    @Override
+    public AccountType getAccountType() {
+        return account.getAccountType();
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
