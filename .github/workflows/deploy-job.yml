@@ -17,4 +17,4 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Build Common & User Modules
-        run: cd ./common && mvn install && cd ../user && mvn package
+        run: cd ./common && mvn install && cd ../user && mvn package && cd ../auth && mvn package
