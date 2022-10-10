@@ -16,8 +16,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-#      - name: Make build.sh executable
-#        run: chmod +x ./build.sh
-      - name: Build with Maven
-        run: cd common && mvn package && cd ../user && mvn package && cd ../auth && mvn package && cd ../store && mvn package && cd ../order && mvn package && cd .. && mvn package
-#        shell: bash
+      - name: Build Common Module
+        run: cd ./common && mvn package
+      - name: Build Common Module
+        run: cd ./user && mvn package
