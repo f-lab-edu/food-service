@@ -1,0 +1,14 @@
+on:
+  push:
+    branches:
+      - feature/create-dockerfile
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    name: deploying to surge
+    env:
+      spring.datasource.url: ${{secrets.APP_SETTING_DATASOURCE_URL}}
+      spring.datasource.username: ${{secrets.APP_SETTING_DATASOURCE_USERNAME}}
+      spring.datasource.password: ${{secrets.APP_SETTING_DATASOURCE_PASSWORD}}
+    steps:
+      - uses: actions/checkout@v2
