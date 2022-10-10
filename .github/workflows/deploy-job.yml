@@ -27,7 +27,7 @@ jobs:
       - name: Login to DockerHub
         run: docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password ${{secrets.DOCKERHUB_ACCESSTOKEN}}
       - name: Build and push
-        run: docker build olivejua/food-service .
+        run: docker build -t olivejua/food-service .
 
 #      - name: Set up QEMU
 #        uses: docker/setup-qemu-action@v2
