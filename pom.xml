@@ -42,17 +42,7 @@
     </dependency>
     <dependency>
       <groupId>com.food</groupId>
-      <artifactId>order</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.food</groupId>
       <artifactId>auth</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.food</groupId>
-      <artifactId>store</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
