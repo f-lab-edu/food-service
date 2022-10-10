@@ -16,10 +16,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      - name: Build User
-        run:  cd common && mvn clean install && cd ../user && mvn clean package
-#      - name: Make build.sh executable
-#        run: chmod +x ./build.sh
-#      - name: Build with Maven
-#        run: ./build.sh
-#        shell: bash
+      - name: Make build.sh executable
+        run: chmod +x ./build.sh
+      - name: Build with Maven
+        run: ./build.sh
+        shell: bash
