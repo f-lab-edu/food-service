@@ -1,5 +1,4 @@
 .idea
 src/main/resources/application-local.yml
-src/main/resources/application-prod.yml
 target
 src/main/resources/static/docs
