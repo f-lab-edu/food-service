@@ -181,3 +181,19 @@ create table tb_review_image
 );
 
 ALTER TABLE tb_review_image ADD PRIMARY KEY (review_id, image_id);
+
+create table tb_refresh_token
+(
+    token_value char(60) primary key,
+    owner bigint not null,
+    issued_date datetime not null,
+    expired_date datetime not null
+);
+
+create table tb_log_in_out_log
+(
+    account_id bigint auto_increment not null,
+    account_type varchar(30) not null,
+    log_type varchar(30) not null,
+    created_date datetime not null default now()
+);
