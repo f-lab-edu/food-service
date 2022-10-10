@@ -17,4 +17,5 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Build with Maven
-        run: mvn package
+        run: ./build.sh
+        shell: bash
