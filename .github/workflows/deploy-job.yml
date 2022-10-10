@@ -3,12 +3,18 @@ on:
     branches:
       - feature/create-dockerfile
 jobs:
-  deployment:
+  build:
     runs-on: ubuntu-latest
-    name: deploying to surge
     env:
       spring.datasource.url: ${{secrets.APP_SETTING_DATASOURCE_URL}}
       spring.datasource.username: ${{secrets.APP_SETTING_DATASOURCE_USERNAME}}
       spring.datasource.password: ${{secrets.APP_SETTING_DATASOURCE_PASSWORD}}
     steps:
       - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Build with Maven
+        run: mvn package
