@@ -1,7 +1,7 @@
 on:
-  push:
+  pull_request:
     branches:
-      - feature/create-app-module
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
