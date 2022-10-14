@@ -20,7 +20,7 @@ https://viewer.diagrams.net/?page-id=68PQAUWc9NsF2iRY7r9o&highlight=0000ff&edit=
 <img src="./docs/images/infra-structure.png" title="infra_structure"/>
 
 ---
-## 모듈 구조
+## 프로젝트 구조
 ```
 food-serivce (project)
 │   
