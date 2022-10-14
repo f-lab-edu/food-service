@@ -25,6 +25,7 @@ public class RefreshToken {
     @Comment("토큰 소유자")
     @NotNull
     @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "owner")
     private User user;
 
     @Comment("발급일시")
