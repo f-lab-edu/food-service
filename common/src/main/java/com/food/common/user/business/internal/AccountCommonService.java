@@ -1,7 +1,7 @@
-package com.food.common.user.business.external;
+package com.food.common.user.business.internal;
 
-import com.food.common.user.business.external.dto.AppAccountDto;
-import com.food.common.user.business.external.dto.SocialAccountDto;
+import com.food.common.user.business.internal.dto.AppAccountDto;
+import com.food.common.user.business.internal.dto.SocialAccountDto;
 
 import java.util.Optional;
 

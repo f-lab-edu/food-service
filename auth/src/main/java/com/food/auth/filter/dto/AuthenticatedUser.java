@@ -1,7 +1,7 @@
 package com.food.auth.filter.dto;
 
-import com.food.common.user.business.service.response.accountFind.AccountFindResponse;
-import com.food.common.user.dto.RequestUser;
+import com.food.common.user.business.external.model.AccountFindResponse;
+import com.food.common.user.business.external.model.RequestUser;
 import com.food.common.user.enumeration.AccountType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

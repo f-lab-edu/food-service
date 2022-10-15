@@ -1,4 +1,4 @@
-package com.food.common.user.business.external.dto;
+package com.food.common.user.business.internal.dto;
 
 import com.food.common.user.domain.RefreshToken;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class RefreshTokenDto {
+public final class RefreshTokenDto {
     private final String value;
     private final UserDto user;
     private final LocalDateTime issuedDate;

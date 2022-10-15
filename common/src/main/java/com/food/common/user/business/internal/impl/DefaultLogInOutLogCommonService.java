@@ -1,7 +1,7 @@
-package com.food.common.user.business.external.impl;
+package com.food.common.user.business.internal.impl;
 
-import com.food.common.user.business.external.LogInOutLogCommonService;
-import com.food.common.user.business.external.dto.LogInOutLogRequest;
+import com.food.common.user.business.internal.LogInOutLogCommonService;
+import com.food.common.user.business.internal.dto.LogInOutLogRequest;
 import com.food.common.user.domain.LogInOutLog;
 import com.food.common.user.repository.LoginInOutRepository;
 import lombok.RequiredArgsConstructor;
