@@ -1,6 +1,6 @@
 package com.food.mock.order;
 
-import com.food.common.order.business.external.enumeration.OrderStatus;
+import com.food.common.order.enumeration.OrderStatus;
 import com.food.common.order.domain.Order;
 import com.food.common.store.domain.Store;
 import com.food.common.user.domain.User;

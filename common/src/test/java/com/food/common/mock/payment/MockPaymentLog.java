@@ -51,7 +51,7 @@ public class MockPaymentLog {
         }
 
         public PaymentLog build() {
-            return PaymentLog.create(payment, method, type, amount, point);
+            return PaymentLog.create(payment, method, amount, point);
         }
     }
 }

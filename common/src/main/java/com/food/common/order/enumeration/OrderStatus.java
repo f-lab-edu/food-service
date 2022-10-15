@@ -1,4 +1,4 @@
-package com.food.common.order.business.external.enumeration;
+package com.food.common.order.enumeration;
 
 public enum OrderStatus {
     REQUEST("주문 요청 중"),
