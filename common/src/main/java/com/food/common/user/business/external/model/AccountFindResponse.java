@@ -1,7 +1,7 @@
-package com.food.common.user.business.service.response.accountFind;
+package com.food.common.user.business.external.model;
 
-import com.food.common.user.business.external.dto.AppAccountDto;
-import com.food.common.user.business.external.dto.SocialAccountDto;
+import com.food.common.user.business.internal.dto.AppAccountDto;
+import com.food.common.user.business.internal.dto.SocialAccountDto;
 import com.food.common.user.enumeration.AccountType;
 import com.food.common.user.enumeration.Role;
 import lombok.Getter;

@@ -1,10 +1,10 @@
-package com.food.common.user.business.external.dto;
+package com.food.common.user.business.internal.dto;
 
 import com.food.common.user.enumeration.AccountType;
 import lombok.Getter;
 
 @Getter
-public class LogInOutLogRequest {
+public final class LogInOutLogRequest {
     private final Long accountId;
     private final AccountType accountType;
 

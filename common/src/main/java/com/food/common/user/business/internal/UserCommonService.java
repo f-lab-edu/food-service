@@ -1,6 +1,6 @@
-package com.food.common.user.business.external;
+package com.food.common.user.business.internal;
 
-import com.food.common.user.business.external.dto.UserDto;
+import com.food.common.user.business.internal.dto.UserDto;
 import com.food.common.user.enumeration.Role;
 
 import javax.validation.constraints.NotNull;

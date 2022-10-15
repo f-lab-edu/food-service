@@ -1,7 +1,7 @@
 package com.food.auth.business.dto;
 
-import com.food.common.user.business.external.dto.AppAccountDto;
-import com.food.common.user.business.external.dto.SocialAccountDto;
+import com.food.common.user.business.internal.dto.AppAccountDto;
+import com.food.common.user.business.internal.dto.SocialAccountDto;
 import lombok.Getter;
 
 @Getter

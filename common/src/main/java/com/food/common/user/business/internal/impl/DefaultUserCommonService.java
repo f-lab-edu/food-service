@@ -1,10 +1,9 @@
-package com.food.common.user.business.external.impl;
+package com.food.common.user.business.internal.impl;
 
 import com.food.common.store.business.StoreOwnerEntityService;
 import com.food.common.store.domain.StoreOwner;
-import com.food.common.user.business.external.UserCommonService;
-import com.food.common.user.business.external.dto.UserDto;
-import com.food.common.user.business.internal.UserEntityService;
+import com.food.common.user.business.internal.UserCommonService;
+import com.food.common.user.business.internal.dto.UserDto;
 import com.food.common.user.domain.User;
 import com.food.common.user.enumeration.Role;
 import lombok.RequiredArgsConstructor;

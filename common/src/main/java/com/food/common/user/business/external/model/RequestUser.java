@@ -1,4 +1,4 @@
-package com.food.common.user.dto;
+package com.food.common.user.business.external.model;
 
 import com.food.common.user.enumeration.AccountType;
 

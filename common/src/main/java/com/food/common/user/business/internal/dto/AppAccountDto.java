@@ -1,10 +1,10 @@
-package com.food.common.user.business.external.dto;
+package com.food.common.user.business.internal.dto;
 
 import com.food.common.user.domain.AppAccount;
 import lombok.Getter;
 
 @Getter
-public class AppAccountDto {
+public final class AppAccountDto {
     private Long id;
     private String loginId;
     private String password;
