@@ -1,4 +1,4 @@
-package com.food.common.order.business.external.common.dto;
+package com.food.common.order.business.internal.dto;
 
 import com.food.common.order.enumeration.OrderStatus;
 import com.food.common.order.domain.Order;

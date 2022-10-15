@@ -1,6 +1,6 @@
-package com.food.common.order.business.external.common;
+package com.food.common.order.business.internal;
 
-import com.food.common.order.business.external.common.dto.OrderDto;
+import com.food.common.order.business.internal.dto.OrderDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
