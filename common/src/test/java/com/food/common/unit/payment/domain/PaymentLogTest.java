@@ -4,6 +4,8 @@ import com.food.common.mock.payment.MockPayment;
 import com.food.common.mock.payment.MockPaymentLog;
 import com.food.common.mock.user.MockPoint;
 import com.food.common.payment.domain.PaymentLog;
+import com.food.common.payment.enumeration.PaymentActionType;
+import com.food.common.payment.enumeration.PaymentMethod;
 import com.food.common.unit.SuperValidationTests;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +42,7 @@ public class PaymentLogTest extends SuperValidationTests<PaymentLog> {
                 .method(null)
                 .build();
 
-        Set<PaymentLog> mockPaymentLogsWithEnumMethods = Arrays.stream(PaymentLog.Method.values()).map(method ->
+        Set<PaymentLog> mockPaymentLogsWithEnumMethods = Arrays.stream(PaymentMethod.values()).map(method ->
                         MockPaymentLog.builder()
                                 .method(method)
                                 .build())
@@ -55,12 +57,12 @@ public class PaymentLogTest extends SuperValidationTests<PaymentLog> {
     @Test
     void validateTypeInPaymentLog() {
         PaymentLog mockPaymentLogWithNullType = MockPaymentLog.builder()
-                .type(null)
+                .actionType(null)
                 .build();
 
-        Set<PaymentLog> mockPaymentLogsWithEnumTypes = Arrays.stream(PaymentLog.Type.values()).map(type ->
+        Set<PaymentLog> mockPaymentLogsWithEnumTypes = Arrays.stream(PaymentActionType.values()).map(type ->
                         MockPaymentLog.builder()
-                                .type(type)
+                                .actionType(type)
                                 .build())
                 .collect(Collectors.toSet());
 

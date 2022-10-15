@@ -3,6 +3,7 @@ package com.food.common.unit.payment.domain;
 import com.food.common.mock.order.MockOrder;
 import com.food.common.mock.payment.MockPayment;
 import com.food.common.payment.domain.Payment;
+import com.food.common.payment.enumeration.PaymentStatus;
 import com.food.common.unit.SuperValidationTests;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +40,7 @@ public class PaymentTest extends SuperValidationTests<Payment> {
                 .status(null)
                 .build();
 
-        Set<Payment> mockPaymentsWithEnumStatus = Arrays.stream(Payment.Status.values())
+        Set<Payment> mockPaymentsWithEnumStatus = Arrays.stream(PaymentStatus.values())
                 .map(status -> MockPayment.builder().build())
                 .collect(Collectors.toSet());
 
