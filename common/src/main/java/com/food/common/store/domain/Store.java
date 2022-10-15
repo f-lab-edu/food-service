@@ -1,5 +1,6 @@
 package com.food.common.store.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -14,6 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_store")
 @Entity

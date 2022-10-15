@@ -1,9 +1,10 @@
 package com.food.common.order.domain;
 
 import com.food.common.basetime.BaseTimeEntity;
-import com.food.common.order.business.external.enumeration.OrderStatus;
+import com.food.common.order.enumeration.OrderStatus;
 import com.food.common.store.domain.Store;
 import com.food.common.user.domain.User;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.hibernate.validator.constraints.Length;
@@ -18,6 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_order")
 @Entity
@@ -62,5 +64,13 @@ public class Order extends BaseTimeEntity {
         order.comment = comment;
 
         return order;
+    }
+
+    public Long getCustomerId() {
+        return customer.getId();
+    }
+
+    public Long getStoreId() {
+        return store.getId();
     }
 }
