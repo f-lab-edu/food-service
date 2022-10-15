@@ -5,7 +5,7 @@ import com.food.common.utils.validation.ValidationFailureMessages;
 public abstract class PaymentValidationFailureMessages extends ValidationFailureMessages {
     public static abstract class Payment {
         public static final String ORDER_CANNOT_BE_NULL = "주문" + CANNOT_BE_NULL;
-        public static final String STATUS_CANNOT_BE_NULL = "결제 상태" + CANNOT_BE_NULL;
+        public static final String TYPE_CANNOT_BE_NULL = "결제 타입" + CANNOT_BE_NULL;
     }
 
     public static abstract class PaymentLog {

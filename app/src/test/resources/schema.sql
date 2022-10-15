@@ -137,8 +137,7 @@ create table tb_payment
 (
     payment_id bigint auto_increment primary key,
     order_id bigint not null,
-    status enum('PAYMENT_REQUEST', 'PAYMENT_COMPLETED',
-        'CANCELLATION_REQUEST', 'CANCELLATION_COMPLETED') not null,
+    action_type enum('PAYMENT', 'CANCELLATION' ) not null,
     created_date datetime not null default now()
 );
 
@@ -148,7 +147,6 @@ create table tb_payment_log
     payment_id bigint not null,
     method enum('CARD', 'ACCOUNT_TRANSFER', 'POINT' ) not null,
     amount mediumint not null default 0,
-    type enum('PAYMENT', 'CANCELLATION' ) not null default 0,
     point_id mediumint null default 0
 );
 

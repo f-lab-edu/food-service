@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.ORDER_CANNOT_BE_NULL;
-import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.STATUS_CANNOT_BE_NULL;
+import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.TYPE_CANNOT_BE_NULL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -45,7 +45,7 @@ public class PaymentTest extends SuperValidationTests<Payment> {
                 .collect(Collectors.toSet());
 
         assertAll(
-                () -> assertThat(failureMessagesOf(mockPaymentWithNullStatus)).containsExactlyInAnyOrder(STATUS_CANNOT_BE_NULL),
+                () -> assertThat(failureMessagesOf(mockPaymentWithNullStatus)).containsExactlyInAnyOrder(TYPE_CANNOT_BE_NULL),
                 () -> assertThat(failureMessagesOf(mockPaymentsWithEnumStatus)).isEmpty()
         );
     }

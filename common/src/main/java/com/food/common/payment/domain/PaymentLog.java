@@ -1,7 +1,6 @@
 package com.food.common.payment.domain;
 
 import com.food.common.basetime.BaseTimeEntity;
-import com.food.common.payment.enumeration.PaymentActionType;
 import com.food.common.payment.enumeration.PaymentMethod;
 import com.food.common.user.domain.Point;
 import lombok.NoArgsConstructor;
@@ -37,11 +36,6 @@ public class PaymentLog extends BaseTimeEntity {
     @Enumerated(STRING)
     private PaymentMethod method;
 
-    @Comment("결제 타입")
-    @NotNull(message = TYPE_CANNOT_BE_NULL)
-    @Enumerated(STRING)
-    private PaymentActionType actionType;
-
     @Comment("결제 금액")
     @PositiveOrZero(message = AMOUNT_HAS_TO_BE_POSITIVE)
     @NotNull(message = AMOUNT_CANNOT_BE_NULL)
@@ -53,11 +47,10 @@ public class PaymentLog extends BaseTimeEntity {
     @JoinColumn(name = "point_id")
     private Point point;
 
-    public static PaymentLog create(Payment payment, PaymentMethod method, PaymentActionType actionType, Integer amount, Point point) {
+    public static PaymentLog create(Payment payment, PaymentMethod method, Integer amount, Point point) {
         PaymentLog paymentLog = new PaymentLog();
         paymentLog.payment = payment;
         paymentLog.method = method;
-        paymentLog.actionType = actionType;
         paymentLog.amount = amount;
         paymentLog.point = point;
 
