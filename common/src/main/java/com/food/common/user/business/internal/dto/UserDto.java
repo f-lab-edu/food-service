@@ -1,10 +1,10 @@
-package com.food.common.user.business.external.dto;
+package com.food.common.user.business.internal.dto;
 
 import com.food.common.user.domain.User;
 import lombok.Getter;
 
 @Getter
-public class UserDto {
+public final class UserDto {
     private final Long id;
     private final String nickname;
 

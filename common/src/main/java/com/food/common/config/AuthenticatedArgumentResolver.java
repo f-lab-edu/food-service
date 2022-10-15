@@ -1,7 +1,7 @@
 package com.food.common.config;
 
 import com.food.common.annotation.Authenticated;
-import com.food.common.user.business.service.AuthenticatedUserFindService;
+import com.food.common.user.business.external.AuthenticatedUserFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

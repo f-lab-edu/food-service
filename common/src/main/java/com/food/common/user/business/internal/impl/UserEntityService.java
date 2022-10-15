@@ -1,4 +1,4 @@
-package com.food.common.user.business.internal;
+package com.food.common.user.business.internal.impl;
 
 import com.food.common.user.domain.User;
 import com.food.common.user.repository.UserRepository;

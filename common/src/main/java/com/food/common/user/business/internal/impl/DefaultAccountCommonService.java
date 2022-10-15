@@ -1,9 +1,8 @@
-package com.food.common.user.business.external.impl;
+package com.food.common.user.business.internal.impl;
 
-import com.food.common.user.business.external.AccountCommonService;
-import com.food.common.user.business.external.dto.AppAccountDto;
-import com.food.common.user.business.external.dto.SocialAccountDto;
-import com.food.common.user.business.internal.UserEntityService;
+import com.food.common.user.business.internal.AccountCommonService;
+import com.food.common.user.business.internal.dto.AppAccountDto;
+import com.food.common.user.business.internal.dto.SocialAccountDto;
 import com.food.common.user.domain.AppAccount;
 import com.food.common.user.domain.SocialAccount;
 import com.food.common.user.domain.User;

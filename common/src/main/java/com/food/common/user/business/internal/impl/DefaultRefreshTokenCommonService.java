@@ -1,8 +1,7 @@
-package com.food.common.user.business.external.impl;
+package com.food.common.user.business.internal.impl;
 
-import com.food.common.user.business.external.RefreshTokenCommonService;
-import com.food.common.user.business.external.dto.RefreshTokenDto;
-import com.food.common.user.business.internal.UserEntityService;
+import com.food.common.user.business.internal.RefreshTokenCommonService;
+import com.food.common.user.business.internal.dto.RefreshTokenDto;
 import com.food.common.user.domain.RefreshToken;
 import com.food.common.user.domain.User;
 import com.food.common.user.repository.RefreshTokenRepository;

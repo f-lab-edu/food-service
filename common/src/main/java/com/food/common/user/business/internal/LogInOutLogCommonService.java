@@ -1,6 +1,6 @@
-package com.food.common.user.business.external;
+package com.food.common.user.business.internal;
 
-import com.food.common.user.business.external.dto.LogInOutLogRequest;
+import com.food.common.user.business.internal.dto.LogInOutLogRequest;
 
 public interface LogInOutLogCommonService {
     void saveLoginLog(LogInOutLogRequest request);

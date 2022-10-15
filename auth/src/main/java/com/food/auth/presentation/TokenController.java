@@ -7,7 +7,7 @@ import com.food.auth.presentation.dto.TokenRenewResponse;
 import com.food.common.annotation.ApiFor;
 import com.food.common.annotation.Authenticated;
 import com.food.common.apiResult.SuccessResult;
-import com.food.common.user.dto.RequestUser;
+import com.food.common.user.business.external.model.RequestUser;
 import com.food.common.user.enumeration.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

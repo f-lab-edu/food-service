@@ -1,6 +1,6 @@
-package com.food.common.user.business.external;
+package com.food.common.user.business.internal;
 
-import com.food.common.user.business.external.dto.RefreshTokenDto;
+import com.food.common.user.business.internal.dto.RefreshTokenDto;
 
 public interface RefreshTokenCommonService {
     RefreshTokenDto create(Long userId);
