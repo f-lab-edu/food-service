@@ -50,12 +50,18 @@ public class Point extends BaseTimeEntity {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    public static Point create(User user, Type type, Integer changedAmount, Integer currentAmount, Payment payment) {
+    public static Point create(User user, Type type, Integer changedAmount, Integer currentAmount) {
         Point point = new Point();
         point.user = user;
         point.type = type;
         point.changedAmount = changedAmount;
         point.currentAmount = currentAmount;
+
+        return point;
+    }
+
+    public static Point create(User user, Type type, Integer changedAmount, Integer currentAmount, Payment payment) {
+        Point point = Point.create(user, type, changedAmount, currentAmount);
         point.payment = payment;
 
         return point;
