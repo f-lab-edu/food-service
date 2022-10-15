@@ -2,6 +2,7 @@ package com.food.common.payment.domain;
 
 import com.food.common.basetime.BaseTimeEntity;
 import com.food.common.order.domain.Order;
+import com.food.common.payment.enumeration.PaymentStatus;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.ORDER_CANNOT_BE_NULL;
 import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.STATUS_CANNOT_BE_NULL;
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -31,9 +32,9 @@ public class Payment extends BaseTimeEntity {
 
     @Comment("결제 상태")
     @NotNull(message = STATUS_CANNOT_BE_NULL)
-    private Status status;
+    private PaymentStatus status;
 
-    public static Payment create(Order order, Status status) {
+    public static Payment create(Order order, PaymentStatus status) {
         Payment payment = new Payment();
         payment.order = order;
         payment.status = status;
@@ -41,17 +42,4 @@ public class Payment extends BaseTimeEntity {
         return payment;
     }
 
-    public enum Status {
-        PAYMENT_REQUEST("결제 요청"),
-        PAYMENT_COMPLETED("결제 완료"),
-        CANCELLATION_REQUEST("결제 취소 요청"),
-        CANCELLATION_COMPLETED("결제 취소 완료")
-        ;
-
-        private final String description;
-
-        Status(String description) {
-            this.description = description;
-        }
-    }
 }

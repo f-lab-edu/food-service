@@ -3,6 +3,7 @@ package com.food.common.mock.payment;
 import com.food.common.mock.order.MockOrder;
 import com.food.common.order.domain.Order;
 import com.food.common.payment.domain.Payment;
+import com.food.common.payment.enumeration.PaymentStatus;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -16,7 +17,7 @@ public class MockPayment {
     public static class Builder {
         private Long id;
         private Order order = MockOrder.builder().build();
-        private Payment.Status status = Payment.Status.CANCELLATION_COMPLETED;
+        private PaymentStatus status = PaymentStatus.CANCELLATION_COMPLETED;
 
         public Builder id(Long id) {
             this.id = id;
@@ -28,7 +29,7 @@ public class MockPayment {
             return this;
         }
 
-        public Builder status(Payment.Status status) {
+        public Builder status(PaymentStatus status) {
             this.status = status;
             return this;
         }
