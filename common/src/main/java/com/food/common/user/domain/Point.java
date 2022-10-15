@@ -1,6 +1,8 @@
 package com.food.common.user.domain;
 
+import com.food.common.basetime.BaseTimeEntity;
 import com.food.common.payment.domain.Payment;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -9,14 +11,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 import static com.food.common.user.UserValidationFailureMessages.Point.*;
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_point")
 @Entity
-public class Point {
+public class Point extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "point_id")
@@ -43,7 +46,6 @@ public class Point {
     private Integer currentAmount;
 
     @Comment("결제정보")
-    @NotNull(message = PAYMENT_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "payment_id")
     private Payment payment;
@@ -57,6 +59,16 @@ public class Point {
         point.payment = payment;
 
         return point;
+    }
+
+    public Long getUserId() {
+        return user.getId();
+    }
+
+    public Long getPaymentId() {
+        if (payment == null) return null;
+
+        return payment.getId();
     }
 
     public enum Type {
