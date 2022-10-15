@@ -3,12 +3,14 @@ package com.food.common.user.business.external.dto;
 import com.food.common.user.domain.User;
 import lombok.Getter;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
-public class UserDto {
+public final class UserDto {
     private final Long id;
     private final String nickname;
 
-    public UserDto(final User user) {
+    public UserDto(@NotNull final User user) {
         this.id = user.getId();
         this.nickname = user.getNickname();
     }
