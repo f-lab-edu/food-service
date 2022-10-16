@@ -39,7 +39,7 @@ public class PayRequest {
     }
 
     public boolean hasDifferentTotalAmountAs(OrderDto order) {
-        return getTotalAmount() == order.getAmount();
+        return getTotalAmount() != order.getAmount();
     }
 
     public PaymentSaveDto toPaymentSaveDto() {
