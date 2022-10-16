@@ -3,6 +3,7 @@ package com.food.common.payment.domain;
 import com.food.common.basetime.BaseTimeEntity;
 import com.food.common.order.domain.Order;
 import com.food.common.payment.enumeration.PaymentActionType;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -15,6 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_payment")
 @Entity
