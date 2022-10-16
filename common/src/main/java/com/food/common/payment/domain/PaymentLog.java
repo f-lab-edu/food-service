@@ -42,16 +42,21 @@ public class PaymentLog extends BaseTimeEntity {
     private Integer amount;
 
     @Comment("사용 포인트")
-    @NotNull(message = POINT_CANNOT_BE_NULL)
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "point_id")
     private Point point;
 
-    public static PaymentLog create(Payment payment, PaymentMethod method, Integer amount, Point point) {
+    public static PaymentLog create(Payment payment, PaymentMethod method, Integer amount) {
         PaymentLog paymentLog = new PaymentLog();
         paymentLog.payment = payment;
         paymentLog.method = method;
         paymentLog.amount = amount;
+
+        return paymentLog;
+    }
+
+    public static PaymentLog create(Payment payment, PaymentMethod method, Integer amount, Point point) {
+        PaymentLog paymentLog = PaymentLog.create(payment, method, amount);
         paymentLog.point = point;
 
         return paymentLog;
