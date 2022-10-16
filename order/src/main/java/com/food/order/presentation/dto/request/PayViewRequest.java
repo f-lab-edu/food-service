@@ -3,6 +3,10 @@ package com.food.order.presentation.dto.request;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.food.common.payment.business.external.model.PayRequest;
+import com.food.common.payment.business.external.model.payrequest.AccountTransferPayment;
+import com.food.common.payment.business.external.model.payrequest.CardPayment;
+import com.food.common.payment.business.external.model.payrequest.PaymentElement;
+import com.food.common.payment.business.external.model.payrequest.PointPayment;
 import com.food.common.payment.enumeration.PaymentActionType;
 import com.food.common.payment.enumeration.PaymentMethod;
 import com.food.common.user.business.external.model.RequestUser;
@@ -22,24 +26,24 @@ public final class PayViewRequest {
     private final PaymentActionType actionType;
 
     @Size(min = 1)
-    private final Set<@NotNull PaymentElement> elements = new HashSet<>();
+    private final Set<@NotNull PaymentElementViewRequest> elements = new HashSet<>();
 
     @JsonCreator
     public PayViewRequest(@JsonProperty("orderId") Long orderId,
                           @JsonProperty("actionType") PaymentActionType actionType,
-                          @JsonProperty("elements") Set<PaymentElement> elements) {
+                          @JsonProperty("elements") Set<PaymentElementViewRequest> elements) {
         this.orderId = orderId;
         this.actionType = actionType;
         addElementsAll(elements);
     }
 
-    private void addElementsAll(Set<PaymentElement> elements) {
+    private void addElementsAll(Set<PaymentElementViewRequest> elements) {
         if (CollectionUtils.isEmpty(elements)) return;
 
         this.elements.addAll(elements);
     }
 
-    private Set<PayRequest.PaymentElement> toElementsOfPayRequest(Long payerId) {
+    private Set<PaymentElement> toElementsOfPayRequest(Long payerId) {
         return elements.stream()
                 .map(element -> element.toPaymentElements(payerId))
                 .collect(Collectors.toSet());
@@ -54,7 +58,7 @@ public final class PayViewRequest {
                 .build();
     }
 
-    public static final class PaymentElement {
+    public static final class PaymentElementViewRequest {
         @NotNull
         private final PaymentMethod method;
 
@@ -62,18 +66,18 @@ public final class PayViewRequest {
         private final Integer amount;
 
         @JsonCreator
-        public PaymentElement(@JsonProperty("method") PaymentMethod method,
-                              @JsonProperty("amount") Integer amount) {
+        public PaymentElementViewRequest(@JsonProperty("method") PaymentMethod method,
+                                         @JsonProperty("amount") Integer amount) {
             this.method = method;
             this.amount = amount;
         }
 
-        private PayRequest.PaymentElement toPaymentElements(Long payerId) {
-            PayRequest.PaymentElement result = null;
+        private PaymentElement toPaymentElements(Long payerId) {
+            PaymentElement result = null;
             switch (method) {
-                case CARD -> result = new PayRequest.CardPayment(amount);
-                case ACCOUNT_TRANSFER -> result = new PayRequest.PaymentAccountTransfer(amount);
-                case POINT -> result = new PayRequest.PaymentPoint(amount, payerId);
+                case CARD -> result = new CardPayment(amount);
+                case ACCOUNT_TRANSFER -> result = new AccountTransferPayment(amount);
+                case POINT -> result = new PointPayment(amount, payerId);
             }
 
             return result;

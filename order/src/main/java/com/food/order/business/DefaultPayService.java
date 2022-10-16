@@ -4,6 +4,7 @@ import com.food.common.order.business.internal.OrderCommonService;
 import com.food.common.order.business.internal.dto.OrderDto;
 import com.food.common.payment.business.external.PayService;
 import com.food.common.payment.business.external.model.PayRequest;
+import com.food.common.payment.business.external.model.payrequest.PointPayment;
 import com.food.common.payment.business.internal.PaymentCommonService;
 import com.food.common.payment.business.internal.PaymentLogCommonService;
 import com.food.common.user.business.external.PointService;
@@ -38,9 +39,9 @@ public class DefaultPayService implements PayService {
     }
 
     private void usePoints(PayRequest payment) {
-        Optional<PayRequest.PaymentPoint> findPointPayment = payment.findPointPayment();
+        Optional<PointPayment> findPointPayment = payment.findPointPayment();
         if(findPointPayment.isPresent()) {
-            PayRequest.PaymentPoint paymentPoint = findPointPayment.get();
+            PointPayment paymentPoint = findPointPayment.get();
             Long usedPointId = pointService.use(paymentPoint.toPointsUseRequest());
             paymentPoint.updateUsedPointId(usedPointId);
         }
