@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 import static com.food.common.user.UserValidationFailureMessages.Point.*;
+import static javax.persistence.EnumType.*;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -33,6 +34,7 @@ public class Point extends BaseTimeEntity {
 
     @Comment("적립/사용 타입")
     @NotNull(message = TYPE_CANNOT_BE_NULL)
+    @Enumerated(STRING)
     private Type type;
 
     @Comment("포인트 금액")

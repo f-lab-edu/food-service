@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 
 import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.ORDER_CANNOT_BE_NULL;
 import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.TYPE_CANNOT_BE_NULL;
+import static javax.persistence.EnumType.*;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -34,6 +35,7 @@ public class Payment extends BaseTimeEntity {
 
     @Comment("결제 상태")
     @NotNull(message = TYPE_CANNOT_BE_NULL)
+    @Enumerated(STRING)
     private PaymentActionType actionType;
 
     public static Payment create(Order order, PaymentActionType actionType) {

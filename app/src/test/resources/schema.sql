@@ -147,7 +147,8 @@ create table tb_payment_log
     payment_id bigint not null,
     method enum('CARD', 'ACCOUNT_TRANSFER', 'POINT' ) not null,
     amount mediumint not null default 0,
-    point_id mediumint null default 0
+    point_id mediumint null default 0,
+    created_date datetime not null default now()
 );
 
 create table tb_point

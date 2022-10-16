@@ -44,6 +44,7 @@ public class Store {
     @Comment("운영 상태")
     @NotNull(message = OPEN_STATUS_CANNOT_BE_NULL)
     @Enumerated(STRING)
+    @Column(name = "OPEN_STATUS")
     private OpenStatus status;
 
     public static Store create(String name, StoreOwner owner, Integer minOrderAmount, OpenStatus status) {
