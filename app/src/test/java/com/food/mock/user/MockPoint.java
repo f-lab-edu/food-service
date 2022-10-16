@@ -3,7 +3,6 @@ package com.food.mock.user;
 import com.food.common.payment.domain.Payment;
 import com.food.common.user.domain.Point;
 import com.food.common.user.domain.User;
-import com.food.mock.payment.MockPayment;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -20,7 +19,7 @@ public class MockPoint {
         private Point.Type type = Point.Type.COLLECT;
         private Integer changedAmount = 100;
         private Integer currentAmount = 1000;
-        private Payment payment = MockPayment.builder().build();
+        private Payment payment;
 
         public Builder id(Long id) {
             this.id = id;
