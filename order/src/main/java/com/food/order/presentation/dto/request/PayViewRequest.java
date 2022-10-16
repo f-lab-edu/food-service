@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.food.common.payment.business.external.model.PayRequest;
 import com.food.common.payment.enumeration.PaymentActionType;
 import com.food.common.payment.enumeration.PaymentMethod;
+import com.food.common.user.business.external.model.RequestUser;
 import org.springframework.util.CollectionUtils;
 
 import javax.validation.constraints.NotNull;
@@ -38,17 +39,18 @@ public final class PayViewRequest {
         this.elements.addAll(elements);
     }
 
-    private Set<PayRequest.Element> toElementsRequest() {
+    private Set<PayRequest.PaymentElement> toElementsOfPayRequest(Long payerId) {
         return elements.stream()
-                .map(PaymentElement::toRequest)
+                .map(element -> element.toPaymentElements(payerId))
                 .collect(Collectors.toSet());
     }
 
-    public PayRequest toRequest() {
+    public PayRequest toPayRequest(RequestUser requestUser) {
         return PayRequest.builder()
                 .orderId(orderId)
                 .actionType(actionType)
-                .elements(toElementsRequest())
+                .elements(toElementsOfPayRequest(requestUser.getUserId()))
+                .payerId(requestUser.getUserId())
                 .build();
     }
 
@@ -66,11 +68,15 @@ public final class PayViewRequest {
             this.amount = amount;
         }
 
-        private PayRequest.Element toRequest() {
-            return PayRequest.Element.builder()
-                    .method(method)
-                    .amount(amount)
-                    .build();
+        private PayRequest.PaymentElement toPaymentElements(Long payerId) {
+            PayRequest.PaymentElement result = null;
+            switch (method) {
+                case CARD -> result = new PayRequest.CardPayment(amount);
+                case ACCOUNT_TRANSFER -> result = new PayRequest.PaymentAccountTransfer(amount);
+                case POINT -> result = new PayRequest.PaymentPoint(amount, payerId);
+            }
+
+            return result;
         }
     }
 }

@@ -1,6 +1,10 @@
 package com.food.order.presentation;
 
 import com.food.common.annotation.ApiFor;
+import com.food.common.annotation.Authenticated;
+import com.food.common.apiResult.SuccessResult;
+import com.food.common.payment.business.external.PayService;
+import com.food.common.user.business.external.model.RequestUser;
 import com.food.common.user.enumeration.Role;
 import com.food.order.presentation.dto.request.PayViewRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +21,13 @@ import javax.validation.Valid;
 @RequestMapping("/api/payments")
 @RestController
 public class PayController {
+    private final PayService payService;
 
     @PostMapping
-    public ResponseEntity<String> pay(@RequestBody @Valid PayViewRequest request) {
+    public ResponseEntity<SuccessResult> pay(@RequestBody @Valid PayViewRequest request,
+                                             @Authenticated RequestUser requestUser) {
+        payService.pay(request.toPayRequest(requestUser));
 
-
-
-        return ResponseEntity.ok("Success");
+        return ResponseEntity.ok(SuccessResult.createResult());
     }
 }

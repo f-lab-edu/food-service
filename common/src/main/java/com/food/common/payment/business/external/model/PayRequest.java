@@ -1,16 +1,20 @@
 package com.food.common.payment.business.external.model;
 
-import com.food.common.order.business.external.common.dto.OrderDto;
+import com.food.common.order.business.internal.dto.OrderDto;
+import com.food.common.payment.business.internal.model.PaymentLogsSaveDto;
+import com.food.common.payment.business.internal.model.PaymentSaveDto;
 import com.food.common.payment.enumeration.PaymentActionType;
 import com.food.common.payment.enumeration.PaymentMethod;
+import com.food.common.user.business.external.model.PointsUseRequest;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.util.CollectionUtils;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 public class PayRequest {
@@ -20,20 +24,17 @@ public class PayRequest {
     @NotNull
     private final PaymentActionType actionType;
 
-    @Size(min = 1)
-    private final Set<@NotNull Element> elements = new HashSet<>();
+    private final PaymentElements elements;
+
+    @NotNull
+    private final Long payerId;
 
     @Builder
-    public PayRequest(Long orderId, PaymentActionType actionType, Set<Element> elements) {
+    public PayRequest(Long orderId, PaymentActionType actionType, Set<PaymentElement> elements, Long payerId) {
         this.orderId = orderId;
         this.actionType = actionType;
-        addElementsAll(elements);
-    }
-
-    private void addElementsAll(Set<Element> elements) {
-        if (CollectionUtils.isEmpty(elements)) return;
-
-        this.elements.addAll(elements);
+        this.elements = new PaymentElements(elements);
+        this.payerId = payerId;
     }
 
     public boolean hasDifferentTotalAmountAs(OrderDto order) {
@@ -41,31 +42,113 @@ public class PayRequest {
     }
 
     public int getTotalAmount() {
-        return elements.stream()
-                .map(e -> e.amount)
-                .reduce(0, Integer::sum);
+        return elements.getTotalAmount();
     }
 
-    public boolean isUsedPoints() {
-        return elements.stream()
-                .anyMatch(Element::hasMethodOfPoint);
+    public Optional<PaymentPoint> findPointPayment() {
+        return elements.findPointPayment();
     }
 
-    public static final class Element {
+    public PaymentSaveDto toPaymentSaveDto() {
+        return new PaymentSaveDto(orderId, actionType);
+    }
+
+    public PaymentLogsSaveDto toPaymentLogSaveDto(Long paymentId) {
+        return new PaymentLogsSaveDto(paymentId, elements.toLogsOfPaymentLogsSaveDto());
+    }
+
+    public static abstract class PaymentElement {
         @NotNull
-        private final PaymentMethod method;
+        protected final PaymentMethod method;
 
         @NotNull
-        private final Integer amount;
+        protected final Integer amount;
 
-        @Builder
-        public Element(PaymentMethod method, Integer amount) {
+        protected PaymentElement(PaymentMethod method, Integer amount) {
             this.method = method;
             this.amount = amount;
         }
 
-        private boolean hasMethodOfPoint() {
-            return method.equals(PaymentMethod.POINT);
+        Integer getAmount() {
+            return amount;
+        }
+
+        protected PaymentLogsSaveDto.PaymentLog toLogOfPaymentLogsSaveDto() {
+            return new PaymentLogsSaveDto.PaymentLog(method, amount);
+        }
+    }
+
+    public static final class CardPayment extends PaymentElement {
+
+        public CardPayment(Integer amount) {
+            super(PaymentMethod.CARD, amount);
+        }
+    }
+
+    public static final class PaymentAccountTransfer extends PaymentElement {
+
+        public PaymentAccountTransfer(Integer amount) {
+            super(PaymentMethod.ACCOUNT_TRANSFER, amount);
+        }
+    }
+
+    public static final class PaymentPoint extends PaymentElement {
+        private Long pointId;
+
+        private Long payerId;
+
+        public PaymentPoint(Integer amount, Long payerId) {
+            super(PaymentMethod.POINT, amount);
+            this.payerId = payerId;
+        }
+
+        public void updateUsedPointId(@NotNull Long pointId) {
+            this.pointId = pointId;
+        }
+
+        public PointsUseRequest toPointsUseRequest() {
+            return PointsUseRequest.builder()
+                    .ownerId(payerId)
+                    .amount(amount)
+                    .build();
+        }
+
+        protected PaymentLogsSaveDto.PaymentLog toLogOfPaymentLogsSaveDto() {
+            return new PaymentLogsSaveDto.PaymentLog(method, amount, pointId);
+        }
+    }
+
+    @Getter
+    public static final class PaymentElements {
+
+        @Size(min = 1)
+        private final Set<@NotNull PaymentElement> payments = new HashSet<>();
+
+
+        public PaymentElements(@NotNull Set<PaymentElement> payments) {
+            this.payments.addAll(payments);
+        }
+
+        public int getTotalAmount() {
+            return payments.stream()
+                    .map(PaymentElement::getAmount)
+                    .reduce(0, Integer::sum);
+        }
+
+        public Optional<PaymentPoint> findPointPayment() {
+            Optional<PaymentElement> optionalPayment = payments.stream()
+                    .filter(payment -> payment instanceof PaymentPoint)
+                    .findFirst();
+
+            if (optionalPayment.isEmpty()) return Optional.empty();
+
+            return Optional.of((PaymentPoint) optionalPayment.get());
+        }
+
+        public Set<PaymentLogsSaveDto.PaymentLog> toLogsOfPaymentLogsSaveDto() {
+            return payments.stream()
+                    .map(PaymentElement::toLogOfPaymentLogsSaveDto)
+                    .collect(Collectors.toSet());
         }
     }
 }
