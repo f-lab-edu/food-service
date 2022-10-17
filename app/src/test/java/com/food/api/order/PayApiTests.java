@@ -3,14 +3,20 @@ package com.food.api.order;
 import com.food.SuperIntegrationTest;
 import com.food.common.order.domain.Order;
 import com.food.common.order.enumeration.OrderStatus;
+import com.food.common.order.repository.OrderRepository;
 import com.food.common.payment.enumeration.PaymentActionType;
 import com.food.common.payment.enumeration.PaymentMethod;
 import com.food.common.store.domain.Store;
 import com.food.common.store.domain.StoreOwner;
 import com.food.common.user.domain.Point;
 import com.food.common.user.domain.User;
+import com.food.common.user.repository.PointRepository;
+import com.food.mock.order.MockOrder;
+import com.food.mock.user.MockPoint;
 import com.food.order.presentation.dto.request.PayViewRequest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
@@ -29,25 +35,46 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PayApiTests extends SuperIntegrationTest {
     private final String DOCUMENT_AUTH = "payment/do-pay/";
 
-    @Test
-    void shouldSavePayment() throws Exception {
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private PointRepository pointRepository;
+
+    private Store mockStore;
+
+    @BeforeEach
+    void setup() {
         User storeOwnerUser = userFactory.user("i'm a storeowner");
         StoreOwner mockStoreOwner = storeOwnerFactory.storeOwner(storeOwnerUser);
-        Store mockStore = storeFactory.store(mockStoreOwner);
-        Order mockOrder = orderFactory.order(
-                mockUser,
-                mockStore,
-                50000,
-                OrderStatus.REQUEST
-        );
+        mockStore = storeFactory.store(mockStoreOwner);
+    }
 
-        Point point = pointFactory.point(mockUser, 1000);
+    @Test
+    void shouldSavePayment() throws Exception {
+        //given
+        Order mockOrder = MockOrder.builder()
+                .customer(mockUser)
+                .store(mockStore)
+                .amount(50000)
+                .status(OrderStatus.REQUEST)
+                .build();
+        orderRepository.save(mockOrder);
+
+        Point point = MockPoint.builder()
+                .user(mockUser)
+                .changedAmount(1000)
+                .currentAmount(0)
+                .payment(null)
+                .build();
+        pointRepository.save(point);
 
         PayViewRequest request = new PayViewRequest(mockOrder.getId(), PaymentActionType.PAYMENT,
                 Set.of(new PayViewRequest.PaymentElementViewRequest(PaymentMethod.POINT, 1000),
                        new PayViewRequest.PaymentElementViewRequest(PaymentMethod.CARD, mockOrder.getAmount()-1000)
         ));
 
+        //when & then
         mvc.perform(post("/api/payments")
                         .header(ACCEPT, APPLICATION_JSON_VALUE)
                         .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
@@ -72,6 +99,5 @@ public class PayApiTests extends SuperIntegrationTest {
                                 fieldWithPath("success").type(BOOLEAN).description("정상 처리 여부")
                         )
                 ));
-
     }
 }
