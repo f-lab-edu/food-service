@@ -3,8 +3,6 @@ package com.food.common.payment.business.external.model;
 import com.food.common.order.business.internal.dto.OrderDto;
 import com.food.common.payment.business.external.model.payrequest.PaymentElement;
 import com.food.common.payment.business.external.model.payrequest.PointPayment;
-import com.food.common.payment.business.internal.model.PaymentLogsSaveDto;
-import com.food.common.payment.business.internal.model.PaymentSaveDto;
 import com.food.common.payment.enumeration.PaymentActionType;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +12,6 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 public class PayRequest {
@@ -42,14 +39,6 @@ public class PayRequest {
         return getTotalAmount() != order.getAmount();
     }
 
-    public PaymentSaveDto toPaymentSaveDto() {
-        return new PaymentSaveDto(orderId, actionType);
-    }
-
-    public PaymentLogsSaveDto toPaymentLogSaveDto(Long paymentId) {
-        return new PaymentLogsSaveDto(paymentId, toLogsOfPaymentLogsSaveDto());
-    }
-
     public int getTotalAmount() {
         return payments.stream()
                 .map(PaymentElement::getAmount)
@@ -64,11 +53,5 @@ public class PayRequest {
         if (optionalPayment.isEmpty()) return Optional.empty();
 
         return Optional.of((PointPayment) optionalPayment.get());
-    }
-
-    public Set<PaymentLogsSaveDto.PaymentLog> toLogsOfPaymentLogsSaveDto() {
-        return payments.stream()
-                .map(PaymentElement::toLogOfPaymentLogsSaveDto)
-                .collect(Collectors.toSet());
     }
 }
