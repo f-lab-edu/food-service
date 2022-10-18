@@ -12,7 +12,7 @@ public final class PointPayment extends PaymentElement {
     private Long payerId;
 
     public PointPayment(Integer amount, Long payerId) {
-        super(PaymentMethod.POINT, amount);
+        super(amount);
         this.payerId = payerId;
     }
 
@@ -28,6 +28,11 @@ public final class PointPayment extends PaymentElement {
     }
 
     public PaymentLogsSaveDto.PaymentLog toLogOfPaymentLogsSaveDto() {
-        return new PaymentLogsSaveDto.PaymentLog(method, amount, pointId);
+        return new PaymentLogsSaveDto.PaymentLog(method(), amount, pointId);
+    }
+
+    @Override
+    public PaymentMethod method() {
+        return PaymentMethod.POINT;
     }
 }

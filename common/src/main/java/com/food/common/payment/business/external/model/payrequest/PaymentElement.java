@@ -7,13 +7,9 @@ import javax.validation.constraints.NotNull;
 
 public abstract class PaymentElement {
     @NotNull
-    protected final PaymentMethod method;
-
-    @NotNull
     protected final Integer amount;
 
-    protected PaymentElement(PaymentMethod method, Integer amount) {
-        this.method = method;
+    protected PaymentElement(Integer amount) {
         this.amount = amount;
     }
 
@@ -22,6 +18,8 @@ public abstract class PaymentElement {
     }
 
     public PaymentLogsSaveDto.PaymentLog toLogOfPaymentLogsSaveDto() {
-        return new PaymentLogsSaveDto.PaymentLog(method, amount);
+        return new PaymentLogsSaveDto.PaymentLog(method(), amount);
     }
+
+    public abstract PaymentMethod method();
 }
