@@ -4,6 +4,11 @@ import com.food.common.payment.enumeration.PaymentMethod;
 
 public final class AccountTransferPayment extends PaymentElement {
     public AccountTransferPayment(Integer amount) {
-        super(PaymentMethod.ACCOUNT_TRANSFER, amount);
+        super(amount);
+    }
+
+    @Override
+    public PaymentMethod method() {
+        return PaymentMethod.ACCOUNT_TRANSFER;
     }
 }
