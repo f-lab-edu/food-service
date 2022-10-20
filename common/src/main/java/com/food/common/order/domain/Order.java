@@ -1,8 +1,10 @@
 package com.food.common.order.domain;
 
 import com.food.common.basetime.BaseTimeEntity;
+import com.food.common.order.enumeration.OrderStatus;
 import com.food.common.store.domain.Store;
 import com.food.common.user.domain.User;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.hibernate.validator.constraints.Length;
@@ -17,6 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_order")
 @Entity
@@ -46,13 +49,13 @@ public class Order extends BaseTimeEntity {
     @Comment("주문 상태")
     @NotNull(message = STATUS_CANNOT_BE_NULL)
     @Enumerated(STRING)
-    private Status status;
+    private OrderStatus status;
 
     @Comment("추가 요청 사항")
     @Length(max = 150, message = COMMENT_HAS_TO_BE_BETWEEN_LENGTH)
     private String comment;
 
-    public static Order create(User customer, Store store, Integer amount, Status status, String comment) {
+    public static Order create(User customer, Store store, Integer amount, OrderStatus status, String comment) {
         Order order = new Order();
         order.customer = customer;
         order.store = store;
@@ -63,17 +66,11 @@ public class Order extends BaseTimeEntity {
         return order;
     }
 
-    public enum Status {
-        REQUEST("주문 요청 중"),
-        COOKING("조리 중"),
-        COMPLETED("조리 완료"),
-        CANCELED("취소")
-        ;
+    public Long getCustomerId() {
+        return customer.getId();
+    }
 
-        private final String description;
-
-        Status(String description) {
-            this.description = description;
-        }
+    public Long getStoreId() {
+        return store.getId();
     }
 }

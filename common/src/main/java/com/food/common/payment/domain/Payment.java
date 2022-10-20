@@ -2,6 +2,8 @@ package com.food.common.payment.domain;
 
 import com.food.common.basetime.BaseTimeEntity;
 import com.food.common.order.domain.Order;
+import com.food.common.payment.enumeration.PaymentActionType;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -9,11 +11,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.ORDER_CANNOT_BE_NULL;
-import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.STATUS_CANNOT_BE_NULL;
-import static javax.persistence.FetchType.*;
+import static com.food.common.payment.utils.PaymentValidationFailureMessages.Payment.TYPE_CANNOT_BE_NULL;
+import static javax.persistence.EnumType.*;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_payment")
 @Entity
@@ -30,28 +34,16 @@ public class Payment extends BaseTimeEntity {
     private Order order;
 
     @Comment("결제 상태")
-    @NotNull(message = STATUS_CANNOT_BE_NULL)
-    private Status status;
+    @NotNull(message = TYPE_CANNOT_BE_NULL)
+    @Enumerated(STRING)
+    private PaymentActionType actionType;
 
-    public static Payment create(Order order, Status status) {
+    public static Payment create(Order order, PaymentActionType actionType) {
         Payment payment = new Payment();
         payment.order = order;
-        payment.status = status;
+        payment.actionType = actionType;
 
         return payment;
     }
 
-    public enum Status {
-        PAYMENT_REQUEST("결제 요청"),
-        PAYMENT_COMPLETED("결제 완료"),
-        CANCELLATION_REQUEST("결제 취소 요청"),
-        CANCELLATION_COMPLETED("결제 취소 완료")
-        ;
-
-        private final String description;
-
-        Status(String description) {
-            this.description = description;
-        }
-    }
 }

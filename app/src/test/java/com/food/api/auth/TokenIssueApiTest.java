@@ -2,6 +2,7 @@ package com.food.api.auth;
 
 import com.food.SuperIntegrationTest;
 import com.food.auth.presentation.dto.LoginRequest;
+import com.food.common.user.domain.AppAccount;
 import com.food.common.user.enumeration.AccountType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,13 +23,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class TokenIssueApiTest extends SuperIntegrationTest {
     private final String DOCUMENT_AUTH = "auth/create-token/";
-    private MockAccount account;
+    private AppAccount account;
 
     @BeforeEach
     protected void setup(RestDocumentationContextProvider restDocumentation) {
         super.setup(restDocumentation);
 
-        account = createMockAccount();
+        account = accountFactory.appAccount(mockUser);
     }
 
     @Test

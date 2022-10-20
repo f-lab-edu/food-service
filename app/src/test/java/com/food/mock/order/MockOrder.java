@@ -1,5 +1,6 @@
 package com.food.mock.order;
 
+import com.food.common.order.enumeration.OrderStatus;
 import com.food.common.order.domain.Order;
 import com.food.common.store.domain.Store;
 import com.food.common.user.domain.User;
@@ -20,7 +21,7 @@ public class MockOrder {
         private User customer = MockUser.builder().build();
         private Store store = MockStore.builder().build();
         private Integer amount = 24000;
-        private Order.Status status = Order.Status.COMPLETED;
+        private OrderStatus status = OrderStatus.COMPLETED;
         private String comment = "맛있게 해주세요";
 
         public Builder id(Long id) {
@@ -43,7 +44,7 @@ public class MockOrder {
             return this;
         }
 
-        public Builder status(Order.Status status) {
+        public Builder status(OrderStatus status) {
             this.status = status;
             return this;
         }

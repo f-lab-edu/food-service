@@ -2,8 +2,8 @@ package com.food.common.unit.payment.domain;
 
 import com.food.common.mock.payment.MockPayment;
 import com.food.common.mock.payment.MockPaymentLog;
-import com.food.common.mock.user.MockPoint;
 import com.food.common.payment.domain.PaymentLog;
+import com.food.common.payment.enumeration.PaymentMethod;
 import com.food.common.unit.SuperValidationTests;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +40,7 @@ public class PaymentLogTest extends SuperValidationTests<PaymentLog> {
                 .method(null)
                 .build();
 
-        Set<PaymentLog> mockPaymentLogsWithEnumMethods = Arrays.stream(PaymentLog.Method.values()).map(method ->
+        Set<PaymentLog> mockPaymentLogsWithEnumMethods = Arrays.stream(PaymentMethod.values()).map(method ->
                         MockPaymentLog.builder()
                                 .method(method)
                                 .build())
@@ -49,24 +49,6 @@ public class PaymentLogTest extends SuperValidationTests<PaymentLog> {
         assertAll(
                 () -> assertThat(failureMessagesOf(mockPaymentLogWithNullMethod)).containsExactlyInAnyOrder(METHOD_CANNOT_BE_NULL),
                 () -> assertThat(failureMessagesOf(mockPaymentLogsWithEnumMethods)).isEmpty()
-        );
-    }
-
-    @Test
-    void validateTypeInPaymentLog() {
-        PaymentLog mockPaymentLogWithNullType = MockPaymentLog.builder()
-                .type(null)
-                .build();
-
-        Set<PaymentLog> mockPaymentLogsWithEnumTypes = Arrays.stream(PaymentLog.Type.values()).map(type ->
-                        MockPaymentLog.builder()
-                                .type(type)
-                                .build())
-                .collect(Collectors.toSet());
-
-        assertAll(
-                () -> assertThat(failureMessagesOf(mockPaymentLogWithNullType)).containsExactlyInAnyOrder(TYPE_CANNOT_BE_NULL),
-                () -> assertThat(failureMessagesOf(mockPaymentLogsWithEnumTypes)).isEmpty()
         );
     }
 
@@ -91,22 +73,6 @@ public class PaymentLogTest extends SuperValidationTests<PaymentLog> {
                 () -> assertThat(failureMessagesOf(mockPaymentLogWithNullAmount)).containsExactlyInAnyOrder(AMOUNT_CANNOT_BE_NULL),
                 () -> assertThat(failureMessagesOf(mockPaymentLogWithNegativeAmount)).containsExactlyInAnyOrder(formatPositive(AMOUNT_HAS_TO_BE_POSITIVE, negativeAmount)),
                 () -> assertThat(failureMessagesOf(mockPointsWithPositiveAmounts)).isEmpty()
-        );
-    }
-
-    @Test
-    void validatePointInPaymentLog() {
-        PaymentLog mockPaymentLogWithNullPoint = MockPaymentLog.builder()
-                .point(null)
-                .build();
-
-        PaymentLog mockPaymentLogWithPoint = MockPaymentLog.builder()
-                .point(MockPoint.builder().build())
-                .build();
-
-        assertAll(
-                () -> assertThat(failureMessagesOf(mockPaymentLogWithNullPoint)).containsExactlyInAnyOrder(POINT_CANNOT_BE_NULL),
-                () -> assertThat(failureMessagesOf(mockPaymentLogWithPoint)).isEmpty()
         );
     }
 }
