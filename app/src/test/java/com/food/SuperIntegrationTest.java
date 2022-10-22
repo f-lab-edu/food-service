@@ -7,6 +7,8 @@ import com.food.auth.provider.AccessTokenProvider;
 import com.food.common.user.domain.AppAccount;
 import com.food.common.user.domain.User;
 import com.food.mock.order.MockOrderFactory;
+import com.food.mock.payment.MockPaymentFactory;
+import com.food.mock.payment.MockPaymentLogFactory;
 import com.food.mock.store.MockStoreFactory;
 import com.food.mock.store.MockStoreOwnerFactory;
 import com.food.mock.user.MockAccountFactory;
@@ -34,7 +36,9 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         MockPointFactory.class,
         MockStoreOwnerFactory.class,
         MockStoreFactory.class,
-        MockOrderFactory.class
+        MockOrderFactory.class,
+        MockPaymentFactory.class,
+        MockPaymentLogFactory.class
 })
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @SpringBootTest
@@ -67,6 +71,12 @@ public class SuperIntegrationTest {
 
     @Autowired
     protected MockOrderFactory orderFactory;
+
+    @Autowired
+    protected MockPaymentFactory paymentFactory;
+
+    @Autowired
+    protected MockPaymentLogFactory paymentLogFactory;
 
     @Autowired
     protected AccessTokenProvider accessTokenProvider;
