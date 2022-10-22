@@ -1,6 +1,7 @@
 package com.food.common.user.business.external.model;
 
 import com.food.common.user.business.internal.dto.PointSaveDto;
+import com.food.common.user.enumeration.PointType;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -26,6 +27,10 @@ public class PointUseRequest {
     }
 
     public PointSaveDto toPointSaveDto() {
-        return PointSaveDto.createUseRequest(ownerId, amount);
+        return PointSaveDto.builder()
+                .usedId(ownerId)
+                .amount(amount)
+                .type(PointType.USE)
+                .build();
     }
 }
