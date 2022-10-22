@@ -22,8 +22,8 @@ public class PointUseRequest {
         this.ownerId = ownerId;
     }
 
-    public boolean hasLessThan(int currentAmount) {
-        return currentAmount > amount;
+    public boolean hasGreaterAmountThan(int currentAmount) {
+        return amount > currentAmount;
     }
 
     public PointSaveDto toPointSaveDto() {

@@ -24,7 +24,7 @@ public class DefaultPointService implements PointService {
     @Override
     public Long use(PointUseRequest request) {
         int currentAmount = currentAmount(request.getOwnerId());
-        if (request.hasLessThan(currentAmount)) {
+        if (request.hasGreaterAmountThan(currentAmount)) {
             throw new IllegalArgumentException("잔여포인트가 부족합니다. 잔여포인트=" + currentAmount);
         }
 
