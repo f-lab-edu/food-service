@@ -9,4 +9,8 @@ public interface PointService {
     Long use(@NotNull PointUseRequest request);
 
     void collect(@NotNull PointCollectRequest request);
+
+    void recollectUsedPoint(@NotNull Long pointId);
+
+    void retrieveCollectedPoint(@NotNull Long paymentId);
 }
