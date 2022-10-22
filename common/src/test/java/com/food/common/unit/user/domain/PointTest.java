@@ -4,6 +4,7 @@ import com.food.common.mock.user.MockPoint;
 import com.food.common.mock.user.MockUser;
 import com.food.common.unit.SuperValidationTests;
 import com.food.common.user.domain.Point;
+import com.food.common.user.enumeration.PointType;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -38,7 +39,7 @@ public class PointTest extends SuperValidationTests<Point> {
                 .type(null)
                 .build();
 
-        Set<Point> mockPointsWithEnumTypes = Arrays.stream(Point.Type.values()).map(
+        Set<Point> mockPointsWithEnumTypes = Arrays.stream(PointType.values()).map(
                         type -> MockPoint.builder()
                                 .type(type)
                                 .build())
