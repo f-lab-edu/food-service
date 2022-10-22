@@ -66,6 +66,13 @@ public class PayRequest {
         return Optional.of((PointPayment) optionalPayment.get());
     }
 
+    public int getActualPaymentAmount() {
+        return payments.stream()
+                .filter(payment -> !(payment instanceof PointPayment))
+                .map(PaymentElement::getAmount)
+                .reduce(0, Integer::sum);
+    }
+
     public Set<PaymentLogsSaveDto.PaymentLog> toLogsOfPaymentLogsSaveDto() {
         return payments.stream()
                 .map(PaymentElement::toLogOfPaymentLogsSaveDto)
