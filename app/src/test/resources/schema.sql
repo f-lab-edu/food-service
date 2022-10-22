@@ -158,7 +158,7 @@ create table tb_point
     type enum('USE', 'COLLECT', 'RETRIEVE', 'RECOLLECT') not null,
     changed_amount mediumint not null default 0,
     current_amount mediumint not null default 0,
-    payment_id bigint unique,
+    payment_id bigint,
     created_date datetime not null default now()
 );
 
