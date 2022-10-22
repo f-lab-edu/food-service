@@ -9,12 +9,10 @@ import com.food.common.user.enumeration.Role;
 import com.food.order.presentation.dto.request.PayViewRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @ApiFor(roles = Role.CUSTOMER)
 @RequiredArgsConstructor
@@ -30,4 +28,23 @@ public class PayController {
 
         return ResponseEntity.ok(SuccessResult.createResult());
     }
+
+    @DeleteMapping("/{paymentId}")
+    public ResponseEntity<SuccessResult> cancelPayment(@PathVariable @NotNull Long paymentId,
+                                             @Authenticated RequestUser requestUser) {
+        payService.cancelPayment(paymentId, requestUser);
+
+        return ResponseEntity.ok(SuccessResult.createResult());
+    }
+
+    /**
+     * TODO
+     * Order 조리 사직인지 확인 (요청중일 때만 취소가능)
+     * Order에 상태 변경 (취소)
+     * Payment 상태 변경 (v)
+     * 사용 Point 취소 (v)
+     * 적립 Point 회수 (v)
+     */
+
+
 }
