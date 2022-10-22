@@ -64,7 +64,7 @@ public class PayApiTests extends SuperIntegrationTest {
         Point point = MockPoint.builder()
                 .user(mockUser)
                 .changedAmount(1000)
-                .currentAmount(0)
+                .currentAmount(1000)
                 .payment(null)
                 .build();
         pointRepository.save(point);

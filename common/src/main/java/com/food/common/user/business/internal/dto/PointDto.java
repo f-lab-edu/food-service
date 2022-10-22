@@ -3,9 +3,13 @@ package com.food.common.user.business.internal.dto;
 import com.food.common.user.domain.Point;
 import com.food.common.user.enumeration.PointType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+import static lombok.AccessLevel.PRIVATE;
+
+@NoArgsConstructor(access = PRIVATE)
 @Getter
 public final class PointDto {
     private Long id;

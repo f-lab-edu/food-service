@@ -8,6 +8,7 @@ import com.food.common.payment.business.external.model.payrequest.PointPayment;
 import com.food.common.payment.business.internal.PaymentCommonService;
 import com.food.common.payment.business.internal.PaymentLogCommonService;
 import com.food.common.user.business.external.PointService;
+import com.food.common.user.business.external.model.PointCollectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,8 @@ public class DefaultPayService implements PayService {
 
         Long paymentId = paymentCommonService.save(payment.toPaymentSaveDto());
         paymentLogCommonService.saveAll(payment.toPaymentLogSaveDto(paymentId));
+
+        collectPoints(payment, paymentId);
     }
 
     private void usePoints(PayRequest payment) {
@@ -45,5 +48,13 @@ public class DefaultPayService implements PayService {
             Long usedPointId = pointService.use(paymentPoint.toPointsUseRequest());
             paymentPoint.updateUsedPointId(usedPointId);
         }
+    }
+
+    private void collectPoints(PayRequest payment, Long paymentId) {
+        int actualPaymentAmount = payment.getActualPaymentAmount();
+        if (actualPaymentAmount == 0) return;
+
+        PointCollectRequest request = new PointCollectRequest(payment.getPayerId(), paymentId, actualPaymentAmount);
+        pointService.collect(request);
     }
 }

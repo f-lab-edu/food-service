@@ -59,12 +59,35 @@ public class Point extends BaseTimeEntity {
         point.type = type;
         point.changedAmount = changedAmount;
         point.currentAmount = currentAmount;
+        point.payment = payment;
 
         return point;
     }
 
-    public static Point create(User user, Type type, Integer changedAmount, Integer currentAmount, Payment payment) {
-        Point point = Point.create(user, type, changedAmount, currentAmount);
+    public static Point createFirstPoint(User user) {
+        Point point = new Point();
+        point.user = user;
+        point.currentAmount = 0;
+
+        return point;
+    }
+
+    public Point use(Integer amount) {
+        Point point = new Point();
+        point.user = user;
+        point.type = PointType.USE;
+        point.changedAmount = amount;
+        point.currentAmount = this.currentAmount - amount;
+
+        return point;
+    }
+
+    public Point collect(Integer amount, Payment payment) {
+        Point point = new Point();
+        point.user = user;
+        point.type = PointType.COLLECT;
+        point.changedAmount = amount;
+        point.currentAmount = this.currentAmount + amount;
         point.payment = payment;
 
         return point;
