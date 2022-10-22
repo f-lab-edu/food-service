@@ -13,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -47,6 +49,21 @@ public class DefaultPointCommonService implements PointCommonService {
             Point collectedPoint = basePoint.collect(request.getAmount(), payment);
             return pointRepository.save(collectedPoint).getId();
         }
+    }
+
+    @Override
+    public Optional<PointDto> findByPointId(Long pointId) {
+        return pointRepository.findById(pointId)
+                .map(PointDto::new);
+    }
+
+    @Override
+    public List<PointDto> findAllByPaymentId(Long paymentId) {
+        Payment payment = paymentEntityService.findById(paymentId);
+
+        return pointRepository.findAllByPaymentOrderByCreatedDateDesc(payment).stream()
+                .map(PointDto::new)
+                .collect(Collectors.toList());
     }
 
     private Optional<Point> findLatestPointByUser(User user) {
