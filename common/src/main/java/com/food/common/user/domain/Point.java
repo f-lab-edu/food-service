@@ -2,6 +2,7 @@ package com.food.common.user.domain;
 
 import com.food.common.basetime.BaseTimeEntity;
 import com.food.common.payment.domain.Payment;
+import com.food.common.user.enumeration.PointType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -35,7 +36,7 @@ public class Point extends BaseTimeEntity {
     @Comment("적립/사용 타입")
     @NotNull(message = TYPE_CANNOT_BE_NULL)
     @Enumerated(STRING)
-    private Type type;
+    private PointType type;
 
     @Comment("포인트 금액")
     @PositiveOrZero(message = CHANGED_AMOUNT_HAS_TO_BE_POSITIVE)
@@ -52,7 +53,7 @@ public class Point extends BaseTimeEntity {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    public static Point create(User user, Type type, Integer changedAmount, Integer currentAmount) {
+    public static Point create(User user, PointType type, Integer changedAmount, Integer currentAmount, Payment payment) {
         Point point = new Point();
         point.user = user;
         point.type = type;
@@ -77,17 +78,5 @@ public class Point extends BaseTimeEntity {
         if (payment == null) return null;
 
         return payment.getId();
-    }
-
-    public enum Type {
-        COLLECT("적립"),
-        USE("사용")
-        ;
-
-        private final String description;
-
-        Type(String description) {
-            this.description = description;
-        }
     }
 }
