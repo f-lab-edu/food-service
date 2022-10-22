@@ -48,6 +48,7 @@ public class DefaultPointService implements PointService {
                 .usedId(point.getUserId())
                 .amount(point.getChangedAmount())
                 .type(PointType.RECOLLECT)
+                .paymentId(point.getPaymentId())
                 .build();
 
         pointCommonService.save(request);
@@ -56,16 +57,19 @@ public class DefaultPointService implements PointService {
     @Override
     public void retrieveCollectedPoint(Long paymentId) {
         List<PointDto> pointHistory = pointCommonService.findAllByPaymentId(paymentId);
-        PointDto point = getValidatedPoint(pointHistory);
+        PointDto point = getValidatedRetrievedPoint(pointHistory);
 
-        PointSaveDto.builder()
+        PointSaveDto request = PointSaveDto.builder()
                 .usedId(point.getUserId())
                 .amount(point.getChangedAmount())
+                .type(PointType.RETRIEVE)
                 .paymentId(paymentId)
                 .build();
+
+        pointCommonService.save(request);
     }
 
-    private PointDto getValidatedPoint(List<PointDto> pointHistory) {
+    private PointDto getValidatedRetrievedPoint(List<PointDto> pointHistory) {
         boolean existsRetrieveHistory = pointHistory.stream()
                 .anyMatch(point -> point.getType() == PointType.RETRIEVE);
 
