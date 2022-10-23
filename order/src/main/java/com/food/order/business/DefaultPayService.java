@@ -29,7 +29,7 @@ public class DefaultPayService implements PayService {
     private final PaymentCommonService paymentCommonService;
     private final PaymentLogCommonService paymentLogCommonService;
 
-    public void pay(final PayRequest payment) {
+    public Long pay(final PayRequest payment) {
         OrderDto order = orderCommonService.findById(payment.getOrderId())
                 .orElseThrow(() -> new IllegalArgumentException("주문내역이 존재하지 않습니다. orderId=" + payment.getOrderId()));
 
@@ -44,6 +44,8 @@ public class DefaultPayService implements PayService {
         paymentLogCommonService.saveAll(payment.toPaymentLogSaveDto(paymentId));
 
         collectPoints(payment, paymentId);
+
+        return paymentId;
     }
 
     private void usePoints(PayRequest payment) {
