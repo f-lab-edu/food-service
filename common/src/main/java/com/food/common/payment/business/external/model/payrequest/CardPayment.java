@@ -4,6 +4,11 @@ import com.food.common.payment.enumeration.PaymentMethod;
 
 public final class CardPayment extends PaymentElement {
     public CardPayment(Integer amount) {
-        super(PaymentMethod.CARD, amount);
+        super(amount);
+    }
+
+    @Override
+    public PaymentMethod method() {
+        return PaymentMethod.CARD;
     }
 }

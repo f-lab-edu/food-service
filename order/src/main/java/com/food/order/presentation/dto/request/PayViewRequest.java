@@ -43,9 +43,9 @@ public final class PayViewRequest {
         this.elements.addAll(elements);
     }
 
-    private Set<PaymentElement> toElementsOfPayRequest(Long payerId) {
+    private Set<PaymentElement> toElementsOfPayRequest() {
         return elements.stream()
-                .map(element -> element.toPaymentElements(payerId))
+                .map(PaymentElementViewRequest::toPaymentElements)
                 .collect(Collectors.toSet());
     }
 
@@ -53,7 +53,7 @@ public final class PayViewRequest {
         return PayRequest.builder()
                 .orderId(orderId)
                 .actionType(actionType)
-                .elements(toElementsOfPayRequest(requestUser.getUserId()))
+                .elements(toElementsOfPayRequest())
                 .payerId(requestUser.getUserId())
                 .build();
     }
@@ -72,12 +72,12 @@ public final class PayViewRequest {
             this.amount = amount;
         }
 
-        private PaymentElement toPaymentElements(Long payerId) {
+        private PaymentElement toPaymentElements() {
             PaymentElement result = null;
             switch (method) {
                 case CARD -> result = new CardPayment(amount);
                 case ACCOUNT_TRANSFER -> result = new AccountTransferPayment(amount);
-                case POINT -> result = new PointPayment(amount, payerId);
+                case POINT -> result = new PointPayment(amount);
             }
 
             return result;

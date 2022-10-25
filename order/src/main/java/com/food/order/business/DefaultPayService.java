@@ -35,8 +35,8 @@ public class DefaultPayService implements PayService {
 
         usePoints(payment);
 
-        Long paymentId = paymentCommonService.save(payment.toPaymentSaveDto());
-        paymentLogCommonService.saveAll(payment.toPaymentLogSaveDto(paymentId));
+        Long paymentId = paymentCommonService.save(payment.getOrderId(), payment.getActionType());
+        paymentLogCommonService.saveAll(paymentId, payment.getPayments());
 
         collectPoints(payment, paymentId);
     }
@@ -45,7 +45,7 @@ public class DefaultPayService implements PayService {
         Optional<PointPayment> findPointPayment = payment.findPointPayment();
         if(findPointPayment.isPresent()) {
             PointPayment paymentPoint = findPointPayment.get();
-            Long usedPointId = pointService.use(paymentPoint.toPointsUseRequest());
+            Long usedPointId = pointService.use(paymentPoint.toPointsUseRequest(payment.getPayerId()));
             paymentPoint.updateUsedPointId(usedPointId);
         }
     }
