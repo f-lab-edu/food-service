@@ -132,7 +132,7 @@ public class PayApiTests extends SuperIntegrationTest {
                 .actionType(PaymentActionType.PAYMENT)
                 .orderId(mockOrder.getId())
                 .elements(Set.of(
-                        new PointPayment(1000, mockOrder.getCustomerId()),
+                        new PointPayment(1000),
                         new CardPayment(mockOrder.getAmount() - 1000)))
                 .build();
 
