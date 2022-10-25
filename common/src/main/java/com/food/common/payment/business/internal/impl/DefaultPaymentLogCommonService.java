@@ -1,7 +1,8 @@
 package com.food.common.payment.business.internal.impl;
 
+import com.food.common.payment.business.external.model.payrequest.PaymentElement;
+import com.food.common.payment.business.external.model.payrequest.PointPayment;
 import com.food.common.payment.business.internal.PaymentLogCommonService;
-import com.food.common.payment.business.internal.model.PaymentLogsSaveDto;
 import com.food.common.payment.domain.Payment;
 import com.food.common.payment.domain.PaymentLog;
 import com.food.common.payment.repository.PaymentLogRepository;
@@ -24,23 +25,25 @@ public class DefaultPaymentLogCommonService implements PaymentLogCommonService {
     private final PaymentLogRepository paymentLogRepository;
 
     @Override
-    public void saveAll(PaymentLogsSaveDto request) {
-        Payment payment = paymentEntityService.findById(request.getPaymentId());
+    public void saveAll(Long paymentId, Set<PaymentElement> elements) {
+        Payment payment = paymentEntityService.findById(paymentId);
 
-        Set<PaymentLog> paymentLogs = request.getLogs().stream()
+        Set<PaymentLog> paymentLogs = elements.stream()
                 .map(logRequest -> toEntity(payment, logRequest))
                 .collect(Collectors.toSet());
 
         paymentLogRepository.saveAll(paymentLogs);
     }
 
-    private PaymentLog toEntity(Payment payment, PaymentLogsSaveDto.PaymentLog logRequest) {
-        if (logRequest.isPoint()) {
-            Point point = pointEntityService.findById(logRequest.getPointId());
-            return PaymentLog.create(payment, logRequest.getMethod(), logRequest.getAmount(), point);
+    private PaymentLog toEntity(Payment payment, PaymentElement logRequest) {
+        if (logRequest instanceof PointPayment pointPayment) {
+            pointPayment.validate();
+            Point point = pointEntityService.findById(pointPayment.getPointId());
+
+            return PaymentLog.create(payment, pointPayment.method(), pointPayment.getAmount(), point);
         }
 
-        return PaymentLog.create(payment, logRequest.getMethod(), logRequest.getAmount());
+        return PaymentLog.create(payment, logRequest.method(), logRequest.getAmount());
     }
 
     @Override

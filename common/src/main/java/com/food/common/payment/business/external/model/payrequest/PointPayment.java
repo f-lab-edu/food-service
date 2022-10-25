@@ -1,33 +1,38 @@
 package com.food.common.payment.business.external.model.payrequest;
 
-import com.food.common.payment.business.internal.model.PaymentLogsSaveDto;
 import com.food.common.payment.enumeration.PaymentMethod;
 import com.food.common.user.business.external.model.PointUseRequest;
+import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
 
+@Getter
 public final class PointPayment extends PaymentElement {
     private Long pointId;
 
-    private Long payerId;
-
-    public PointPayment(Integer amount, Long payerId) {
-        super(PaymentMethod.POINT, amount);
-        this.payerId = payerId;
+    public PointPayment(Integer amount) {
+        super(amount);
     }
 
     public void updateUsedPointId(@NotNull Long pointId) {
         this.pointId = pointId;
     }
 
-    public PointUseRequest toPointsUseRequest() {
+    public PointUseRequest toPointsUseRequest(Long ownerId) {
         return PointUseRequest.builder()
-                .ownerId(payerId)
+                .ownerId(ownerId)
                 .amount(amount)
                 .build();
     }
 
-    public PaymentLogsSaveDto.PaymentLog toLogOfPaymentLogsSaveDto() {
-        return new PaymentLogsSaveDto.PaymentLog(method, amount, pointId);
+    @Override
+    public PaymentMethod method() {
+        return PaymentMethod.POINT;
+    }
+
+    public void validate() {
+        if (pointId == null) {
+            throw new IllegalArgumentException("포인트 지급내역이 존재하지 않습니다.");
+        }
     }
 }
