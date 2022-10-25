@@ -36,15 +36,4 @@ public class PayController {
 
         return ResponseEntity.ok(SuccessResult.createResult());
     }
-
-    /**
-     * TODO
-     * Order 조리 사직인지 확인 (요청중일 때만 취소가능)
-     * Order에 상태 변경 (취소)
-     * Payment 상태 변경 (v)
-     * 사용 Point 취소 (v)
-     * 적립 Point 회수 (v)
-     */
-
-
 }
