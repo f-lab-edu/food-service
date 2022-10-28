@@ -1,4 +1,4 @@
-package com.food.common.store.business;
+package com.food.common.store.business.internal;
 
 import com.food.common.store.domain.StoreOwner;
 import com.food.common.user.domain.User;
