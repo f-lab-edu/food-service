@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -42,6 +44,9 @@ public class MenuOption {
     @Size(max = 100)
     @NotNull
     private Byte maxSize;
+
+    @OneToMany(mappedBy = "option")
+    private final List<MenuSelection> selections = new ArrayList<>();
 
     public static MenuOption menuOption(Menu menu, String name, Byte minSize, Byte maxSize) {
         MenuOption menuOption = new MenuOption();
