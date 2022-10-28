@@ -1,5 +1,6 @@
 package com.food.common.store.domain;
 
+import com.food.common.store.enumeration.StoreOpenStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -45,9 +46,9 @@ public class Store {
     @NotNull(message = OPEN_STATUS_CANNOT_BE_NULL)
     @Enumerated(STRING)
     @Column(name = "OPEN_STATUS")
-    private OpenStatus status;
+    private StoreOpenStatus status;
 
-    public static Store create(String name, StoreOwner owner, Integer minOrderAmount, OpenStatus status) {
+    public static Store create(String name, StoreOwner owner, Integer minOrderAmount, StoreOpenStatus status) {
         Store store = new Store();
         store.name = name;
         store.owner = owner;
@@ -55,18 +56,6 @@ public class Store {
         store.status = status;
 
         return store;
-    }
-
-    public enum OpenStatus {
-        OPEN("운영 중"),
-        CLOSED("운영 종료")
-        ;
-
-        private final String description;
-
-        OpenStatus(String description) {
-            this.description = description;
-        }
     }
 
 }
