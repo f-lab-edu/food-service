@@ -2,6 +2,7 @@ package com.food.common.unit.store.domain;
 
 import com.food.common.mock.store.MockStore;
 import com.food.common.store.domain.Store;
+import com.food.common.store.enumeration.StoreOpenStatus;
 import com.food.common.unit.SuperValidationTests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -86,7 +87,7 @@ public class StoreTests extends SuperValidationTests<Store> {
                 .status(null)
                 .build();
 
-        Set<Store> mockStoresWithEnumTypeStatus = Arrays.stream(Store.OpenStatus.values()).map(
+        Set<Store> mockStoresWithEnumTypeStatus = Arrays.stream(StoreOpenStatus.values()).map(
                 status -> MockStore.builder()
                         .status(status)
                         .build()
