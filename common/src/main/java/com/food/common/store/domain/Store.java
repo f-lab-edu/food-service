@@ -58,4 +58,7 @@ public class Store {
         return store;
     }
 
+    public Long getOwnerId() {
+        return owner.getId();
+    }
 }
