@@ -9,8 +9,7 @@ import com.food.common.user.domain.User;
 import com.food.mock.order.MockOrderFactory;
 import com.food.mock.payment.MockPaymentFactory;
 import com.food.mock.payment.MockPaymentLogFactory;
-import com.food.mock.store.MockStoreFactory;
-import com.food.mock.store.MockStoreOwnerFactory;
+import com.food.mock.store.*;
 import com.food.mock.user.MockAccountFactory;
 import com.food.mock.user.MockPointFactory;
 import com.food.mock.user.MockUserFactory;
@@ -36,6 +35,9 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
         MockPointFactory.class,
         MockStoreOwnerFactory.class,
         MockStoreFactory.class,
+        MockMenuFactory.class,
+        MockMenuOptionFactory.class,
+        MockMenuSelectionFactory.class,
         MockOrderFactory.class,
         MockPaymentFactory.class,
         MockPaymentLogFactory.class
@@ -68,6 +70,15 @@ public class SuperIntegrationTest {
 
     @Autowired
     protected MockStoreFactory storeFactory;
+
+    @Autowired
+    protected MockMenuFactory menuFactory;
+
+    @Autowired
+    protected MockMenuOptionFactory menuOptionFactory;
+
+    @Autowired
+    protected MockMenuSelectionFactory menuSelectionFactory;
 
     @Autowired
     protected MockOrderFactory orderFactory;
