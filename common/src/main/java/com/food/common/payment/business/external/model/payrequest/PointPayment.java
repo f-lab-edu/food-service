@@ -1,7 +1,7 @@
 package com.food.common.payment.business.external.model.payrequest;
 
 import com.food.common.payment.enumeration.PaymentMethod;
-import com.food.common.user.business.external.model.PointsUseRequest;
+import com.food.common.user.business.external.model.PointUseRequest;
 import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
@@ -18,8 +18,8 @@ public final class PointPayment extends PaymentElement {
         this.pointId = pointId;
     }
 
-    public PointsUseRequest toPointsUseRequest(Long ownerId) {
-        return PointsUseRequest.builder()
+    public PointUseRequest toPointsUseRequest(Long ownerId) {
+        return PointUseRequest.builder()
                 .ownerId(ownerId)
                 .amount(amount)
                 .build();

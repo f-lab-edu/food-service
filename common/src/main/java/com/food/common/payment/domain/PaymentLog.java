@@ -3,6 +3,7 @@ package com.food.common.payment.domain;
 import com.food.common.basetime.BaseTimeEntity;
 import com.food.common.payment.enumeration.PaymentMethod;
 import com.food.common.user.domain.Point;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -16,6 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_payment_log")
 @Entity
@@ -60,5 +62,13 @@ public class PaymentLog extends BaseTimeEntity {
         paymentLog.point = point;
 
         return paymentLog;
+    }
+
+    public Long getPaymentId() {
+        return payment.getId();
+    }
+
+    public Long getPointId() {
+        return point.getId();
     }
 }

@@ -4,6 +4,7 @@ import com.food.common.mock.payment.MockPayment;
 import com.food.common.payment.domain.Payment;
 import com.food.common.user.domain.Point;
 import com.food.common.user.domain.User;
+import com.food.common.user.enumeration.PointType;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -17,7 +18,7 @@ public class MockPoint {
     public static class Builder {
         private Long id;
         private User user = MockUser.builder().build();
-        private Point.Type type = Point.Type.COLLECT;
+        private PointType type = PointType.COLLECT;
         private Integer changedAmount = 100;
         private Integer currentAmount = 1000;
         private Payment payment = MockPayment.builder().build();
@@ -32,7 +33,7 @@ public class MockPoint {
             return this;
         }
 
-        public Builder type(Point.Type type) {
+        public Builder type(PointType type) {
             this.type = type;
             return this;
         }

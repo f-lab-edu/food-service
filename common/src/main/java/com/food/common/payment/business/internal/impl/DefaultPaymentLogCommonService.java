@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,5 +44,11 @@ public class DefaultPaymentLogCommonService implements PaymentLogCommonService {
         }
 
         return PaymentLog.create(payment, logRequest.method(), logRequest.getAmount());
+    }
+
+    @Override
+    public List<PaymentLog> findAllByPaymentId(Long paymentId) {
+        Payment payment = paymentEntityService.findById(paymentId);
+        return paymentLogRepository.findAllByPayment(payment);
     }
 }

@@ -1,5 +1,7 @@
 package com.food.common.user.business.internal.impl;
 
+import com.food.common.payment.business.internal.impl.PaymentEntityService;
+import com.food.common.payment.domain.Payment;
 import com.food.common.user.business.internal.PointCommonService;
 import com.food.common.user.business.internal.dto.PointDto;
 import com.food.common.user.business.internal.dto.PointSaveDto;
@@ -10,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -18,6 +22,7 @@ import java.util.Optional;
 public class DefaultPointCommonService implements PointCommonService {
     private final PointRepository pointRepository;
     private final UserEntityService userEntityService;
+    private final PaymentEntityService paymentEntityService;
 
     @Override
     public Optional<PointDto> findLatestPointByUserId(Long userId) {
@@ -32,15 +37,50 @@ public class DefaultPointCommonService implements PointCommonService {
     public Long save(PointSaveDto request) {
         User user = findUser(request.getUsedId());
 
-        Point point = Point.create(user, Point.Type.USE, request.getAmount(), getCurrentPoints(user));
-        return pointRepository.save(point).getId();
+        Point basePoint = findLatestPointByUser(user)
+                .orElse(Point.createFirstPoint(user));
+
+        Point changedPoint = createChangedPoint(request, basePoint);
+
+        return pointRepository.save(changedPoint).getId();
     }
 
-    private Integer getCurrentPoints(User user) {
-        Optional<Point> optionalPoint = findLatestPointByUser(user);
-        if (optionalPoint.isEmpty()) return 0;
+    private Point createChangedPoint(PointSaveDto request, Point basePoint) {
+        Point result;
+        switch (request.getType()) {
+            case COLLECT -> {
+                Payment payment = paymentEntityService.findById(request.getPaymentId());
+                result = basePoint.collect(request.getAmount(), payment);
+            }
+            case USE -> {
+                result = basePoint.use(request.getAmount());
+            }
+            case RETRIEVE -> {
+                Payment payment = paymentEntityService.findById(request.getPaymentId());
+                result = basePoint.retrieve(request.getAmount(), payment);
+            }
+            case RECOLLECT -> {
+                result = basePoint.recollect(request.getAmount());
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + request.getType());
+        }
+        return result;
+    }
 
-        return optionalPoint.get().getCurrentAmount();
+
+    @Override
+    public Optional<PointDto> findByPointId(Long pointId) {
+        return pointRepository.findById(pointId)
+                .map(PointDto::new);
+    }
+
+    @Override
+    public List<PointDto> findAllByPaymentId(Long paymentId) {
+        Payment payment = paymentEntityService.findById(paymentId);
+
+        return pointRepository.findAllByPaymentOrderByCreatedDateDesc(payment).stream()
+                .map(PointDto::new)
+                .collect(Collectors.toList());
     }
 
     private Optional<Point> findLatestPointByUser(User user) {

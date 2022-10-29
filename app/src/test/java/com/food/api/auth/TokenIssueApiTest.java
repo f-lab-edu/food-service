@@ -2,7 +2,6 @@ package com.food.api.auth;
 
 import com.food.SuperIntegrationTest;
 import com.food.auth.presentation.dto.LoginRequest;
-import com.food.common.user.domain.AppAccount;
 import com.food.common.user.enumeration.AccountType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,18 +22,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class TokenIssueApiTest extends SuperIntegrationTest {
     private final String DOCUMENT_AUTH = "auth/create-token/";
-    private AppAccount account;
 
     @BeforeEach
     protected void setup(RestDocumentationContextProvider restDocumentation) {
         super.setup(restDocumentation);
-
-        account = accountFactory.appAccount(mockUser);
     }
 
     @Test
     void shouldIssueToken_whenRequestWithCorrectLoginIdAndPassword() throws Exception {
-        LoginRequest request = new LoginRequest(account.getLoginId(), account.getPassword(), AccountType.APP);
+        LoginRequest request = new LoginRequest(mockAccount.getLoginId(), mockAccount.getPassword(), AccountType.APP);
         mvc.perform(post("/auth/login")
                         .header(ACCEPT, APPLICATION_JSON_VALUE)
                         .header(CONTENT_TYPE, APPLICATION_JSON_VALUE)
