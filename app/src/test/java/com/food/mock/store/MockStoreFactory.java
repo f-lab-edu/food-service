@@ -23,4 +23,8 @@ public class MockStoreFactory {
 
         return storeRepository.save(store);
     }
+
+    public Store store(Store store) {
+        return storeRepository.save(store);
+    }
 }
