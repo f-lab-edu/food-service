@@ -50,7 +50,7 @@ public class LogInOutLog extends BaseTimeEntity {
         }
     }
 
-    private enum LogType {
+    public enum LogType {
         LOGIN,
         LOGOUT
     }
