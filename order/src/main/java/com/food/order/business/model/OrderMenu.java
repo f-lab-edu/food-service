@@ -1,6 +1,6 @@
 package com.food.order.business.model;
 
-import com.food.common.order.business.internal.dto.OrderMenuDto;
+import com.food.common.order.business.model.OrderMenuDto;
 import lombok.Builder;
 import org.springframework.util.CollectionUtils;
 

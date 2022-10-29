@@ -1,6 +1,6 @@
 package com.food.common.order.business.internal;
 
-import com.food.common.order.business.internal.dto.OrderDto;
+import com.food.common.order.business.model.OrderDto;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;

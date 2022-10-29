@@ -1,7 +1,7 @@
 package com.food.common.order.business.internal.impl;
 
 import com.food.common.order.business.internal.OrderCommonService;
-import com.food.common.order.business.internal.dto.OrderDto;
+import com.food.common.order.business.model.OrderDto;
 import com.food.common.order.domain.Order;
 import com.food.common.order.repository.OrderRepository;
 import com.food.common.store.business.internal.impl.StoreEntityService;

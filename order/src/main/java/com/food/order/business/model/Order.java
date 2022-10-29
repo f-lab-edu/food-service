@@ -1,7 +1,7 @@
 package com.food.order.business.model;
 
-import com.food.common.order.business.internal.dto.OrderDto;
-import com.food.common.order.business.internal.dto.OrderMenuDto;
+import com.food.common.order.business.model.OrderDto;
+import com.food.common.order.business.model.OrderMenuDto;
 import com.food.common.order.enumeration.OrderStatus;
 import com.food.common.store.business.internal.dto.StoreDto;
 import org.springframework.validation.annotation.Validated;

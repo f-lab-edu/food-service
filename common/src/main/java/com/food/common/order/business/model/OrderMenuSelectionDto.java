@@ -1,4 +1,4 @@
-package com.food.common.order.business.internal.dto;
+package com.food.common.order.business.model;
 
 public class OrderMenuSelectionDto {
     private final Long id;

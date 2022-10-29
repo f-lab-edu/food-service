@@ -27,10 +27,8 @@ import java.util.List;
 public class DefaultOrderService implements OrderService {
     private final StoreCommonService storeCommonService;
     private final MenuCommonService menuCommonService;
-
     private final OrderCommonService orderCommonService;
     private final OrderMenuCommonService orderMenuCommonService;
-
 
     @Override
     public Long order(OrderDoViewRequest request, RequestUser requestUser) {

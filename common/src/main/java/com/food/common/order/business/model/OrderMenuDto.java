@@ -1,4 +1,4 @@
-package com.food.common.order.business.internal.dto;
+package com.food.common.order.business.model;
 
 import com.food.common.order.domain.OrderMenu;
 import lombok.Getter;

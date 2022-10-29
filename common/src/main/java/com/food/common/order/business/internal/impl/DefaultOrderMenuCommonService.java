@@ -3,7 +3,7 @@ package com.food.common.order.business.internal.impl;
 import com.food.common.menu.business.internal.impl.MenuEntityService;
 import com.food.common.menu.domain.Menu;
 import com.food.common.order.business.internal.OrderMenuCommonService;
-import com.food.common.order.business.internal.dto.OrderMenuDto;
+import com.food.common.order.business.model.OrderMenuDto;
 import com.food.common.order.domain.Order;
 import com.food.common.order.domain.OrderMenu;
 import com.food.common.order.repository.OrderMenuRepository;

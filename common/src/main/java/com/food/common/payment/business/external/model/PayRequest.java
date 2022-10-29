@@ -1,6 +1,6 @@
 package com.food.common.payment.business.external.model;
 
-import com.food.common.order.business.internal.dto.OrderDto;
+import com.food.common.order.business.model.OrderDto;
 import com.food.common.payment.business.external.model.payrequest.PaymentElement;
 import com.food.common.payment.business.external.model.payrequest.PointPayment;
 import com.food.common.payment.enumeration.PaymentActionType;
