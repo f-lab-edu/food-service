@@ -1,6 +1,7 @@
 package com.food.common.user.business.external.model;
 
 import com.food.common.user.business.internal.dto.PointSaveDto;
+import com.food.common.user.enumeration.PointType;
 import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,11 @@ public class PointCollectRequest {
     }
 
     public PointSaveDto toPointSaveDto(int collectAmount) {
-        return PointSaveDto.createCollectRequest(ownerId, collectAmount, paymentId);
+        return PointSaveDto.builder()
+                .usedId(ownerId)
+                .amount(collectAmount)
+                .type(PointType.COLLECT)
+                .paymentId(paymentId)
+                .build();
     }
 }

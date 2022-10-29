@@ -30,11 +30,6 @@ public class MockPaymentLog {
             return this;
         }
 
-        public Builder actionType(PaymentActionType actionType) {
-            this.actionType = actionType;
-            return this;
-        }
-
         public Builder method(PaymentMethod method) {
             this.method = method;
             return this;

@@ -7,12 +7,17 @@ import com.food.common.payment.business.external.model.PayRequest;
 import com.food.common.payment.business.external.model.payrequest.PointPayment;
 import com.food.common.payment.business.internal.PaymentCommonService;
 import com.food.common.payment.business.internal.PaymentLogCommonService;
+import com.food.common.payment.domain.PaymentLog;
+import com.food.common.payment.enumeration.PaymentActionType;
+import com.food.common.payment.enumeration.PaymentMethod;
 import com.food.common.user.business.external.PointService;
 import com.food.common.user.business.external.model.PointCollectRequest;
+import com.food.common.user.business.external.model.RequestUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -24,7 +29,7 @@ public class DefaultPayService implements PayService {
     private final PaymentCommonService paymentCommonService;
     private final PaymentLogCommonService paymentLogCommonService;
 
-    public void pay(final PayRequest payment) {
+    public Long pay(final PayRequest payment) {
         OrderDto order = orderCommonService.findById(payment.getOrderId())
                 .orElseThrow(() -> new IllegalArgumentException("주문내역이 존재하지 않습니다. orderId=" + payment.getOrderId()));
 
@@ -39,6 +44,8 @@ public class DefaultPayService implements PayService {
         paymentLogCommonService.saveAll(paymentId, payment.getPayments());
 
         collectPoints(payment, paymentId);
+
+        return paymentId;
     }
 
     private void usePoints(PayRequest payment) {
@@ -57,4 +64,24 @@ public class DefaultPayService implements PayService {
         PointCollectRequest request = new PointCollectRequest(payment.getPayerId(), paymentId, actualPaymentAmount);
         pointService.collect(request);
     }
+
+    @Override
+    public void cancelPayment(Long paymentId, RequestUser requestUser) {
+        paymentCommonService.updateActionType(paymentId, PaymentActionType.CANCELLATION);
+
+        List<PaymentLog> paymentLogs = paymentLogCommonService.findAllByPaymentId(paymentId);
+        Optional<PaymentLog> pointPaymentLog = filterPointPaymentLog(paymentLogs);
+
+        pointPaymentLog
+                .ifPresent(paymentLog -> pointService.recollectUsedPoint(paymentLog.getPointId()));
+
+        pointService.retrieveCollectedPoint(paymentId);
+    }
+
+    private Optional<PaymentLog> filterPointPaymentLog(List<PaymentLog> paymentLogs) {
+        return paymentLogs.stream()
+                .filter(log -> log.getMethod() == PaymentMethod.POINT)
+                .findAny();
+    }
+
 }

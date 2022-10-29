@@ -155,7 +155,7 @@ create table tb_point
 (
     point_id bigint auto_increment primary key,
     user_id bigint not null,
-    type enum('USE', 'COLLECT') not null,
+    type enum('USE', 'COLLECT', 'RETRIEVE', 'RECOLLECT') not null,
     changed_amount mediumint not null default 0,
     current_amount mediumint not null default 0,
     payment_id bigint,

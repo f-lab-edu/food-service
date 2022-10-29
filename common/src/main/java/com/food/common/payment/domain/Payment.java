@@ -46,4 +46,7 @@ public class Payment extends BaseTimeEntity {
         return payment;
     }
 
+    public void update(PaymentActionType actionType) {
+        this.actionType = actionType;
+    }
 }

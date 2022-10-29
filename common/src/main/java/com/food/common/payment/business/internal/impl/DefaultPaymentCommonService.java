@@ -24,4 +24,12 @@ public class DefaultPaymentCommonService implements PaymentCommonService {
 
         return paymentRepository.save(payment).getId();
     }
+
+    @Override
+    public void updateActionType(Long paymentId, PaymentActionType actionType) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new IllegalArgumentException("결제 내역이 존재하지 않습니다. paymentId=" + paymentId));
+
+        payment.update(actionType);
+    }
 }

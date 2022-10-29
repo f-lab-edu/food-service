@@ -1,6 +1,7 @@
 package com.food.common.user.business.external.model;
 
 import com.food.common.user.business.internal.dto.PointSaveDto;
+import com.food.common.user.enumeration.PointType;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -21,11 +22,15 @@ public class PointUseRequest {
         this.ownerId = ownerId;
     }
 
-    public boolean hasLessThan(int currentAmount) {
-        return currentAmount > amount;
+    public boolean hasGreaterAmountThan(int currentAmount) {
+        return amount > currentAmount;
     }
 
     public PointSaveDto toPointSaveDto() {
-        return PointSaveDto.createUseRequest(ownerId, amount);
+        return PointSaveDto.builder()
+                .usedId(ownerId)
+                .amount(amount)
+                .type(PointType.USE)
+                .build();
     }
 }
