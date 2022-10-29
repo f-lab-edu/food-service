@@ -10,4 +10,6 @@ import java.util.Optional;
 @Validated
 public interface OrderCommonService {
     Optional<OrderDto> findById(@NotNull @Positive Long id);
+
+    Long save(OrderDto order);
 }
