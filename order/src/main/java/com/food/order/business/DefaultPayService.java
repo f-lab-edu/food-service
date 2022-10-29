@@ -70,17 +70,18 @@ public class DefaultPayService implements PayService {
         paymentCommonService.updateActionType(paymentId, PaymentActionType.CANCELLATION);
 
         List<PaymentLog> paymentLogs = paymentLogCommonService.findAllByPaymentId(paymentId);
-        PaymentLog pointPaymentLog = filterPointPaymentLog(paymentLogs);
+        Optional<PaymentLog> pointPaymentLog = filterPointPaymentLog(paymentLogs);
 
-        pointService.recollectUsedPoint(pointPaymentLog.getPointId());
+        pointPaymentLog
+                .ifPresent(paymentLog -> pointService.recollectUsedPoint(paymentLog.getPointId()));
+
         pointService.retrieveCollectedPoint(paymentId);
     }
 
-    private PaymentLog filterPointPaymentLog(List<PaymentLog> paymentLogs) {
+    private Optional<PaymentLog> filterPointPaymentLog(List<PaymentLog> paymentLogs) {
         return paymentLogs.stream()
                 .filter(log -> log.getMethod() == PaymentMethod.POINT)
-                .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("사용 포인트 내역이 존재하지 않습니다."));
+                .findAny();
     }
 
 }
