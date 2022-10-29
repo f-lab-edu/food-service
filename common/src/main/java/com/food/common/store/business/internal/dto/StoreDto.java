@@ -19,4 +19,8 @@ public final class StoreDto {
         this.minOrderAmount = entity.getMinOrderAmount();
         this.openStatus = entity.getStatus();
     }
+
+    public boolean isClosed() {
+        return openStatus == StoreOpenStatus.CLOSED;
+    }
 }

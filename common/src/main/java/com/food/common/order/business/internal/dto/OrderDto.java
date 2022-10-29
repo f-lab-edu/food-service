@@ -23,4 +23,13 @@ public final class OrderDto {
         this.status = order.getStatus();
         this.comment = order.getComment();
     }
+
+    public OrderDto(Long customerId, Long storeId, Integer amount, OrderStatus status, String comment) {
+        this.id = null;
+        this.customerId = customerId;
+        this.storeId = storeId;
+        this.amount = amount;
+        this.status = status;
+        this.comment = comment;
+    }
 }
