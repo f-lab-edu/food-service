@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -67,5 +69,9 @@ public class Menu {
 
     public Long getStoreId() {
         return store.getId();
+    }
+
+    public List<MenuOption> getOptions() {
+        return CollectionUtils.isEmpty(options) ? Collections.emptyList() : options;
     }
 }

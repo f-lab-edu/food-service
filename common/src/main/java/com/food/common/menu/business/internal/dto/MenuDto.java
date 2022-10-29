@@ -1,11 +1,8 @@
 package com.food.common.menu.business.internal.dto;
 
 import com.food.common.menu.domain.Menu;
-import com.food.common.menu.domain.MenuOption;
 import lombok.Getter;
-import org.springframework.util.CollectionUtils;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,15 +15,13 @@ public final class MenuDto {
     private final Integer cookingTime;
     private final List<MenuOptionDto> options;
 
-    public MenuDto(Menu menuEntity, List<MenuOption> menuOptionEntities) {
+    public MenuDto(Menu menuEntity) {
         id = menuEntity.getId();
         storeId = menuEntity.getStoreId();
         name = menuEntity.getName();
         amount = menuEntity.getAmount();
         cookingTime = menuEntity.getCookingTime();
-        options = CollectionUtils.isEmpty(menuOptionEntities) ?
-                Collections.emptyList() :
-                menuOptionEntities.stream()
+        options = menuEntity.getOptions().stream()
                 .map(MenuOptionDto::new)
                 .collect(Collectors.toList());
     }
