@@ -1,7 +1,7 @@
 package com.food.order.business;
 
 import com.food.common.order.business.internal.OrderCommonService;
-import com.food.common.order.business.internal.dto.OrderDto;
+import com.food.common.order.business.model.OrderDto;
 import com.food.common.payment.business.external.PayService;
 import com.food.common.payment.business.external.model.PayRequest;
 import com.food.common.payment.business.external.model.payrequest.PointPayment;

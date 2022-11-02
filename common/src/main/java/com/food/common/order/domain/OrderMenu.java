@@ -1,6 +1,7 @@
 package com.food.common.order.domain;
 
 import com.food.common.menu.domain.Menu;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
@@ -14,6 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "tb_order_menu")
 @Entity
@@ -53,5 +55,13 @@ public class OrderMenu {
         orderMenu.count = count;
 
         return orderMenu;
+    }
+
+    public Long getOrderId() {
+        return order.getId();
+    }
+
+    public Long getMenuId() {
+        return menu.getId();
     }
 }

@@ -2,6 +2,7 @@ package com.food.mock.store;
 
 import com.food.common.store.domain.Store;
 import com.food.common.store.domain.StoreOwner;
+import com.food.common.store.enumeration.StoreOpenStatus;
 import com.food.mock.user.MockUser;
 
 public class MockStore {
@@ -18,7 +19,7 @@ public class MockStore {
                 .build())
                 .build();
         private Integer minOrderAmount = 10000;
-        private Store.OpenStatus status = Store.OpenStatus.OPEN;
+        private StoreOpenStatus status = StoreOpenStatus.OPEN;
 
         public Builder id(Long id) {
             this.id = id;
@@ -40,7 +41,7 @@ public class MockStore {
             return this;
         }
 
-        public Builder status(Store.OpenStatus status) {
+        public Builder status(StoreOpenStatus status) {
             this.status = status;
             return this;
         }

@@ -1,6 +1,6 @@
 package com.food.common.user.business.internal.impl;
 
-import com.food.common.store.business.StoreOwnerEntityService;
+import com.food.common.store.business.internal.StoreOwnerEntityService;
 import com.food.common.store.domain.StoreOwner;
 import com.food.common.user.business.internal.UserCommonService;
 import com.food.common.user.business.internal.dto.UserDto;

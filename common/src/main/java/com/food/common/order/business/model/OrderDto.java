@@ -1,4 +1,4 @@
-package com.food.common.order.business.internal.dto;
+package com.food.common.order.business.model;
 
 import com.food.common.order.enumeration.OrderStatus;
 import com.food.common.order.domain.Order;
@@ -22,5 +22,14 @@ public final class OrderDto {
         this.amount = order.getAmount();
         this.status = order.getStatus();
         this.comment = order.getComment();
+    }
+
+    public OrderDto(Long customerId, Long storeId, Integer amount, OrderStatus status, String comment) {
+        this.id = null;
+        this.customerId = customerId;
+        this.storeId = storeId;
+        this.amount = amount;
+        this.status = status;
+        this.comment = comment;
     }
 }
