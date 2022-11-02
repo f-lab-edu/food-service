@@ -66,3 +66,8 @@ food-serivce (project)
 * sibling 모듈 (common, auth ... 등)을 dependency로 의존
 * main() 메서드 포함
 * 서버에 배포될 jar파일 생성
+
+
+
+---
+멘토링이 종료됨에 따라 이후 작업은 [개인 Repository](https://github.com/olivejua/food-service)에서 진행합니다.
